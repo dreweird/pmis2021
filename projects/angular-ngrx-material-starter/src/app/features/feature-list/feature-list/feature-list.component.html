@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12" [ngClass]="routeAnimationsElements">
+      <h1 class="main-heading">PMIS Dashboard</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" [ngClass]="routeAnimationsElements">
+      <h2>DA-Caraga Over-all Status </h2>
+    </div>
+    <!-- <div class="col-md-12" [ngClass]="routeAnimationsElements">
+      <h2>DA-Caraga Over-all Status <em>as of {{myDate  | amDateFormat:'LL'}} </em> </h2>
+    </div> -->
+  </div>
+  <div class="row">
+    <div class="col-md" [ngClass]="routeAnimationsElements">
+      <mat-card>
+          <mat-grid-list cols="2" rowHeight="2:1">
+              <mat-grid-tile> <img class="image" src="assets/coin-stack.png" /> </mat-grid-tile>
+              <mat-grid-tile> <h2 class="center">Obligation: <em >{{da_fin}}</em> </h2> </mat-grid-tile>
+          </mat-grid-list>
+      
+      </mat-card>
+    </div>
+    <div class="col-md" [ngClass]="routeAnimationsElements">
+      <mat-card>
+          <mat-grid-list cols="2" rowHeight="2:1">
+              <mat-grid-tile> <img class="image" src="assets/target.png" /> </mat-grid-tile>
+              <mat-grid-tile>  <h2 class="center">Physical: <em >{{da_phys}}</em> </h2> </mat-grid-tile>
+          </mat-grid-list>
+      </mat-card>
+    </div>
+    <div class="col-md" [ngClass]="routeAnimationsElements">
+      <mat-card>
+      
+        <mat-grid-list cols="2" rowHeight="2:1">
+            <mat-grid-tile> <img class="image" src="assets/approve-invoice.png" /> </mat-grid-tile>
+            <mat-grid-tile> <h2 class="center">Disbursement: <em >{{da_dis}}</em> </h2> </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card>
+    </div>
+</div> 
+<div class="row">
+  <div class="col-md-12" [ngClass]="routeAnimationsElements">
+   <mat-card style="height: 500px; overflow:auto;">
+     <h3>Logs Report - last updated</h3>
+     <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Banner/OUs</th>
+          <th scope="col">Obligation</th>
+          <th scope="col">Physical</th>
+          <th scope="col">Disbursement</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let l of logs">
+          <td>{{l.username | uppercase}}</td>
+          <td> <a  (click)="logsBed1(l)">{{ l.bed1.date | amTimeAgo }}</a></td>
+          <td> <a  (click)="logsBed2(l)">{{ l.bed2.date | amTimeAgo }}</a></td>
+          <td> <a  (click)="logsBed3(l)">{{ l.bed3.date | amTimeAgo }}</a></td>
+        </tr>
+    
+      </tbody>
+    </table>
+   </mat-card>
+</div>
+</div>
+ 
+  
+  <div class="row">
+    <div class="col-md-12" [ngClass]="routeAnimationsElements">
+        <button mat-raised-button  (click)="show = !show; render()">{{show ? 'COMMULATIVE' : 'NON-COMMULATIVE'}}</button>
+        <button mat-raised-button  (click)="show2 = !show2;fin_percentage()">{{show2 ? 'PERCENTAGE - ANNUAL' : 'PERCENTAGE - MONTHLY'}}</button>
+        <mat-card>
+        <div id="da_finChart" style="height: 370px; width: 100%;"></div>
+    </mat-card>
+    </div>
+</div>
+  <div class="row">
+      <div class="col-md-12" [ngClass]="routeAnimationsElements">
+        <p>You can click the Programs/OUs in the table to see the separate chart</p>
+    <ag-grid-angular 
+    style="width: 100%; height: 400px;" 
+    class="ag-theme-balham"
+    [rowData]="rowData" 
+    [columnDefs]="columnDefs"
+    [columnTypes]="columnTypes"
+    [defaultColDef]="defaultColDef"
+    [rowSelection]="rowSelection"
+    (cellClicked)="routeProgram($event)"
+
+    (gridReady)="onGridReady($event)"
+  
+    >
+</ag-grid-angular>
+<br><br>
+</div>
+
+  </div>
+</div>
