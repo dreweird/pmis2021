@@ -7,7 +7,7 @@ const path = require('path');
 var staticRoot = __dirname + './dist_local';
 const jwt = require('jsonwebtoken');
 const CONTEXT = '/angular-ngrx-material-starter';
-const PORT = 3116;
+const PORT = 7231;
 
 const app = express();
 const middleware = require('./utils');
@@ -23,10 +23,15 @@ app.listen(PORT, 'localhost', () =>
 );
 
 var db_config = {
-  host: '172.16.130.10',
-  user: 'pmis',
-  password: 'pmis',
-  database: 'raw_dasystem2020',
+  // host: '172.16.130.10',
+  // user: 'pmis',
+  // password: 'pmis',
+  // database: 'raw_dasystem2020',
+
+  host: '127.0.0.1',
+  user: 'root',
+  password: '',
+  database: 'rafcdatabase',
   multipleStatements: true
 };
 
@@ -65,7 +70,7 @@ app.post('/login', function(req, res) {
   console.log(req.body);
   var query = 'SELECT * FROM ?? WHERE ??=? and ??=?';
   var table = [
-    'users',
+    'usertable',
     'username',
     req.body.username,
     'password',
@@ -75,14 +80,17 @@ app.post('/login', function(req, res) {
   console.log(query);
   connection.query(query, function(err, rows, fields) {
     if (rows.length != 0) {
-      var token = jwt.sign({ data: rows[0].username }, 'pmis2019', {
+      var token = jwt.sign({ data: rows[0].username }, 'rafc2020', {
         expiresIn: '3 days'
       });
       res.status(200).json({
-        user_id: rows[0].user_id,
-        pid: rows[0].program_id,
-        b: rows[0].budget,
+        user_id: rows[0].id,
+        type: rows[0].type,
+        // pid: rows[0].program_id,
+        // b: rows[0].budget,
         username: rows[0].username,
+        fname: rows[0].fname,
+        lname: rows[0].lname,
         token: token
       });
     } else {

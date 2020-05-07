@@ -16,10 +16,16 @@ mat-card {
 }
 
 .add {
-  margin: 20px auto 0;
+  margin: 0 0 0;
   display: block;
 }
 
 .col-md-6 {
   margin-bottom: 20px;
+}
+
+.topcorner {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }

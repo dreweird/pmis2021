@@ -1,7 +1,7 @@
 <div class="container" rtl>
   <div class="row">
     <div class="col-12">
-      <h1 class="main-heading" *ngIf="user">Welcome {{ user.user.username }} </h1>
+      <h1 class="main-heading" *ngIf="user">Welcome {{ user.user.fname }} {{ user.user.lname }} </h1>
       <h2></h2>
       <p [ngClass]="routeAnimationsElements">
         This component is only accessible for authenticated users

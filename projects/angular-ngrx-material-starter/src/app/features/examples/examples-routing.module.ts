@@ -12,7 +12,7 @@ import { DistrictComponent } from './district/district.component';
 // import { ParentComponent } from './theming/parent/parent.component';
 // import { TodosContainerComponent } from './todos/components/todos-container.component';
 // import { StockMarketContainerComponent } from './stock-market/components/stock-market-container.component';
-// import { CrudComponent } from './crud/components/crud.component';
+import { CrudComponent } from './crud/components/crud.component';
 // import { FormComponent } from './form/components/form.component';
 // import { NotificationsComponent } from './notifications/components/notifications.component';
 // import { UserComponent } from './simple-state-management/components/user.component';
@@ -63,16 +63,16 @@ const routes: Routes = [
       //   component: ParentComponent,
       //   data: { title: 'anms.examples.menu.theming' }
       // },
-      // {
-      //   path: 'crud',
-      //   redirectTo: 'crud/',
-      //   pathMatch: 'full'
-      // },
-      // {
-      //   path: 'crud/:id',
-      //   component: CrudComponent,
-      //   data: { title: 'anms.examples.menu.crud' }
-      // },
+      {
+        path: 'crud',
+        redirectTo: 'crud/',
+        pathMatch: 'full'
+      },
+      {
+        path: 'crud/:id',
+        component: CrudComponent,
+        data: { title: 'anms.examples.menu.crud' }
+      },
       // {
       //   path: 'simple-state-management',
       //   component: UserComponent,

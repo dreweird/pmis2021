@@ -39,6 +39,7 @@ import { BedPlanComponent } from './bed1/bed-plan.component';
 import { AddObjectDialogComponent } from './bed1/addObject-dialog.component';
 import { Bed2Component } from './bed2/bed2.component';
 import { logDialog } from './bed2/logDialog.component';
+import { entryDialog } from './crud/components/entryDialog.component';
 import { districtDetailsDialog } from './district/districtDetailsDialog.component';
 import { DistrictComponent } from './district/district.component';
 import { Bed3PlanComponent } from './bed3/bed3-plan.component';
@@ -94,6 +95,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AddObjectDialogComponent,
     Bed2Component,
     logDialog,
+    entryDialog,
     districtDetailsDialog,
     Bed2Component,
     Bed3ContainerComponent,

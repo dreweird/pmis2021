@@ -25,8 +25,11 @@ export class ExamplesComponent implements OnInit {
   constructor(private store: Store<State>) {
     this.user = JSON.parse(localStorage.getItem('ANMS-AUTH'));
     console.log(parseInt(this.user.user.pid));
-    this.examples = [{ link: 'authenticated', label: 'Auth' }];
-
+    this.examples = [
+      { link: 'authenticated', label: 'Auth' },
+      { link: 'crud', label: 'Documents' }
+    ];
+    console.log(this.user);
     // if (parseInt(this.user.user.pid) < 100) {
     //   this.examples = [
     //     { link: 'authenticated', label: 'Auth' },

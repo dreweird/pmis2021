@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
 })
 export class PmisService {
   // apiRoot: string = 'http://172.16.130.10:3115';
-  apiRoot: string = 'http://210.5.100.46:3116';
-  // apiRoot: string = 'http://localhost:3115';
+  //apiRoot: string = 'http://210.5.100.46:3116';
+  apiRoot: string = 'http://localhost:7231';
 
   constructor(private http: HttpClient) {}
 
