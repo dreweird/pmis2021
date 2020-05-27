@@ -1,0 +1,179 @@
+
+<div *ngIf="delete">
+  <h3 mat-dialog-title>Delete Document</h3>
+  <div mat-dialog-content>
+    <p>Are you sure you want to delete this document with code 
+     <b> {{editData.code}}</b>? This action is irreversible.</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button  (click)="removeDoc()" mat-button>Remove</button>
+ </div>
+</div>
+
+<div *ngIf="add">
+  <h3 mat-dialog-title *ngIf="!edit">Add Document</h3>
+  <h3 mat-dialog-title *ngIf="edit">Update Document</h3>
+  <form [formGroup]="entryForm">
+  <div mat-dialog-content>
+    <mat-form-field class="col-md-6">
+      <mat-label>Document Type</mat-label>
+      <mat-select formControlName="type" required>
+        <mat-option value="Highlights of Meeting">Highlights of Meeting</mat-option>
+        <mat-option value="Resolution">Resolution</mat-option>
+        <mat-option value="Organizational Profile">Organizational Profile</mat-option>
+        <mat-option value="Member Profile">Member Profile</mat-option>
+        <mat-option value="Activity Design">Activity Design</mat-option>
+        <mat-option value="Incomming Documents">Incomming Documents</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col-md-3">
+      <mat-label>Year</mat-label>
+      <mat-select formControlName="year" required>
+        <mat-option value="2020">2020</mat-option>
+        <mat-option value="2019">2019</mat-option>
+        <mat-option value="2018">2018</mat-option>
+        <mat-option value="2017">2017</mat-option>
+        <mat-option value="2016">2016</mat-option>
+        <mat-option value="2015">2015</mat-option>
+        <mat-option value="2014">2014</mat-option>
+        <mat-option value="2013">2013</mat-option>
+        <mat-option value="2012">2012</mat-option>
+        <mat-option value="2011">2011</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col-md-3">
+      <mat-label>AFC</mat-label>
+      <mat-select formControlName="afc"  required>
+        <mat-option value="RAFC">RAFC</mat-option>
+        <mat-option value="HUCAFC/PAFC">HUCAFC/PAFC</mat-option>
+        <mat-option value="CAFC">CAFC</mat-option>
+        <mat-option value="MAFC">MAFC</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col-md-3">
+      <mat-label>Provice</mat-label>
+      <mat-select formControlName="province" required>
+        <mat-option value="Agusan del Norte">Agusan del Norte</mat-option>
+        <mat-option value="Agusan del Sur">Agusan del Sur</mat-option>
+        <mat-option value="audi">Surigao del Norte</mat-option>
+        <mat-option value="audi">Surigao del Sur</mat-option>
+        <mat-option value="audi">Province of Dinagat Islands</mat-option>
+        <mat-option value="audi">Butuan City</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col-md-3">
+      <mat-label>Municipality</mat-label>
+      <mat-select formControlName="municipal" required>
+        <mat-option value="audi">Bayugan City</mat-option>
+        <mat-option value="audi">Bunawan</mat-option>
+        <mat-option value="audi">Esperanza</mat-option>
+        <mat-option value="audi">San Francisco</mat-option>
+        <mat-option value="audi">San Luis</mat-option>
+        <mat-option value="audi">Sta. Josefa</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col-md-3">
+      <mat-label>Date of Conduct</mat-label>
+      <input matInput [matDatepicker]="picker1" formControlName="date_conducted" />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="picker1"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="col-md-3">
+      <mat-label>Status of Document</mat-label>
+      <mat-select formControlName="status" required>
+        <mat-option value="audi">Funded</mat-option>
+        <mat-option value="audi">Non-Funded</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col-md-6">
+      <mat-label>Remarks</mat-label>
+      <input matInput formControlName="remarks" />
+    </mat-form-field>
+    <mat-form-field class="col-md-3">
+      <mat-label>Deadline</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="deadline"/>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="col-md-3">
+      <mat-label>Date Submitted to PCAF</mat-label>
+      <input matInput [matDatepicker]="picker3" formControlName="date_submitted" />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="picker3"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker3></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button *ngIf="!edit"  (click)="insertDoc()" mat-button [disabled]="!entryForm.valid">Save</button>
+    <button *ngIf="edit"  (click)="updateDoc()" mat-button [disabled]="!entryForm.valid">Update</button>
+  </div>
+  </form>
+</div>
+<div *ngIf="upload">
+  <h3 mat-dialog-title>Uplaod File</h3>
+  <div mat-dialog-content>
+    <h4>Select FIle</h4>
+    <input type="file" ng2FileSelect [uploader]="uploader" name="myFiles" multiple/><br/>
+    <div>
+      <!-- Queue progress: {{uploader.progress}} %
+      <mat-progress-bar mode="determinate" [value]="uploader.progress"></mat-progress-bar> -->
+      <table class="table">
+        <thead>
+        <tr>
+            <th width="50%">Name</th>
+            <th>Size</th>
+            <th>Progress</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of uploader.queue">
+            <td><strong>{{ item?.file?.name }}</strong></td>
+            <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+            <td *ngIf="uploader.options.isHTML5">
+              Progress: {{item.progress}} %
+              <mat-progress-bar mode="determinate" [value]="item.progress"></mat-progress-bar>
+            </td>
+            <td nowrap>
+                <button type="button" class="btn btn-success btn-xs"
+                        (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                    <span class="glyphicon glyphicon-upload"></span> Upload
+                </button>
+                <button type="button" class="btn btn-warning btn-xs"
+                        (click)="item.cancel()" [disabled]="!item.isUploading">
+                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                </button>
+                <button type="button" class="btn btn-danger btn-xs"
+                        (click)="item.remove()">
+                    <span class="glyphicon glyphicon-trash"></span> Remove
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+      Queue progress: {{uploader.progress}} %
+      <div class="progress">
+      <mat-progress-bar mode="determinate" [value]="uploader.progress"></mat-progress-bar> 
+      </div>
+  </div>
+  </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button (click)="uploader.uploadAll()" 
+    [disabled]="!uploader.getNotUploadedItems().length">
+    Upload</button>
+    <button mat-button (click)="uploader.clearQueue()" 
+    [disabled]="!uploader.queue.length">
+    Remove all</button>
+
+ </div>
+</div>

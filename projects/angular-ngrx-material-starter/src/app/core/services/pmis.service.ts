@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { Document } from './document';
+import { tap } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
 export class PmisService {
   // apiRoot: string = 'http://172.16.130.10:3115';
   //apiRoot: string = 'http://210.5.100.46:3116';
-  apiRoot: string = 'http://localhost:7231';
+  apiRoot: string = 'http://localhost:5000';
 
   constructor(private http: HttpClient) {}
 
@@ -16,218 +20,49 @@ export class PmisService {
     return this.http.post(url, { username, password });
   }
 
-  getFinPerformance(): Observable<any> {
-    const url = `${this.apiRoot}/getFinPerformance`;
-    return this.http.get<any>(url);
+  getPDF() {
+    const url = `http://172.16.129.190/example.pdf`;
+    return this.http.get(url, { responseType: 'arraybuffer' as 'json' });
   }
 
-  getPerformance_program(pid: number) {
-    const url = `${this.apiRoot}/getFinPerformance`;
-    return this.http.post<any>(url, { pid });
-  }
-
-  getMFO(pid: number): Observable<any> {
-    const url = `${this.apiRoot}/mfos`;
-    return this.http.post<any>(url, { pid });
-  }
-
-  getLastUpdated(beds: number, pid: number) {
-    const url = `${this.apiRoot}/lastUpdated`;
-    return this.http.post<any>(url, { pid, beds });
-  }
-
-  updateAllotment(id: number, value: number, col: string) {
-    const url = `${this.apiRoot}/updateAllotment`;
-    return this.http.post(url, { id, value, col });
-  }
-
-  getMFOPhysical(pid: number): Observable<any> {
-    const url = `${this.apiRoot}/mfosPhysical`;
-    return this.http.post<any>(url, { pid });
-  }
-
-  getSummaryObject(pid: number): Observable<any> {
-    const url = `${this.apiRoot}/summaryObject`;
-    return this.http.post(url, { pid });
-  }
-
-  getObjectCode(): Observable<any> {
-    const url = `${this.apiRoot}/getObjectCode`;
+  getAllDoc() {
+    const url = `${this.apiRoot}/documents`;
     return this.http.get(url);
   }
 
-  addObject(mfo_id, object_id, pid) {
-    const url = `${this.apiRoot}/addObject`;
-    return this.http.post(url, { mfo_id, object_id, pid });
+  findDoc(code: string): Observable<Document> {
+    const url = `${this.apiRoot}/documents/` + code;
+    return this.http.get<any>(url).pipe(
+      tap(_ => console.log(`fetched document code=${code}`)),
+      catchError(this.handleError)
+    );
   }
 
-  updatePhysical(id: number, value: number, col: string) {
-    const url = `${this.apiRoot}/updatePhysical`;
-    return this.http.post<any>(url, { id, value, col });
+  insertDoc(entries) {
+    const url = `${this.apiRoot}/documents`;
+    return this.http.post(url, { entries });
   }
 
-  getLogs(beds: number, pid: number): Observable<any> {
-    const url = `${this.apiRoot}/getLogs`;
-    return this.http.post<any>(url, { pid, beds });
+  updateDoc(entries) {
+    const url = `${this.apiRoot}/documents/` + entries.code;
+    return this.http.put(url, { entries });
   }
 
-  getDistrict(pid: number): Observable<any> {
-    const url = `${this.apiRoot}/getDistrict`;
-    return this.http.post<any>(url, { pid });
+  removeDoc(code) {
+    const url = `${this.apiRoot}/documents/` + code;
+    return this.http.delete(url);
   }
 
-  getDistrictDetails(data): Observable<any> {
-    const url = `${this.apiRoot}/getDistrictDetails`;
-    return this.http.post<any>(url, { data });
-  }
-
-  getDistrictAccomp(data): Observable<any> {
-    const url = `${this.apiRoot}/getDistrictAccomp`;
-    return this.http.post<any>(url, { data });
-  }
-
-  updateDistrictDetails(id: number, value: number, col: string) {
-    const url = `${this.apiRoot}/updateDistrictDetails`;
-    return this.http.post<any>(url, { id, value, col });
-  }
-
-  syncPhysicalDistrict(data): Observable<any> {
-    const url = `${this.apiRoot}/syncPhysicalDistrict`;
-    return this.http.post<any>(url, { data });
-  }
-
-  logsReport(): Observable<any> {
-    const url = `${this.apiRoot}/logsReport`;
-    return this.http.get<any>(url);
-  }
-
-  updateLogs(
-    mfo_id: number,
-    value: number,
-    pid: number,
-    col: string,
-    month: string,
-    beds: number,
-    prov: any,
-    mun: any
-  ): Observable<any> {
-    const url = `${this.apiRoot}/addLogs`;
-    let mo: string;
-    if (
-      month === 'jan' ||
-      month === 'jan_t' ||
-      month === 'jant' ||
-      month === 'jana' ||
-      month === 'janr'
-    )
-      mo = 'January';
-    if (
-      month === 'feb' ||
-      month === 'feb_t' ||
-      month === 'febt' ||
-      month === 'feba' ||
-      month === 'febr'
-    )
-      mo = 'February';
-    if (
-      month === 'mar' ||
-      month === 'mar_t' ||
-      month === 'mart' ||
-      month === 'mara' ||
-      month === 'marr'
-    )
-      mo = 'March';
-    if (
-      month === 'apr' ||
-      month === 'apr_t' ||
-      month === 'aprt' ||
-      month === 'apra' ||
-      month === 'aprr'
-    )
-      mo = 'April';
-    if (
-      month === 'may' ||
-      month === 'may_t' ||
-      month === 'mayt' ||
-      month === 'maya' ||
-      month === 'mayr'
-    )
-      mo = 'May';
-    if (
-      month === 'jun' ||
-      month === 'jun_t' ||
-      month === 'junt' ||
-      month === 'juna' ||
-      month === 'junnr'
-    )
-      mo = 'June';
-    if (
-      month === 'jul' ||
-      month === 'jul_t' ||
-      month === 'jult' ||
-      month === 'jula' ||
-      month === 'julr'
-    )
-      mo = 'July';
-    if (
-      month === 'aug' ||
-      month === 'aug_t' ||
-      month === 'augt' ||
-      month === 'auga' ||
-      month === 'augr'
-    )
-      mo = 'August';
-    if (
-      month === 'sep' ||
-      month === 'sep_t' ||
-      month === 'sept' ||
-      month === 'sepa' ||
-      month === 'sepr'
-    )
-      mo = 'September';
-    if (
-      month === 'oct' ||
-      month === 'oct_t' ||
-      month === 'octt' ||
-      month === 'octa' ||
-      month === 'octr'
-    )
-      mo = 'October';
-    if (
-      month === 'nov' ||
-      month === 'nov_t' ||
-      month === 'novt' ||
-      month === 'nova' ||
-      month === 'novr'
-    )
-      mo = 'November';
-    if (
-      month === 'decm' ||
-      month === 'dec_t' ||
-      month === 'dect' ||
-      month === 'deca' ||
-      month === 'decr'
-    ) {
-      mo = 'December';
+  handleError(error: HttpErrorResponse) {
+    let errorMessage = 'Unknown error!';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side errors
+      errorMessage = `Error: ${error.error.message}`;
     } else {
-      mo = month;
+      // Server-side errors
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-
-    var message = col + ' was updated to ' + value + ' in the month of ' + mo;
-    if (beds == 21) {
-      message =
-        col +
-        ' in ' +
-        mun +
-        ', ' +
-        prov +
-        ' was updated to ' +
-        value +
-        ' in the month of ' +
-        mo;
-      beds = 2;
-    }
-
-    return this.http.post<any>(url, { mfo_id, pid, message, beds });
+    window.alert(errorMessage);
+    return throwError(errorMessage);
   }
 }

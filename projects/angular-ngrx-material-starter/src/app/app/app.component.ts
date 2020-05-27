@@ -11,6 +11,7 @@ import {
   routeAnimations,
   LocalStorageService,
   selectIsAuthenticated,
+  selectUserName,
   selectSettingsStickyHeader,
   selectSettingsLanguage,
   selectEffectiveTheme
@@ -36,7 +37,7 @@ export class AppComponent implements OnInit {
   navigation = [
     { link: 'about', label: 'anms.menu.about' },
     // { link: 'dashboard', label: 'Dashboard' },
-    { link: 'beds', label: 'Dashboard' }
+    { link: 'doc', label: 'Dashboard' }
   ];
   navigationSideMenu = [
     ...this.navigation,
@@ -44,6 +45,7 @@ export class AppComponent implements OnInit {
   ];
 
   isAuthenticated$: Observable<boolean>;
+  loggedUser$: Observable<any>;
   stickyHeader$: Observable<boolean>;
   language$: Observable<string>;
   theme$: Observable<string>;
@@ -71,6 +73,8 @@ export class AppComponent implements OnInit {
     this.stickyHeader$ = this.store.pipe(select(selectSettingsStickyHeader));
     this.language$ = this.store.pipe(select(selectSettingsLanguage));
     this.theme$ = this.store.pipe(select(selectEffectiveTheme));
+    this.loggedUser$ = this.store.pipe(select(selectUserName));
+    console.log(this.loggedUser$);
   }
 
   onLoginClick() {

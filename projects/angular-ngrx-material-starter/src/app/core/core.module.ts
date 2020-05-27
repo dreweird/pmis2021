@@ -25,7 +25,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { environment } from '../../environments/environment';
@@ -37,7 +37,11 @@ import {
   selectRouterState
 } from './core.state';
 import { AuthEffects } from './auth/auth.effects';
-import { selectIsAuthenticated, selectAuth } from './auth/auth.selectors';
+import {
+  selectIsAuthenticated,
+  selectUserName,
+  selectAuth
+} from './auth/auth.selectors';
 import { authLogin, authLogout } from './auth/auth.actions';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { TitleService } from './title/title.service';
@@ -84,6 +88,7 @@ export {
   AppState,
   LocalStorageService,
   selectIsAuthenticated,
+  selectUserName,
   ROUTE_ANIMATIONS_ELEMENTS,
   AnimationsService,
   AuthGuardService,
@@ -104,6 +109,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CommonModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
 
     // material
     MatSidenavModule,
@@ -149,6 +155,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   exports: [
     // angular
     FormsModule,
+    ReactiveFormsModule,
 
     // material
     MatSidenavModule,

@@ -1,7 +1,11 @@
 import { v4 as uuid } from 'uuid';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -13,6 +17,9 @@ import { Book } from '../books.model';
 import { actionBooksDeleteOne, actionBooksUpsertOne } from '../books.actions';
 import { selectSelectedBook, selectAllBooks } from '../books.selectors';
 import { entryDialog } from '../components/entryDialog.component';
+import { PmisService } from '../../../../core/services/pmis.service';
+import { ActionComponent } from './action.component';
+// import { AllCommunityModules, Module } from '@ag-grid-community/all-modules';
 
 @Component({
   selector: 'anms-crud',
@@ -29,168 +36,15 @@ export class CrudComponent {
 
   isEditing: boolean;
 
-  private gridApi;
-  private gridColumnApi;
-  private columnDefs;
-  private defaultColDef;
-  rowData = [
-    {
-      code: '02-2K19-HOM-RAFC-0001',
-      year: 2019,
-      afc: 'RAFC',
-      huc_prov: '',
-      mun: '',
-      date_conduct: '01/01/2020',
-      doc_type: 'Highlights of Meeting',
-      status: 'Submitted to PCAF',
-      date_rec: '03/26/2019',
-      date_pcaf: '03/26/2019',
-      file: 'file'
-    },
-    {
-      code: '02-2K19-HOM-RAFC-0002',
-      year: 2019,
-      afc: 'RAFC',
-      huc_prov: '',
-      mun: '',
-      date_conduct: '01/01/2020',
-      doc_type: 'Highlights of Meeting',
-      status: 'Submitted to PCAF',
-      date_rec: '03/26/2019',
-      date_pcaf: '03/26/2019',
-      file: 'file'
-    },
-    {
-      code: '02-2K19-HOM-RAFC-0003',
-      year: 2019,
-      afc: 'RAFC',
-      huc_prov: '',
-      mun: '',
-      date_conduct: '01/01/2020',
-      doc_type: 'Highlights of Meeting',
-      status: 'Submitted to PCAF',
-      date_rec: '03/26/2019',
-      date_pcaf: '03/26/2019',
-      file: 'file'
-    },
-    {
-      code: '02-2K19-HOM-RAFC-0004',
-      year: 2019,
-      afc: 'RAFC',
-      huc_prov: '',
-      mun: '',
-      date_conduct: '01/01/2020',
-      doc_type: 'Highlights of Meeting',
-      status: 'Submitted to PCAF',
-      date_rec: '03/26/2019',
-      date_pcaf: '03/26/2019',
-      file: 'file'
-    },
-    {
-      code: '02-2K19-HOM-RAFC-0005',
-      year: 2019,
-      afc: 'RAFC',
-      huc_prov: '',
-      mun: '',
-      date_conduct: '01/01/2020',
-      doc_type: 'Highlights of Meeting',
-      status: 'Submitted to PCAF',
-      date_rec: '03/26/2019',
-      date_pcaf: '03/26/2019',
-      file: 'file'
-    },
-    {
-      code: '02-2K19-HOM-RAFC-0006',
-      year: 2019,
-      afc: 'RAFC',
-      huc_prov: '',
-      mun: '',
-      date_conduct: '01/01/2020',
-      doc_type: 'Highlights of Meeting',
-      status: 'Submitted to PCAF',
-      date_rec: '03/26/2019',
-      date_pcaf: '03/26/2019',
-      file: 'file'
-    },
-    {
-      code: '02-2K19-HOM-RAFC-0007',
-      year: 2019,
-      afc: 'RAFC',
-      huc_prov: '',
-      mun: '',
-      date_conduct: '01/01/2020',
-      doc_type: 'Highlights of Meeting',
-      status: 'Submitted to PCAF',
-      date_rec: '03/26/2019',
-      date_pcaf: '03/26/2019',
-      file: 'file'
-    },
-    {
-      code: '02-2K19-HOM-RAFC-0008',
-      year: 2019,
-      afc: 'RAFC',
-      huc_prov: '',
-      mun: '',
-      date_conduct: '01/01/2020',
-      doc_type: 'Highlights of Meeting',
-      status: 'Submitted to PCAF',
-      date_rec: '03/26/2019',
-      date_pcaf: '03/26/2019',
-      file: 'file'
-    },
-    {
-      code: '02-2K19-HOM-RAFC-0009',
-      year: 2019,
-      afc: 'RAFC',
-      huc_prov: '',
-      mun: '',
-      date_conduct: '01/01/2020',
-      doc_type: 'Highlights of Meeting',
-      status: 'Submitted to PCAF',
-      date_rec: '03/26/2019',
-      date_pcaf: '03/26/2019',
-      file: 'file'
-    },
-    {
-      code: '02-2K19-HOM-RAFC-00010',
-      year: 2019,
-      afc: 'RAFC',
-      huc_prov: '',
-      mun: '',
-      date_conduct: '01/01/2020',
-      doc_type: 'Highlights of Meeting',
-      status: 'Submitted to PCAF',
-      date_rec: '03/26/2019',
-      date_pcaf: '03/26/2019',
-      file: 'file'
-    },
-    {
-      code: '02-2K19-HOM-RAFC-0011',
-      year: 2019,
-      afc: 'RAFC',
-      huc_prov: '',
-      mun: '',
-      date_conduct: '01/01/2020',
-      doc_type: 'Highlights of Meeting',
-      status: 'Submitted to PCAF',
-      date_rec: '03/26/2019',
-      date_pcaf: '03/26/2019',
-      file: 'file'
-    },
-    {
-      code: '02-2K19-HOM-RAFC-0012',
-      year: 2019,
-      afc: 'RAFC',
-      huc_prov: '',
-      mun: '',
-      date_conduct: '01/01/2020',
-      doc_type: 'Highlights of Meeting',
-      status: 'Submitted to PCAF',
-      date_rec: '03/26/2019',
-      date_pcaf: '03/26/2019',
-      file: 'file'
-    }
-  ];
+  gridApi;
+  gridColumnApi;
+  columnDefs;
+  defaultColDef;
+  rowData;
+  frameworkComponents;
+  context;
+  rowSelection;
+  //  public modules: Module[] = AllCommunityModules;
 
   static createBook(): Book {
     return {
@@ -205,14 +59,27 @@ export class CrudComponent {
     public store: Store<State>,
     public fb: FormBuilder,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public Rafcservice: PmisService,
+    private cd: ChangeDetectorRef
   ) {
+    this.Rafcservice.getAllDoc().subscribe(data => {
+      console.log(data);
+      this.rowData = data;
+      this.cd.markForCheck();
+    });
     this.columnDefs = [
       {
         headerName: 'CODE',
         field: 'code',
         width: 180,
-        filter: 'agTextColumnFilter'
+        filter: 'agTextColumnFilter',
+        pinned: 'left'
+      },
+      {
+        headerName: 'Doc Type',
+        field: 'type',
+        width: 180
       },
       {
         headerName: 'Year',
@@ -227,26 +94,24 @@ export class CrudComponent {
       },
       {
         headerName: 'HUC/PROVINCE',
-        field: 'huc_prov',
+        field: 'province',
         width: 180,
         filter: 'agTextColumnFilter'
       },
       {
         headerName: 'CITY/MUNICIPALITY',
-        field: 'mun',
+        field: 'municipal',
         width: 180,
         filter: 'agTextColumnFilter'
       },
       {
         headerName: 'Date of Conduct',
-        field: 'date_conduct',
+        field: 'date_conducted',
         width: 180,
-        filter: 'agTextColumnFilter'
-      },
-      {
-        headerName: 'Document Type',
-        field: 'doc_type',
-        width: 140
+        filter: 'agTextColumnFilter',
+        cellRenderer: data => {
+          return data.value ? new Date(data.value).toLocaleDateString() : '';
+        }
       },
       {
         headerName: 'Status of Document',
@@ -254,27 +119,34 @@ export class CrudComponent {
         width: 140
       },
       {
-        headerName: 'Date Received',
-        field: 'date_rec',
-        width: 180,
-        filter: 'agTextColumnFilter'
+        headerName: 'Remarks',
+        field: 'remarks',
+        width: 180
       },
       {
-        headerName: 'Date to PCAF',
-        field: 'date_pcaf',
+        headerName: 'Date Submitted to PCAF',
+        field: 'date_submitted',
         width: 180,
-        filter: 'agTextColumnFilter'
+        filter: 'agTextColumnFilter',
+        cellRenderer: data => {
+          return data.value ? new Date(data.value).toLocaleDateString() : '';
+        }
       },
       {
-        headerName: 'File',
-        field: 'file',
-        width: 140
+        headerName: 'Actions',
+        width: 270,
+        cellRendererFramework: ActionComponent
       }
     ];
     this.defaultColDef = {
       sortable: true,
       resizable: true,
       filter: true
+    };
+    this.context = { componentParent: this };
+    this.rowSelection = 'single';
+    this.frameworkComponents = {
+      actionComponent: ActionComponent
     };
   }
 
@@ -309,6 +181,10 @@ export class CrudComponent {
     this.router.navigate(['examples/crud']);
   }
 
+  getRowNodeId(data) {
+    return data.code;
+  }
+
   save() {
     if (this.bookFormGroup.valid) {
       const book = this.bookFormGroup.value;
@@ -318,12 +194,31 @@ export class CrudComponent {
     }
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(entryDialog, {
+  methodFromParentUpload(cell) {
+    this.dialog.open(entryDialog, {
       minWidth: '50vh',
-      //height: '70vh',
-      disableClose: true
-      // data: event.data
+      data: { gridApi: this.gridApi, data: cell, upload: true }
+    });
+  }
+
+  methodFromParentDelete(cell) {
+    this.dialog.open(entryDialog, {
+      minWidth: '50vh',
+      data: { gridApi: this.gridApi, data: cell, delete: true }
+    });
+  }
+
+  methodFromParentEdit(cell) {
+    this.dialog.open(entryDialog, {
+      minWidth: '50vh',
+      data: { gridApi: this.gridApi, data: cell, add: true }
+    });
+  }
+
+  openDialog() {
+    this.dialog.open(entryDialog, {
+      minWidth: '50vh',
+      data: { gridApi: this.gridApi, add: true }
     });
   }
 

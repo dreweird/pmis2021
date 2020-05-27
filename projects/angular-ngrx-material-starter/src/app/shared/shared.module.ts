@@ -22,6 +22,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import {
   FontAwesomeModule,
@@ -44,7 +45,9 @@ import {
   faLightbulb,
   faWindowMaximize,
   faStream,
-  faBook
+  faBook,
+  faUpload,
+  faEye
 } from '@fortawesome/free-solid-svg-icons';
 import { faMediumM, faGithub } from '@fortawesome/free-brands-svg-icons';
 
@@ -75,6 +78,7 @@ import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
     MatSlideToggleModule,
     MatDividerModule,
     MatGridListModule,
+    MatProgressBarModule,
 
     FontAwesomeModule
   ],
@@ -109,6 +113,7 @@ import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
     MatDatepickerModule,
     MatNativeDateModule,
     MatGridListModule,
+    MatProgressBarModule,
 
     FontAwesomeModule,
 
@@ -138,7 +143,9 @@ export class SharedModule {
       faLightbulb,
       faWindowMaximize,
       faStream,
-      faBook
+      faBook,
+      faUpload,
+      faEye
     );
   }
 }

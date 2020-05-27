@@ -1,124 +1,115 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import * as moment from 'moment';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormGroup, FormControl } from '@angular/forms';
+import { FileUploader } from 'ng2-file-upload';
+import { PmisService } from '../../../../core/services/pmis.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  template: `
-    <h3 mat-dialog-title>Add Document</h3>
-    <div mat-dialog-content>
-      <mat-form-field class="col-md-6">
-        <mat-label>Document Type</mat-label>
-        <mat-select required>
-          <mat-option value="audi">Highlights of Meeting</mat-option>
-          <mat-option value="audi">Resolution</mat-option>
-          <mat-option value="audi">Organizational Profile</mat-option>
-          <mat-option value="audi">Member Profile</mat-option>
-          <mat-option value="audi">Activity Design</mat-option>
-          <mat-option value="audi">Incomming Documents</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="col-md-3">
-        <mat-label>Year</mat-label>
-        <mat-select required>
-          <mat-option value="audi">2020</mat-option>
-          <mat-option value="audi">2019</mat-option>
-          <mat-option value="audi">2018</mat-option>
-          <mat-option value="audi">2017</mat-option>
-          <mat-option value="audi">2016</mat-option>
-          <mat-option value="audi">2015</mat-option>
-          <mat-option value="audi">2014</mat-option>
-          <mat-option value="audi">2013</mat-option>
-          <mat-option value="audi">2012</mat-option>
-          <mat-option value="audi">2011</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="col-md-3">
-        <mat-label>AFC</mat-label>
-        <mat-select required>
-          <mat-option value="audi">RAFC</mat-option>
-          <mat-option value="audi">HUCAFC/PAFC</mat-option>
-          <mat-option value="audi">CAFC</mat-option>
-          <mat-option value="audi">MAFC</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="col-md-3">
-        <mat-label>Provice</mat-label>
-        <mat-select required>
-          <mat-option value="audi">Agusan del Norte</mat-option>
-          <mat-option value="audi">Agusan del Sur</mat-option>
-          <mat-option value="audi">Surigao del Norte</mat-option>
-          <mat-option value="audi">Surigao del Sur</mat-option>
-          <mat-option value="audi">Province of Dinagat Islands</mat-option>
-          <mat-option value="audi">Butuan City</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="col-md-3">
-        <mat-label>Municipality</mat-label>
-        <mat-select required>
-          <mat-option value="audi">Bayugan City</mat-option>
-          <mat-option value="audi">Bunawan</mat-option>
-          <mat-option value="audi">Esperanza</mat-option>
-          <mat-option value="audi">San Francisco</mat-option>
-          <mat-option value="audi">San Luis</mat-option>
-          <mat-option value="audi">Sta. Josefa</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="col-md-3">
-        <mat-label>Date of Conduct</mat-label>
-        <input matInput [matDatepicker]="picker1" />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="picker1"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field class="col-md-3">
-        <mat-label>Status of Document</mat-label>
-        <mat-select required>
-          <mat-option value="audi">Funded</mat-option>
-          <mat-option value="audi">Non-Funded</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="col-md-6">
-        <mat-label>Remarks</mat-label>
-        <input matInput />
-      </mat-form-field>
-      <mat-form-field class="col-md-3">
-        <mat-label>Deadline</mat-label>
-        <input matInput [matDatepicker]="picker" />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field class="col-md-3">
-        <mat-label>Date Submitted to PCAF</mat-label>
-        <input matInput [matDatepicker]="picker3" />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="picker3"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #picker3></mat-datepicker>
-      </mat-form-field>
-    </div>
-    <div mat-dialog-actions>
-      <button mat-button (click)="onNoClick()">Cancel</button>
-      <button mat-button cdkFocusInitial>Save</button>
-    </div>
-  `,
+  templateUrl: './entryDialog.component.html',
   styleUrls: ['./crud.component.scss']
 })
 export class entryDialog implements OnInit {
   rowData: any;
   beds: number;
+  entryForm: FormGroup;
+  //uploader:FileUploader;
+  editData;
+  edit: Boolean = false;
+  delete: Boolean = false;
+  add: Boolean = false;
+  upload: Boolean = false;
+  uploader: FileUploader = new FileUploader({
+    url: 'http://localhost:5000/upload',
+    allowedFileType: ['image', 'pdf'],
+    itemAlias: 'myFiles'
+  });
 
   constructor(
+    public rafcService: PmisService,
+    private _snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<entryDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    console.log('data', this.data);
+    if (this.data.add) this.add = this.data.add;
+    if (this.data.delete) this.delete = this.data.delete;
+    if (this.data.upload) this.upload = this.data.upload;
+    console.log(this.data);
+    this.editData = this.data.data;
+    this.entryForm = new FormGroup({
+      code: new FormControl(''),
+      type: new FormControl(''),
+      year: new FormControl(''),
+      afc: new FormControl(''),
+      province: new FormControl(''),
+      municipal: new FormControl(''),
+      date_conducted: new FormControl(''),
+      status: new FormControl(''),
+      remarks: new FormControl(''),
+      deadline: new FormControl(''),
+      date_submitted: new FormControl(''),
+      file: new FormControl('')
+    });
+    if (this.data.data) {
+      this.edit = true;
+      this.entryForm.patchValue({
+        code: this.editData.code,
+        type: this.editData.type,
+        year: this.editData.year,
+        afc: this.editData.afc,
+        province: this.editData.province,
+        municipal: this.editData.municipal,
+        date_conducted: this.editData.date_conducted,
+        status: this.editData.status,
+        remarks: this.editData.remarks,
+        deadline: this.editData.deadline,
+        date_submitted: this.editData.date_submitted,
+        file: this.editData.file
+      });
+    }
   }
   ngOnInit() {
-    //console.log(this.data.beds);
-    console.log('here');
+    this.uploader.onCompleteItem = (
+      item: any,
+      response: any,
+      status: any,
+      headers: any
+    ) => {
+      console.log('ImageUpload:uploaded:', item, status, response);
+    };
+  }
+
+  insertDoc() {
+    console.log(this.entryForm.value);
+    this.rafcService.insertDoc(this.entryForm.value).subscribe(result => {
+      console.log(result);
+      if (result) {
+        this.dialogRef.close();
+        this._snackBar.open('New Document inserted', 'Ok');
+        this.data.gridApi.applyTransaction({ add: [result] });
+      }
+    });
+  }
+
+  updateDoc() {
+    this.rafcService.updateDoc(this.entryForm.value).subscribe(result => {
+      if (result) {
+        this.dialogRef.close();
+        this._snackBar.open('Document updated', 'Ok');
+        this.data.gridApi.applyTransaction({ update: [this.entryForm.value] });
+      }
+    });
+  }
+
+  removeDoc() {
+    this.rafcService.removeDoc(this.editData.code).subscribe(result => {
+      if (result) {
+        this.dialogRef.close();
+        this._snackBar.open('Document removed', 'Ok');
+        this.data.gridApi.applyTransaction({ remove: [this.editData] });
+      }
+    });
   }
 
   onNoClick(): void {

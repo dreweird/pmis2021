@@ -6,11 +6,14 @@
       <div class="branding"><img [src]="logo" />
         <span>RAFC-DMS</span></div>
       <mat-nav-list>
-        <a mat-list-item *ngFor="let item of navigationSideMenu" (click)="sidenav.close()" [routerLink]="[item.link]"
-          routerLinkActive="active">
-          {{item.label | translate}}
-        </a>
-   
+      <span *ngFor="let item of navigationSideMenu">
+        <a mat-list-item *ngIf="(isAuthenticated$ | async)" (click)="sidenav.close()" [routerLink]="[item.link]"
+        routerLinkActive="active">
+        {{item.label | translate}}
+      </a>
+ 
+      </span>
+  
       </mat-nav-list>
     </mat-sidenav>
 
@@ -29,10 +32,13 @@
           <span routerLink="" class="branding spacer d-none d-md-inline"><img [src]="logo" /> RAFC Document Monitoring System</span>
 
           <span class="d-none d-md-inline">
-            <button mat-button class="nav-button" *ngFor="let item of navigation" [routerLink]="[item.link]"
-              routerLinkActive="active">
+            <span *ngFor="let item of navigation">
+              <button mat-button class="nav-button" [routerLink]="[item.link]"
+              *ngIf="(isAuthenticated$ | async)" routerLinkActive="active">
               {{item.label | translate}} 
             </button>
+          </span>
+       
           </span>
 
           <button mat-button mat-stroked-button  *ngIf="!(isAuthenticated$ | async)" routerLink="/login">
@@ -45,6 +51,10 @@
             <fa-icon icon="user-circle"></fa-icon>
           </button>
           <mat-menu #toolbarUserMenu="matMenu">
+            <button mat-menu-item>
+              <mat-icon><fa-icon icon="user-circle"></fa-icon></mat-icon>
+              <span>Hi {{ loggedUser$ | async }} !  </span>
+            </button>
             <button mat-menu-item (click)="onLogoutClick()">
               <mat-icon><fa-icon icon="power-off"></fa-icon></mat-icon>
               <span>{{ 'anms.menu.logout' | translate }}</span>
