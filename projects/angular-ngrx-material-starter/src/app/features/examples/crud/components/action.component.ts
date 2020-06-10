@@ -5,18 +5,35 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
   selector: 'app-action-component',
   template: `
     <div *ngIf="!params.node.group">
-      <button type="button" mat-button (click)="upload()">
+      <button
+        type="button"
+        mat-button
+        (click)="upload()"
+        matTooltip="Upload File"
+      >
         <fa-icon icon="upload"></fa-icon>
       </button>
-      <button type="button" mat-button>
+      <button type="button" mat-button matTooltip="View">
         <a [routerLink]="['/doc/document', code]" routerLinkActive="active"
           ><fa-icon icon="eye"></fa-icon
         ></a>
       </button>
-      <button type="button" mat-button color="accent" (click)="edit()">
+      <button
+        type="button"
+        mat-button
+        color="accent"
+        (click)="edit()"
+        matTooltip="Edit"
+      >
         <fa-icon icon="edit"></fa-icon>
       </button>
-      <button type="button" mat-button color="warn" (click)="delete()">
+      <button
+        type="button"
+        mat-button
+        color="warn"
+        (click)="delete()"
+        matTooltip="Delete"
+      >
         <fa-icon icon="trash"></fa-icon>
       </button>
     </div>

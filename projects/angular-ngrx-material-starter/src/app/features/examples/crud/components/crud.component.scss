@@ -29,3 +29,19 @@ mat-card {
   flex-direction: row;
   justify-content: flex-end;
 }
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mat-progress-bar {
+  height: 30px;
+}
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}

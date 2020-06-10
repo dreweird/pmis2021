@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService } from '../../core/core.module';
 
 import { ExamplesComponent } from './examples/examples.component';
-import { AuthenticatedComponent } from './authenticated/authenticated.component';
+// import { AuthenticatedComponent } from './authenticated/authenticated.component';
 
 // import { ParentComponent } from './theming/parent/parent.component';
 // import { TodosContainerComponent } from './todos/components/todos-container.component';
@@ -23,26 +23,16 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'authenticated',
+        redirectTo: 'crud',
         pathMatch: 'full'
       },
       {
         path: 'crud',
-        redirectTo: 'crud/',
-        pathMatch: 'full'
-      },
-      {
-        path: 'crud/:id',
         component: CrudComponent
       },
       {
         path: 'document/:id',
         component: DocumentComponent,
-        canActivate: [AuthGuardService]
-      },
-      {
-        path: 'authenticated',
-        component: AuthenticatedComponent,
         canActivate: [AuthGuardService]
       }
     ]

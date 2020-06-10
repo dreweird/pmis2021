@@ -33,13 +33,17 @@ import { UserComponent } from './simple-state-management/components/user.compone
 import { UserService } from './simple-state-management/user.service';
 import { ElementsComponent } from './elements/elements.component';
 import { entryDialog } from './crud/components/entryDialog.component';
-import { FileUploadModule } from 'ng2-file-upload';
+// import { FileUploadModule } from 'ng2-file-upload';
 import { ActionComponent } from './crud/components/action.component';
-import { DocumentComponent } from './document/document.component';
+import {
+  DocumentComponent,
+  DetachedFileDialog
+} from './document/document.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, `./assets/i18n/examples/`, '.json');
 }
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -48,7 +52,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SharedModule,
     MomentModule,
     ExamplesRoutingModule,
-    FileUploadModule,
+    MatDialogModule,
     PdfViewerModule,
     StoreModule.forFeature(FEATURE_NAME, reducers),
     TranslateModule.forChild({
@@ -83,9 +87,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     ElementsComponent,
     entryDialog,
     ActionComponent,
-    DocumentComponent
+    DocumentComponent,
+    DetachedFileDialog
   ],
-  providers: [StockMarketService, UserService]
+  providers: [StockMarketService, UserService],
+  entryComponents: [entryDialog, DetachedFileDialog]
 })
 export class ExamplesModule {
   constructor() {}

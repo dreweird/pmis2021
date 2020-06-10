@@ -20,9 +20,30 @@ export class PmisService {
     return this.http.post(url, { username, password });
   }
 
-  getPDF() {
-    const url = `http://172.16.129.190/example.pdf`;
-    return this.http.get(url, { responseType: 'arraybuffer' as 'json' });
+  upload(formData) {
+    const url = `${this.apiRoot}/multiple-upload`;
+    return this.http.post<any>(url, formData, {
+      reportProgress: true,
+      observe: 'events'
+    });
+  }
+
+  add_files(newFile) {
+    const url = `${this.apiRoot}/add-files`;
+    return this.http.post(url, { newFile });
+  }
+
+  findFiles(code: string): Observable<Document> {
+    const url = `${this.apiRoot}/files/` + code;
+    return this.http.get<any>(url).pipe(
+      tap(_ => console.log(`fetched files code=${code}`)),
+      catchError(this.handleError)
+    );
+  }
+
+  detachedFile(id) {
+    const url = `${this.apiRoot}/files/` + id;
+    return this.http.delete(url);
   }
 
   getAllDoc() {

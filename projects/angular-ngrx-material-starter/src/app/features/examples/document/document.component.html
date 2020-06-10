@@ -1,34 +1,53 @@
 <div class="container" rtl>
     <div class="row">
-      <div class="col-md-12">
-        <h1>Document</h1>
+      <div class="col-md-8">
+        <h1>Details</h1>
         <div *ngIf="doc">
         <b>Document Code: </b>  {{ doc?.code }} <br>
          <b> Document Type: </b>{{ doc?.type }} <br>
          <b> Date Conducted: </b>{{ doc?.date_conducted }} <br>
+         <b> Attached Files: </b>
           <ul>
-            <li (click)="loadPdf('https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf')">Pdf 1</li>
-            <li (click)="loadPdf('http://172.16.129.190/example.pdf')">Pdf 2</li>
+            <li *ngFor="let f of files; let i = index">{{f.file_name}} - 
+              <button type="button" mat-button color="warn" (click)="delete(f, i)"  matTooltip="Detached">
+              <fa-icon icon="trash"></fa-icon> </button>
+              <button type="button" mat-button color="accent" (click)="loadPdf(f.file_name)"  matTooltip="View">
+                <fa-icon icon="eye"></fa-icon>
+            </button>
+          </li>
+
           </ul>
         </div>
-        <h1>
-          PDF Viewer
-        </h1>
-        <div *ngIf="isLoaded" style="text-align: center;">
-          <button (click)="prevPage()" [disabled]="page === 1">Prev</button>
-          <span>{{ page }} / {{ totalPages }}</span>
-          <button (click)="nextPage()" [disabled]="page === totalPages">Next</button>
-          <a [href]='pdfSrc' target="_blank" download>DOWNLOAD FILE</a>
+      </div>
+      <div class="col-md-4">
+        <h1>Status</h1>
+      </div>
+      <div class="col-md-12">
+        <div *ngIf="isPDF">
+          <h2>PDF Viewer</h2>
+          <div *ngIf="isLoaded" style="text-align: center;">
+            <button (click)="prevPage()" [disabled]="page === 1">Prev</button>
+            <span>{{ page }} / {{ totalPages }}</span>
+            <button (click)="nextPage()" [disabled]="page === totalPages">Next</button>
+            <a [href]='pdfSrc' target="_blank" download>DOWNLOAD FILE</a>
+          </div>
+          <pdf-viewer [(src)]="pdfSrc" 
+          [show-all]="false"
+              [page]="page"
+              [show-borders]="true"
+              [render-text] = "true"
+              [external-link-target]="'blank'"
+              (after-load-complete)="afterLoadComplete($event)"
+  ></pdf-viewer>
+     <br>
         </div>
-        <pdf-viewer [(src)]="pdfSrc" 
-        [show-all]="false"
-            [page]="page"
-            [show-borders]="true"
-            [render-text] = "true"
-            [external-link-target]="'blank'"
-            (after-load-complete)="afterLoadComplete($event)"
-></pdf-viewer>
-   <br>
+        <div *ngIf="isImage">
+          <h2>Image Viewer</h2>
+          <img [(src)]="imgSrc" alt="Image Attached" class="image-viewer">
+          <br>
+        </div>
+     
+
       </div>
     </div>
   </div>

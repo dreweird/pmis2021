@@ -1,10 +1,19 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
 import * as moment from 'moment';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl } from '@angular/forms';
-import { FileUploader } from 'ng2-file-upload';
+// import { FileUploader, FileItem, ParsedResponseHeaders } from 'ng2-file-upload';
 import { PmisService } from '../../../../core/services/pmis.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { map, catchError } from 'rxjs/operators';
+import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
+import { of } from 'rxjs/internal/observable/of';
 
 @Component({
   templateUrl: './entryDialog.component.html',
@@ -20,11 +29,69 @@ export class entryDialog implements OnInit {
   delete: Boolean = false;
   add: Boolean = false;
   upload: Boolean = false;
-  uploader: FileUploader = new FileUploader({
-    url: 'http://localhost:5000/upload',
-    allowedFileType: ['image', 'pdf'],
-    itemAlias: 'myFiles'
-  });
+
+  @ViewChild('fileUpload', { static: false }) fileUpload: ElementRef;
+  files = [];
+
+  addFile(file) {
+    this.rafcService.add_files(file).subscribe(resilt => {
+      console.log(resilt);
+    });
+  }
+
+  uploadFile(file) {
+    const formData = new FormData();
+    formData.append('file', file.data);
+    file.inProgress = true;
+    this.rafcService
+      .upload(formData)
+      .pipe(
+        map(event => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              file.progress = Math.round((event.loaded * 100) / event.total);
+              break;
+            case HttpEventType.Response:
+              return event;
+          }
+        }),
+        catchError((error: HttpErrorResponse) => {
+          file.inProgress = false;
+          return of(`${file.data.name} upload failed.`);
+        })
+      )
+      .subscribe((event: any) => {
+        if (typeof event === 'object') {
+          let file = {
+            file_name: event.body.file_name,
+            rafc_code: this.data.data.code
+          };
+          this.addFile(file);
+          console.log(file);
+        }
+      });
+  }
+
+  private uploadFiles() {
+    this.fileUpload.nativeElement.value = '';
+    this.files.forEach(file => {
+      this.uploadFile(file);
+    });
+  }
+
+  onClick() {
+    const fileUpload = this.fileUpload.nativeElement;
+    fileUpload.onchange = () => {
+      console.log(fileUpload.files.length);
+      for (let index = 0; index < fileUpload.files.length; index++) {
+        const file = fileUpload.files[index];
+        this.files.push({ data: file, inProgress: false, progress: 0 });
+        console.log(this.files);
+      }
+      this.uploadFiles();
+    };
+    fileUpload.click();
+  }
 
   constructor(
     public rafcService: PmisService,
@@ -69,16 +136,7 @@ export class entryDialog implements OnInit {
       });
     }
   }
-  ngOnInit() {
-    this.uploader.onCompleteItem = (
-      item: any,
-      response: any,
-      status: any,
-      headers: any
-    ) => {
-      console.log('ImageUpload:uploaded:', item, status, response);
-    };
-  }
+  ngOnInit() {}
 
   insertDoc() {
     console.log(this.entryForm.value);

@@ -117,63 +117,33 @@
   </form>
 </div>
 <div *ngIf="upload">
-  <h3 mat-dialog-title>Uplaod File</h3>
-  <div mat-dialog-content>
-    <h4>Select FIle</h4>
-    <input type="file" ng2FileSelect [uploader]="uploader" name="myFiles" multiple/><br/>
-    <div>
-      <!-- Queue progress: {{uploader.progress}} %
-      <mat-progress-bar mode="determinate" [value]="uploader.progress"></mat-progress-bar> -->
-      <table class="table">
-        <thead>
-        <tr>
-            <th width="50%">Name</th>
-            <th>Size</th>
-            <th>Progress</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let item of uploader.queue">
-            <td><strong>{{ item?.file?.name }}</strong></td>
-            <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
-            <td *ngIf="uploader.options.isHTML5">
-              Progress: {{item.progress}} %
-              <mat-progress-bar mode="determinate" [value]="item.progress"></mat-progress-bar>
-            </td>
-            <td nowrap>
-                <button type="button" class="btn btn-success btn-xs"
-                        (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-                    <span class="glyphicon glyphicon-upload"></span> Upload
-                </button>
-                <button type="button" class="btn btn-warning btn-xs"
-                        (click)="item.cancel()" [disabled]="!item.isUploading">
-                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-                </button>
-                <button type="button" class="btn btn-danger btn-xs"
-                        (click)="item.remove()">
-                    <span class="glyphicon glyphicon-trash"></span> Remove
-                </button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <div>
-      Queue progress: {{uploader.progress}} %
-      <div class="progress">
-      <mat-progress-bar mode="determinate" [value]="uploader.progress"></mat-progress-bar> 
-      </div>
-  </div>
-  </div>
-  </div>
-  <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button (click)="uploader.uploadAll()" 
-    [disabled]="!uploader.getNotUploadedItems().length">
-    Upload</button>
-    <button mat-button (click)="uploader.clearQueue()" 
-    [disabled]="!uploader.queue.length">
-    Remove all</button>
+<mat-card>  
+    <mat-card-content>  
+      <h2>Attached Files</h2>
+        <ul>  
+            <li *ngFor="let file of files">  
+              <section class="example-section">
+                <mat-progress-bar
+                    color="accent"
+                    mode="mode"
+                    [value]="file.progress">
+                </mat-progress-bar>
+                      <div style="position: absolute; padding: 10px; color: white;"> {{file.progress}}% </div>
+              </section>
+                <span>  
+                      {{file.data.name}}
+                </span>  
+            </li>  
+        </ul>  
+    </mat-card-content>  
+    <mat-card-actions>  
+      <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-raised-button color="accent" (click)="onClick()">  
+          <fa-icon icon="upload"></fa-icon> 
+        </button>  
+    </mat-card-actions>  
+</mat-card>
 
- </div>
+<input type="file" #fileUpload id="fileUpload" name="fileUpload" 
+multiple="multiple" accept="image/*,application/pdf" style="display:none;" />
 </div>
