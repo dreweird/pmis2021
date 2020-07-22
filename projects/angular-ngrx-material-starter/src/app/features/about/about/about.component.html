@@ -1,40 +1,45 @@
 <div class="background">
   <div class="gradient">
     <div class="container">
-      <h1>RAFC Document Monitoring System</h1>
-      <!-- <div class="actions">
-        <a [ngClass]="routeAnimationsElements" mat-raised-button class="actions-main" color="primary" routerLink="../dashboard">
-         RAFC Dashboard
+      <h1>Agri Presyo Monitoring System</h1>
+      <div class="actions">
+        <a [ngClass]="routeAnimationsElements" mat-raised-button class="actions-main" color="primary" routerLink="../search">
+           Go to Search
         </a>
-        <a mat-raised-button class="actions-main" color="accent" routerLink="../beds" [ngClass]="routeAnimationsElements">
-         BEDs
-        </a>
-        <a mat-raised-button class="actions-main" color="warn" routerLink="../settings" [ngClass]="routeAnimationsElements">
-          {{ 'anms.about.change-theme' | translate }}
-        </a>
-        <br>
-    
-        
-      </div> -->
+        <a [ngClass]="routeAnimationsElements" mat-raised-button class="actions-main" color="accent" routerLink="../doc">
+          Summary Reports
+       </a>
+      </div>
+      
+
       <div class="get-started" [ngClass]="routeAnimationsElements">
-        <h2>About RAFC Document Monitoring System</h2>
-          <p>RAFC-DMS is a sytematic approach for gathering, monitoring and tracking of Regional Agriculture and Fisheries Council (RAFC)
-            related documents in Caraga Region. It serves as a repository of documents at the same time tracking tool of resolutions, highlights or minutes of meetings,
-            memorandum, special orders and other documents. It also tracks the submission of documents from the different Agriculture and Fisheries Councils (AFCs) in 
-            the Caraga Region.
+        <h2>About APMIS</h2>
+          <p>
+            This system allows the public user to query the price of particular commodity
+            and it then delivers the information in a form that they can understand and use
+            -for example charts and tables. Its goal is to create a repository regarding the prices of 
+            different agricultural and fishery commodities in Caraga Region.
           </p>
+          <div class="follow-releases" [ngClass]="routeAnimationsElements">
+            <h2>System Updates</h2>
+            <h4>Version 2.0</h4>
+                <ul>
+                  <li>Admin Page with CRUD functions was added</li>
+                  <li>Uploading of Photo in the commodity table</li>
+                  <li>Interactive Search Service</li>
+                  <li>Strict Validation Price Inputting</li>
+                  <li>Retail Price and Farm Gate Price Integration</li>
+                  <li>Grouping Commodity by Area and Month</li>
+                  <li>Avergaing Function per group was enabled</li>
+                  <li>Generation of Summary Report</li>
+                </ul>
+                
+          </div>
       </div>
     </div>
+ 
+ 
   </div>
+
 </div>
-<div class="container">
-  <div class="follow-releases" [ngClass]="routeAnimationsElements">
-    <h2>System Updates</h2>
-    <h4>Version 1.0</h4>
-        <ul>
-          <li>Added Login Page </li>
-          <li>Added Dashboard </li>
-        </ul>
-        
-  </div>
-</div>
+

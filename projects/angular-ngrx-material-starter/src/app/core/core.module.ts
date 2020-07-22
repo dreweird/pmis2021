@@ -40,6 +40,7 @@ import { AuthEffects } from './auth/auth.effects';
 import {
   selectIsAuthenticated,
   selectUserName,
+  selectUserType,
   selectAuth
 } from './auth/auth.selectors';
 import { authLogin, authLogout } from './auth/auth.actions';
@@ -54,7 +55,6 @@ import { AppErrorHandler } from './error-handler/app-error-handler.service';
 import { CustomSerializer } from './router/custom-serializer';
 import { LocalStorageService } from './local-storage/local-storage.service';
 import { HttpErrorInterceptor } from './http-interceptors/http-error.interceptor';
-import { GoogleAnalyticsEffects } from './google-analytics/google-analytics.effects';
 import { NotificationService } from './notifications/notification.service';
 import { SettingsEffects } from './settings/settings.effects';
 import {
@@ -89,6 +89,7 @@ export {
   LocalStorageService,
   selectIsAuthenticated,
   selectUserName,
+  selectUserType,
   ROUTE_ANIMATIONS_ELEMENTS,
   AnimationsService,
   AuthGuardService,
@@ -125,11 +126,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     // ngrx
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreRouterConnectingModule.forRoot(),
-    EffectsModule.forRoot([
-      AuthEffects,
-      SettingsEffects,
-      GoogleAnalyticsEffects
-    ]),
+    EffectsModule.forRoot([AuthEffects, SettingsEffects]),
     environment.production
       ? []
       : StoreDevtoolsModule.instrument({

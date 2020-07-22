@@ -1,4 +1,5 @@
 export interface AuthState {
   isAuthenticated: boolean;
-  user: string;
+  isAdmin: number;
+  username: string;
 }

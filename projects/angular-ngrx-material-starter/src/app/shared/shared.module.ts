@@ -47,7 +47,8 @@ import {
   faStream,
   faBook,
   faUpload,
-  faEye
+  faEye,
+  faSearch
 } from '@fortawesome/free-solid-svg-icons';
 import { faMediumM, faGithub } from '@fortawesome/free-brands-svg-icons';
 
@@ -145,7 +146,8 @@ export class SharedModule {
       faStream,
       faBook,
       faUpload,
-      faEye
+      faEye,
+      faSearch
     );
   }
 }

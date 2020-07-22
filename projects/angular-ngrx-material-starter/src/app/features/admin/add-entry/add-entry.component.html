@@ -1,0 +1,47 @@
+<div>
+    <h3 mat-dialog-title>Add Commodity</h3>
+    <form [formGroup]="entryForm">
+    <div mat-dialog-content>
+  
+
+      <mat-form-field class="col">
+        <mat-label>Name:</mat-label>
+        <input matInput formControlName="name" required/>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="col">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category" required>
+          <mat-option *ngFor="let c of category" [value]="c.value">
+            {{c.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="col">
+        <mat-label>Specification:</mat-label>
+        <input matInput formControlName="spec" required/>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="col">
+        <mat-label>Unit</mat-label>
+        <mat-select formControlName="unit" required>
+          <mat-option *ngFor="let u of unit" [value]="u.value">
+            {{u.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="col">
+        <mat-label>Tags</mat-label>
+        <textarea matInput placeholder="keywords for search" formControlName="tags" required></textarea>
+      </mat-form-field>
+  
+  
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">Cancel</button>
+      <button   (click)="insertCommodity()" mat-button [disabled]="!entryForm.valid">Save</button>
+  </div>
+    </form>
+  </div>

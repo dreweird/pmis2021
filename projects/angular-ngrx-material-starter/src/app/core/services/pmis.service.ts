@@ -1,22 +1,63 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/internal/operators/catchError';
-import { Document } from './document';
-import { tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PmisService {
-  // apiRoot: string = 'http://172.16.130.10:3115';
+  apiRoot: string = 'http://172.16.130.20:4000';
   //apiRoot: string = 'http://210.5.100.46:3116';
-  apiRoot: string = 'http://localhost:5000';
+  //   apiRoot: string = 'http://localhost:4000';
 
   constructor(private http: HttpClient) {}
 
+  getRowCommodity() {
+    const url = `${this.apiRoot}/commodity`;
+    return this.http.get(url);
+  }
+
+  getRow2020() {
+    const url = `${this.apiRoot}/price/year2020`;
+    return this.http.get(url);
+  }
+
+  insertCommodity(entries) {
+    const url = `${this.apiRoot}/commodity`;
+    return this.http.post(url, { entries });
+  }
+
+  insertPriceRow(entries) {
+    const url = `${this.apiRoot}/price`;
+    return this.http.post(url, { entries });
+  }
+
+  updateCommodity(id, col, value) {
+    const url = `${this.apiRoot}/commodity/` + id;
+    return this.http.put(url, { col, value });
+  }
+
+  updatePrice(id, col, value) {
+    const url = `${this.apiRoot}/price/` + id;
+    return this.http.put(url, { col, value });
+  }
+
+  searchCommodity(search) {
+    const url = `${this.apiRoot}/searchCommodity/` + search;
+    return this.http.get(url);
+  }
+
+  add_files(newFile) {
+    const url = `${this.apiRoot}/add-files`;
+    return this.http.post(url, { newFile });
+  }
+
+  removePriceRow(id) {
+    const url = `${this.apiRoot}/price/` + id;
+    return this.http.delete(url);
+  }
+
   login(username, password) {
-    const url = `${this.apiRoot}/login`;
+    const url = `${this.apiRoot}/authenticate`;
     return this.http.post(url, { username, password });
   }
 
@@ -26,64 +67,5 @@ export class PmisService {
       reportProgress: true,
       observe: 'events'
     });
-  }
-
-  add_files(newFile) {
-    const url = `${this.apiRoot}/add-files`;
-    return this.http.post(url, { newFile });
-  }
-
-  findFiles(code: string): Observable<Document> {
-    const url = `${this.apiRoot}/files/` + code;
-    return this.http.get<any>(url).pipe(
-      tap(_ => console.log(`fetched files code=${code}`)),
-      catchError(this.handleError)
-    );
-  }
-
-  detachedFile(id) {
-    const url = `${this.apiRoot}/files/` + id;
-    return this.http.delete(url);
-  }
-
-  getAllDoc() {
-    const url = `${this.apiRoot}/documents`;
-    return this.http.get(url);
-  }
-
-  findDoc(code: string): Observable<Document> {
-    const url = `${this.apiRoot}/documents/` + code;
-    return this.http.get<any>(url).pipe(
-      tap(_ => console.log(`fetched document code=${code}`)),
-      catchError(this.handleError)
-    );
-  }
-
-  insertDoc(entries) {
-    const url = `${this.apiRoot}/documents`;
-    return this.http.post(url, { entries });
-  }
-
-  updateDoc(entries) {
-    const url = `${this.apiRoot}/documents/` + entries.code;
-    return this.http.put(url, { entries });
-  }
-
-  removeDoc(code) {
-    const url = `${this.apiRoot}/documents/` + code;
-    return this.http.delete(url);
-  }
-
-  handleError(error: HttpErrorResponse) {
-    let errorMessage = 'Unknown error!';
-    if (error.error instanceof ErrorEvent) {
-      // Client-side errors
-      errorMessage = `Error: ${error.error.message}`;
-    } else {
-      // Server-side errors
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    window.alert(errorMessage);
-    return throwError(errorMessage);
   }
 }

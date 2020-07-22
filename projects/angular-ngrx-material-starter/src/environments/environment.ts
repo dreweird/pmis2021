@@ -6,7 +6,7 @@
 const packageJson = require('../../../../package.json');
 
 export const environment = {
-  appName: 'RAFC-DMS',
+  appName: 'APMIS',
   envName: 'DEV',
   production: false,
   test: false,

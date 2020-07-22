@@ -25,17 +25,17 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    this.user = JSON.parse(localStorage.getItem('ANMS-AUTH')) || 0;
+    // this.user = JSON.parse(localStorage.getItem('ANMS-AUTH')) || 0;
 
-    if (this.user != 0) {
-      if (this.user.user.token) {
-        request = request.clone({
-          setHeaders: {
-            Authorization: this.user.user.token
-          }
-        });
-      }
-    }
+    // if (this.user != 0) {
+    //   if (this.user.user.token) {
+    //     request = request.clone({
+    //       setHeaders: {
+    //         Authorization: this.user.user.token
+    //       }
+    //     });
+    //   }
+    // }
     return next.handle(request).pipe(
       tap({
         error: (err: any) => {
@@ -43,13 +43,13 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             const appErrorHandler = this.injector.get(ErrorHandler);
             appErrorHandler.handleError(err);
           }
-          if (err.status === 401) {
-            this.router.navigate(['']);
-            this.localStorageService.setItem('AUTH', {
-              isAuthenticated: false,
-              user: {}
-            });
-          }
+          // if (err.status === 401) {
+          //   this.router.navigate(['']);
+          //   this.localStorageService.setItem('AUTH', {
+          //     isAuthenticated: false,
+          //     user: {}
+          //   });
+          // }
         }
       })
     );

@@ -4,7 +4,8 @@ import { createReducer, on, Action } from '@ngrx/store';
 
 export const initialState: AuthState = {
   isAuthenticated: false,
-  user: null
+  isAdmin: 0,
+  username: null
 };
 
 const reducer = createReducer(
@@ -12,10 +13,21 @@ const reducer = createReducer(
   on(authLoginSuccess, (state, { user }) => ({
     ...state,
     isAuthenticated: true,
-    user: user.username
+    isAdmin: user.isAdmin,
+    username: user.username
   })),
-  on(authLogout, state => ({ ...state, isAuthenticated: false, user: null })),
-  on(authLoginFailure, state => ({ ...state, isAuthenticated: false }))
+  on(authLogout, state => ({
+    ...state,
+    isAuthenticated: false,
+    username: null,
+    isAdmin: 0
+  })),
+  on(authLoginFailure, state => ({
+    ...state,
+    isAuthenticated: false,
+    username: null,
+    isAdmin: 0
+  }))
 );
 
 export function authReducer(

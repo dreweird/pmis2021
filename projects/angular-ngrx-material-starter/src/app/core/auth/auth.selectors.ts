@@ -10,7 +10,12 @@ export const selectAuth = createSelector(
 
 export const selectUserName = createSelector(
   selectAuthState,
-  (state: AuthState) => state.user
+  (state: AuthState) => state.username
+);
+
+export const selectUserType = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.isAdmin
 );
 
 export const selectIsAuthenticated = createSelector(

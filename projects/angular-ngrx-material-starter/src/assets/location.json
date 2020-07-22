@@ -1,0 +1,217 @@
+[
+  {
+    "code": "AGUSAN DEL NORTE",
+    "name": "AGUSAN DEL NORTE",
+    "geographic_level": "Prov"
+  },
+  {
+    "code": "AGUSAN DEL SUR",
+    "name": "AGUSAN DEL SUR",
+    "geographic_level": "Prov"
+  },
+  { "code": "SURIGAO DEL NORTE", "name": "ALEGRIA", "geographic_level": "Mun" },
+  { "code": "SURIGAO DEL NORTE", "name": "BACUAG", "geographic_level": "Mun" },
+  { "code": "SURIGAO DEL SUR", "name": "BAROBO", "geographic_level": "Mun" },
+  {
+    "code": "DINAGAT ISLANDS",
+    "name": "BASILISA (RIZAL)",
+    "geographic_level": "Mun"
+  },
+  { "code": "SURIGAO DEL SUR", "name": "BAYABAS", "geographic_level": "Mun" },
+  {
+    "code": "AGUSAN DEL NORTE",
+    "name": "BUENAVISTA",
+    "geographic_level": "Mun"
+  },
+  { "code": "AGUSAN DEL SUR", "name": "BUNAWAN", "geographic_level": "Mun" },
+  { "code": "SURIGAO DEL NORTE", "name": "BURGOS", "geographic_level": "Mun" },
+  { "code": "DINAGAT ISLANDS", "name": "CAGDIANAO", "geographic_level": "Mun" },
+  { "code": "SURIGAO DEL SUR", "name": "CAGWAIT", "geographic_level": "Mun" },
+  { "code": "SURIGAO DEL SUR", "name": "CANTILAN", "geographic_level": "Mun" },
+  { "code": "AGUSAN DEL NORTE", "name": "CARMEN", "geographic_level": "Mun" },
+  { "code": "SURIGAO DEL SUR", "name": "CARMEN", "geographic_level": "Mun" },
+  { "code": "SURIGAO DEL SUR", "name": "CARRASCAL", "geographic_level": "Mun" },
+  {
+    "code": "AGUSAN DEL SUR",
+    "name": "CITY OF BAYUGAN",
+    "geographic_level": "City"
+  },
+  {
+    "code": "SURIGAO DEL SUR",
+    "name": "CITY OF BISLIG",
+    "geographic_level": "City"
+  },
+  {
+    "code": "AGUSAN DEL NORTE",
+    "name": "CITY OF BUTUAN (Capital)",
+    "geographic_level": "Prov"
+  },
+  {
+    "code": "AGUSAN DEL NORTE",
+    "name": "CITY OF CABADBARAN",
+    "geographic_level": "City"
+  },
+  {
+    "code": "SURIGAO DEL NORTE",
+    "name": "CITY OF SURIGAO (Capital)",
+    "geographic_level": "City"
+  },
+  {
+    "code": "SURIGAO DEL SUR",
+    "name": "CITY OF TANDAG (Capital)",
+    "geographic_level": "City"
+  },
+  { "code": "SURIGAO DEL NORTE", "name": "CLAVER", "geographic_level": "Mun" },
+  { "code": "SURIGAO DEL SUR", "name": "CORTES", "geographic_level": "Mun" },
+  { "code": "SURIGAO DEL NORTE", "name": "DAPA", "geographic_level": "Mun" },
+  {
+    "code": "SURIGAO DEL NORTE",
+    "name": "DEL CARMEN",
+    "geographic_level": "Mun"
+  },
+  { "code": "DINAGAT ISLANDS", "name": "DINAGAT", "geographic_level": "Mun" },
+  {
+    "code": "DINAGAT ISLANDS",
+    "name": "DINAGAT ISLANDS",
+    "geographic_level": "Prov"
+  },
+  { "code": "AGUSAN DEL SUR", "name": "ESPERANZA", "geographic_level": "Mun" },
+  {
+    "code": "SURIGAO DEL NORTE",
+    "name": "GENERAL LUNA",
+    "geographic_level": "Mun"
+  },
+  {
+    "code": "SURIGAO DEL NORTE",
+    "name": "GIGAQUIT",
+    "geographic_level": "Mun"
+  },
+  { "code": "SURIGAO DEL SUR", "name": "HINATUAN", "geographic_level": "Mun" },
+  { "code": "AGUSAN DEL NORTE", "name": "JABONGA", "geographic_level": "Mun" },
+  {
+    "code": "AGUSAN DEL NORTE",
+    "name": "KITCHARAO",
+    "geographic_level": "Mun"
+  },
+  { "code": "AGUSAN DEL SUR", "name": "LA PAZ", "geographic_level": "Mun" },
+  { "code": "SURIGAO DEL SUR", "name": "LANUZA", "geographic_level": "Mun" },
+  {
+    "code": "AGUSAN DEL NORTE",
+    "name": "LAS NIEVES",
+    "geographic_level": "Mun"
+  },
+  { "code": "SURIGAO DEL SUR", "name": "LIANGA", "geographic_level": "Mun" },
+  {
+    "code": "DINAGAT ISLANDS",
+    "name": "LIBJO (ALBOR)",
+    "geographic_level": "Mun"
+  },
+  { "code": "SURIGAO DEL SUR", "name": "LINGIG", "geographic_level": "Mun" },
+  { "code": "AGUSAN DEL SUR", "name": "LORETO", "geographic_level": "Mun" },
+  { "code": "DINAGAT ISLANDS", "name": "LORETO", "geographic_level": "Mun" },
+  { "code": "SURIGAO DEL SUR", "name": "MADRID", "geographic_level": "Mun" },
+  {
+    "code": "AGUSAN DEL NORTE",
+    "name": "MAGALLANES",
+    "geographic_level": "Mun"
+  },
+  { "code": "SURIGAO DEL NORTE", "name": "MAINIT", "geographic_level": "Mun" },
+  {
+    "code": "SURIGAO DEL NORTE",
+    "name": "MALIMONO",
+    "geographic_level": "Mun"
+  },
+  { "code": "SURIGAO DEL SUR", "name": "MARIHATAG", "geographic_level": "Mun" },
+  { "code": "AGUSAN DEL NORTE", "name": "NASIPIT", "geographic_level": "Mun" },
+  { "code": "SURIGAO DEL NORTE", "name": "PILAR", "geographic_level": "Mun" },
+  { "code": "SURIGAO DEL NORTE", "name": "PLACER", "geographic_level": "Mun" },
+  {
+    "code": "AGUSAN DEL SUR",
+    "name": "PROSPERIDAD (Capital)",
+    "geographic_level": "Mun"
+  },
+  {
+    "code": "160000000",
+    "name": "Region XIII (Caraga)",
+    "geographic_level": "Reg"
+  },
+  {
+    "code": "AGUSAN DEL NORTE",
+    "name": "REMEDIOS T. ROMUALDEZ",
+    "geographic_level": "Mun"
+  },
+  { "code": "AGUSAN DEL SUR", "name": "ROSARIO", "geographic_level": "Mun" },
+  {
+    "code": "SURIGAO DEL SUR",
+    "name": "SAN AGUSTIN",
+    "geographic_level": "Mun"
+  },
+  {
+    "code": "SURIGAO DEL NORTE",
+    "name": "SAN BENITO",
+    "geographic_level": "Mun"
+  },
+  {
+    "code": "AGUSAN DEL SUR",
+    "name": "SAN FRANCISCO",
+    "geographic_level": "Mun"
+  },
+  {
+    "code": "SURIGAO DEL NORTE",
+    "name": "SAN FRANCISCO (ANAO-AON)",
+    "geographic_level": "Mun"
+  },
+  {
+    "code": "SURIGAO DEL NORTE",
+    "name": "SAN ISIDRO",
+    "geographic_level": "Mun"
+  },
+  {
+    "code": "DINAGAT ISLANDS",
+    "name": "SAN JOSE (Capital)",
+    "geographic_level": "Mun"
+  },
+  { "code": "AGUSAN DEL SUR", "name": "SAN LUIS", "geographic_level": "Mun" },
+  {
+    "code": "SURIGAO DEL SUR",
+    "name": "SAN MIGUEL",
+    "geographic_level": "Mun"
+  },
+  {
+    "code": "AGUSAN DEL SUR",
+    "name": "SANTA JOSEFA",
+    "geographic_level": "Mun"
+  },
+  {
+    "code": "SURIGAO DEL NORTE",
+    "name": "SANTA MONICA (SAPAO)",
+    "geographic_level": "Mun"
+  },
+  { "code": "AGUSAN DEL NORTE", "name": "SANTIAGO", "geographic_level": "Mun" },
+  { "code": "AGUSAN DEL SUR", "name": "SIBAGAT", "geographic_level": "Mun" },
+  { "code": "SURIGAO DEL NORTE", "name": "SISON", "geographic_level": "Mun" },
+  { "code": "SURIGAO DEL NORTE", "name": "SOCORRO", "geographic_level": "Mun" },
+  {
+    "code": "SURIGAO DEL NORTE",
+    "name": "SURIGAO DEL NORTE",
+    "geographic_level": "Prov"
+  },
+  {
+    "code": "SURIGAO DEL SUR",
+    "name": "SURIGAO DEL SUR",
+    "geographic_level": "Prov"
+  },
+  {
+    "code": "SURIGAO DEL NORTE",
+    "name": "TAGANA-AN",
+    "geographic_level": "Mun"
+  },
+  { "code": "SURIGAO DEL SUR", "name": "TAGBINA", "geographic_level": "Mun" },
+  { "code": "SURIGAO DEL SUR", "name": "TAGO", "geographic_level": "Mun" },
+  { "code": "AGUSAN DEL SUR", "name": "TALACOGON", "geographic_level": "Mun" },
+  { "code": "AGUSAN DEL SUR", "name": "TRENTO", "geographic_level": "Mun" },
+  { "code": "DINAGAT ISLANDS", "name": "TUBAJON", "geographic_level": "Mun" },
+  { "code": "AGUSAN DEL NORTE", "name": "TUBAY", "geographic_level": "Mun" },
+  { "code": "SURIGAO DEL NORTE", "name": "TUBOD", "geographic_level": "Mun" },
+  { "code": "AGUSAN DEL SUR", "name": "VERUELA", "geographic_level": "Mun" }
+]

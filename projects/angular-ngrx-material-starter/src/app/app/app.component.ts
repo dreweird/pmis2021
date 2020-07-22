@@ -1,7 +1,7 @@
 import browser from 'browser-detect';
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { environment as env } from '../../environments/environment';
 
@@ -34,21 +34,13 @@ export class AppComponent implements OnInit {
   year = new Date().getFullYear();
   logo = require('../../assets/logo.png');
   languages = ['en', 'de', 'sk', 'fr', 'es', 'pt-br', 'zh-cn', 'he'];
-  navigation = [
-    { link: 'about', label: 'anms.menu.about' },
-    // { link: 'dashboard', label: 'Dashboard' },
-    { link: 'doc', label: 'Dashboard' }
-  ];
-  navigationSideMenu = [
-    ...this.navigation,
-    { link: 'settings', label: 'anms.menu.settings' }
-  ];
 
   isAuthenticated$: Observable<boolean>;
   loggedUser$: Observable<any>;
   stickyHeader$: Observable<boolean>;
   language$: Observable<string>;
   theme$: Observable<string>;
+  navigation: { link: string; label: string; disable: Observable<boolean> }[];
 
   constructor(
     private store: Store,
@@ -74,7 +66,12 @@ export class AppComponent implements OnInit {
     this.language$ = this.store.pipe(select(selectSettingsLanguage));
     this.theme$ = this.store.pipe(select(selectEffectiveTheme));
     this.loggedUser$ = this.store.pipe(select(selectUserName));
-    console.log(this.loggedUser$);
+
+    this.navigation = [
+      { link: 'about', label: 'About', disable: of(true) },
+      { link: 'search', label: 'Search', disable: of(true) },
+      { link: 'admin', label: 'Admin Page', disable: this.isAuthenticated$ }
+    ];
   }
 
   onLoginClick() {

@@ -24,14 +24,15 @@ export class TitleService {
       lastChild = lastChild.children[0];
     }
     const { title } = lastChild.data;
-    const translate = lazyTranslateService || this.translateService;
+    // const translate = lazyTranslateService || this.translateService;
     if (title) {
-      translate
-        .get(title)
-        .pipe(filter(translatedTitle => translatedTitle !== title))
-        .subscribe(translatedTitle =>
-          this.title.setTitle(`${translatedTitle} - ${env.appName}`)
-        );
+      this.title.setTitle(`${title} - ${env.appName}`);
+      // translate
+      //   .get(title)
+      //   .pipe(filter(translatedTitle => translatedTitle !== title))
+      //   .subscribe(translatedTitle =>
+      //     this.title.setTitle(`${translatedTitle} - ${env.appName}`)
+      //   );
     } else {
       this.title.setTitle(env.appName);
     }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-import { LoginComponent } from './features/login/login.component';
 
 const routes: Routes = [
   {
@@ -19,14 +18,19 @@ const routes: Routes = [
       import('./features/settings/settings.module').then(m => m.SettingsModule)
   },
   {
-    path: 'doc',
-    loadChildren: () =>
-      import('./features/examples/examples.module').then(m => m.ExamplesModule)
-  },
-  {
     path: 'login',
     loadChildren: () =>
       import('./features/login/login.module').then(m => m.LoginModule)
+  },
+  {
+    path: 'search',
+    loadChildren: () =>
+      import('./features/search/search.module').then(m => m.SearchModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./features/admin/admin.module').then(m => m.AdminModule)
   },
   {
     path: '**',

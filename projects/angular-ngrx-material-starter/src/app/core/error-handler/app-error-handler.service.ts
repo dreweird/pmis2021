@@ -24,12 +24,13 @@ export class AppErrorHandler extends ErrorHandler {
         this.notificationsService.error(
           'Your Access is denied!! Please login again!'
         );
-      }
-      if (error.status === 400) {
+      } else if (error.status === 404) {
+        this.notificationsService.error(error.error.message);
+      } else if (error.status === 400) {
         this.notificationsService.error(error.error);
+      } else {
+        this.notificationsService.error(displayMessage);
       }
-    } else {
-      this.notificationsService.error(displayMessage);
     }
     if (!environment.production) {
       displayMessage += ' See console for details.';

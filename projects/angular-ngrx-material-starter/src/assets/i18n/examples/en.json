@@ -119,7 +119,7 @@
   "anms.examples.theming.parent.text8": "specific",
   "anms.examples.theming.parent.text9": "selectors to prevent styles from leaking into child components. This can be achieved by using",
   "anms.examples.theming.parent.title": "Theme scoping with nested components",
-  "anms.examples.title": "Examples",
+  "anms.examples.title": "Menu",
   "anms.examples.todos.added.notification": "{{name}} added",
   "anms.examples.todos.example": "Todo example",
   "anms.examples.todos.filter.active": "Active",

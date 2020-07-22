@@ -1,11 +1,5 @@
-// $anms-primary: mat-palette($mat-blue, 800);
-// $anms-accent: mat-palette($mat-teal, 600);
-// $anms-warn: mat-palette($mat-pink, 600);
-
-// $anms-theme: mat-light-theme($anms-primary, $anms-accent, $anms-warn);
-
-$anms-primary: mat-palette($mat-grey, 300, 500, 300);
-$anms-accent: mat-palette($mat-teal, 300);
-$anms-warn: mat-palette($mat-red, 300);
+$anms-primary: mat-palette($mat-green, 700, 300, 900);
+$anms-accent: mat-palette($mat-amber, A200, A100, A400);
+$anms-warn: mat-palette($mat-deep-orange);
 
 $anms-theme: mat-light-theme($anms-primary, $anms-accent, $anms-warn);

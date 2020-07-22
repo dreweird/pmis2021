@@ -1,0 +1,32 @@
+
+<mat-card>  
+<mat-card-content>  
+    <h2>Attached Photo</h2>
+    <ul>  
+        <li *ngFor="let file of files">  
+            <section class="example-section">
+            <mat-progress-bar
+                color="accent"
+                mode="mode"
+                [value]="file.progress">
+            </mat-progress-bar>
+                    <div style="position: absolute; padding: 10px; color: white;"> {{file.progress}}% </div>
+            </section>
+            <span>  
+                    {{file.data.name}}
+                    {{file.progress}}
+            </span>  
+        </li>  
+    </ul>  
+</mat-card-content>  
+<mat-card-actions>  
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button color="accent" (click)="onUpload()">  
+        <fa-icon icon="upload"></fa-icon> 
+    </button>  
+</mat-card-actions>  
+</mat-card>
+
+<input type="file" #fileUpload id="fileUpload" name="fileUpload" 
+ accept="image/*" style="display:none;" />
+  
