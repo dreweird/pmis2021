@@ -5,7 +5,8 @@ import { createReducer, on, Action } from '@ngrx/store';
 export const initialState: AuthState = {
   isAuthenticated: false,
   isAdmin: 0,
-  username: null
+  username: null,
+  token: ''
 };
 
 const reducer = createReducer(
@@ -14,19 +15,22 @@ const reducer = createReducer(
     ...state,
     isAuthenticated: true,
     isAdmin: user.isAdmin,
-    username: user.username
+    username: user.username,
+    token: user.token
   })),
   on(authLogout, state => ({
     ...state,
     isAuthenticated: false,
     username: null,
-    isAdmin: 0
+    isAdmin: 0,
+    token: ''
   })),
   on(authLoginFailure, state => ({
     ...state,
     isAuthenticated: false,
     username: null,
-    isAdmin: 0
+    isAdmin: 0,
+    token: ''
   }))
 );
 

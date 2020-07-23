@@ -41,11 +41,21 @@ export class AppComponent implements OnInit {
   language$: Observable<string>;
   theme$: Observable<string>;
   navigation: { link: string; label: string; disable: Observable<boolean> }[];
+  user: any;
 
   constructor(
     private store: Store,
     private storageService: LocalStorageService
-  ) {}
+  ) {
+    // forced log-out if token is expired
+    this.user = JSON.parse(localStorage.getItem('ANMS-AUTH')) || 0;
+    if (this.user != 0) {
+      if (!this.user.isAuthenticated) {
+        this.store.dispatch(authLogout());
+        this.isAuthenticated$ = this.store.pipe(select(selectIsAuthenticated));
+      }
+    }
+  }
 
   private static isIEorEdgeOrSafari() {
     return ['ie', 'edge', 'safari'].includes(browser().name);
@@ -72,6 +82,7 @@ export class AppComponent implements OnInit {
       { link: 'search', label: 'Search', disable: of(true) },
       { link: 'admin', label: 'Admin Page', disable: this.isAuthenticated$ }
     ];
+
   }
 
   onLoginClick() {

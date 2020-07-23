@@ -22,7 +22,7 @@ export class AppErrorHandler extends ErrorHandler {
     if (error instanceof HttpErrorResponse) {
       if (error.status === 401) {
         this.notificationsService.error(
-          'Your Access is denied!! Please login again!'
+          'Your Token was expired!! Please login again!'
         );
       } else if (error.status === 404) {
         this.notificationsService.error(error.error.message);
