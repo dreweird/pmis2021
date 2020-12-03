@@ -43,7 +43,7 @@
           <!-- <a mat-button [routerLink]="['/doc/document', res.id]" routerLinkActive="active">
             <fa-icon icon="book"></fa-icon>View
           </a> -->
-          <a mat-button  routerLinkActive="active">
+          <a mat-button target="_blank" routerLinkActive="active" [routerLink]="['/view', res.id, 'details']">
             <fa-icon icon="book"></fa-icon>View
           </a>
         </mat-card-actions>

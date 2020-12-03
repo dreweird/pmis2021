@@ -5,11 +5,21 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PmisService {
-  apiRoot: string = 'http://172.16.130.20:4000';
-  //apiRoot: string = 'http://210.5.100.46:3116';
-  //   apiRoot: string = 'http://localhost:4000';
+  // apiRoot: string = 'http://172.16.128.163:3900';
+  // apiRoot: string = 'http://210.5.100.45:4000';
+  apiRoot: string = 'http://localhost:3900';
 
   constructor(private http: HttpClient) {}
+
+  find_commodity(id) {
+    const url = `${this.apiRoot}/commodity/` + id;
+    return this.http.get(url);
+  }
+
+  find_price(id) {
+    const url = `${this.apiRoot}/find_price/` + id;
+    return this.http.get(url);
+  }
 
   getRowCommodity() {
     const url = `${this.apiRoot}/commodity`;

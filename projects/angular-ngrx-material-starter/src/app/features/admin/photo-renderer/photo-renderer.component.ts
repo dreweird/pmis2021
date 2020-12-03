@@ -14,7 +14,9 @@ export class PhotoRendererComponent implements ICellRendererAngularComp {
 
   agInit(params: any): void {
     // this.url = 'http://localhost:4200/assets/' + params.data.imageSrc;
-    this.url = 'http://172.16.130.20/files/apmis/' + params.data.imageSrc;
+    // this.url = 'http://172.16.130.20/files/apmis/' + params.data.imageSrc;
+    //this.url = 'http://210.5.100.45/files/apmis/' + params.data.imageSrc;
+    this.url = 'http://172.16.128.163:3900/images/' + params.data.imageSrc;
   }
 
   refresh(): boolean {

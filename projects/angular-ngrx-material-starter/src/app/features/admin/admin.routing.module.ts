@@ -4,6 +4,7 @@ import { AdminComponent } from './admin.component';
 import { CommodityComponent } from './commodity/commodity.component';
 import { AuthGuardService } from '../../core/core.module';
 import { Year2020Component } from './year2020/year2020.component';
+import { UsersComponent } from './users/users.component';
 const routes: Routes = [
   {
     path: '',
@@ -24,6 +25,12 @@ const routes: Routes = [
         path: 'year2020',
         component: Year2020Component,
         data: { title: '2020' },
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'users',
+        component: UsersComponent,
+        data: { title: 'Users' },
         canActivate: [AuthGuardService]
       }
     ]

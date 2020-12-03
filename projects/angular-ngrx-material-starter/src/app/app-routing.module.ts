@@ -33,6 +33,11 @@ const routes: Routes = [
       import('./features/admin/admin.module').then(m => m.AdminModule)
   },
   {
+    path: 'view/:id/details',
+    loadChildren: () =>
+      import('./features/view/view.module').then(m => m.ViewModule)
+  },
+  {
     path: '**',
     redirectTo: 'about'
   }

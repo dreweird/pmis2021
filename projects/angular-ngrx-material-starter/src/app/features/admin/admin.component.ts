@@ -19,7 +19,8 @@ export class AdminComponent implements OnInit {
   constructor(private store: Store) {
     this.examples = [
       { link: 'commodity', label: 'Commodity' },
-      { link: 'year2020', label: 'Year2020' }
+      { link: 'year2020', label: 'Year2020' },
+      { link: 'users', label: 'Users' }
     ];
   }
 

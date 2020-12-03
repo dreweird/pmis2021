@@ -36,6 +36,7 @@ export class Year2020Component implements OnInit {
   context;
   components;
   autoGroupColumnDef;
+  aggFuncs;
 
   constructor(
     public apmisService: PmisService,
@@ -49,7 +50,20 @@ export class Year2020Component implements OnInit {
         field: 'price_id',
         hide: true
       },
-
+      {
+        headerName: 'Category',
+        field: 'category',
+        pinned: 'left',
+        cellStyle: {
+          color: 'green',
+          'font-weight': 'bold',
+          'font-size': '16px'
+        },
+        valueGetter: function(params) {
+          if (params.node.group && params.node.level == 0)
+            return params.node.allLeafChildren[0].data.category;
+        }
+      },
       {
         headerName: 'Name',
         field: 'name',
@@ -73,11 +87,11 @@ export class Year2020Component implements OnInit {
         headerName: 'Retail Price',
         children: [
           {
-            headerName: 'Price',
+            headerName: 'Prevailing Price',
             field: 'price1',
             editable: true,
             cellEditor: 'numericCellEditor',
-            aggFunc: 'avg',
+            aggFunc: 'mode',
             valueFormatter: averageFormatter
           },
           {
@@ -85,7 +99,7 @@ export class Year2020Component implements OnInit {
             field: 'low1',
             editable: true,
             cellEditor: 'numericCellEditor',
-            aggFunc: 'avg',
+            aggFunc: 'mode',
             valueFormatter: averageFormatter
           },
           {
@@ -93,16 +107,16 @@ export class Year2020Component implements OnInit {
             field: 'high1',
             editable: true,
             cellEditor: 'numericCellEditor',
-            aggFunc: 'avg',
+            aggFunc: 'mode',
             valueFormatter: averageFormatter
           }
         ]
       },
       {
-        headerName: 'Farm Gate Price',
+        headerName: 'WholeSale Price',
         children: [
           {
-            headerName: 'Price',
+            headerName: 'Prevailing Price',
             field: 'price2',
             editable: true,
             cellEditor: 'numericCellEditor',
@@ -128,6 +142,35 @@ export class Year2020Component implements OnInit {
         ]
       },
       {
+        headerName: 'Farm Gate Price',
+        children: [
+          {
+            headerName: 'Prevailing Price',
+            field: 'price3',
+            editable: true,
+            cellEditor: 'numericCellEditor',
+            aggFunc: 'avg',
+            valueFormatter: averageFormatter
+          },
+          {
+            headerName: 'Low',
+            field: 'low3',
+            editable: true,
+            cellEditor: 'numericCellEditor',
+            aggFunc: 'avg',
+            valueFormatter: averageFormatter
+          },
+          {
+            headerName: 'High',
+            field: 'high3',
+            editable: true,
+            cellEditor: 'numericCellEditor',
+            aggFunc: 'avg',
+            valueFormatter: averageFormatter
+          }
+        ]
+      },
+      {
         headerName: 'Actions',
         width: 150,
         cellRendererFramework: ActionDeleteComponent
@@ -139,6 +182,9 @@ export class Year2020Component implements OnInit {
       flex: 1,
       minWidth: 100,
       filter: true
+    };
+    this.aggFuncs = {
+      mode: mode2
     };
     this.frameworkComponents = {
       actionComponent: ActionDeleteComponent
@@ -153,6 +199,7 @@ export class Year2020Component implements OnInit {
       minWidth: 350,
       pinned: 'left',
       field: 'date',
+      colId: 'date',
       editable: true,
       cellRendererParams: {
         suppressCount: true,
@@ -184,10 +231,8 @@ export class Year2020Component implements OnInit {
   }
 
   onCellValueChanged(params) {
-    if (params.column.colId === 'ag-Grid-AutoColumn')
-      params.column.colId = 'date';
     this.apmisService
-      .updatePrice(params.data.id, params.column.colId, params.value)
+      .updatePrice(params.data.price_id, params.column.colId, params.value)
       .subscribe(data => {
         console.log(data);
       });
@@ -244,7 +289,7 @@ function getSimpleCellRenderer() {
     const tempDiv = document.createElement('div');
     if (params.node.group && params.node.level == 0) {
       tempDiv.innerHTML =
-        '<img width="30px" height="30px" style=" border-radius: 50%;" src= http://172.16.130.20/files/apmis/' +
+        '<img width="30px" height="30px" style=" border-radius: 50%;" src= http://172.16.128.163:3900/images/' +
         params.node.allLeafChildren[0].data.imageSrc +
         '><span style="font-size: 16px;font-weight: bold; padding-left: 5px">' +
         params.value +
@@ -278,10 +323,14 @@ function isCharNumeric(charStr) {
   return !!/\d/.test(charStr);
 }
 
+function isCharDecimal(charStr) {
+  return '.'.indexOf(charStr) === 0;
+}
+
 function isKeyPressedNumeric(event) {
   var charCode = getCharCodeFromEvent(event);
   var charStr = String.fromCharCode(charCode);
-  return isCharNumeric(charStr);
+  return isCharNumeric(charStr) || isCharDecimal(charStr);
 }
 
 // function to act as a class
@@ -360,4 +409,36 @@ NumericCellEditor.prototype.isPopup = function() {
 
 function averageFormatter(params) {
   return Math.round(params.value * 100) / 100;
+}
+
+function modeFunction(params) {
+  return params.reduce(
+    function(current, num) {
+      const freq =
+        num in current.numMap
+          ? ++current.numMap[num]
+          : (current.numMap[num] = 1);
+      if (freq > current.modeFreq && freq > 1) {
+        current.modeFreq = freq;
+        current.mode = num;
+      }
+      return current;
+    },
+    { mode: null, modeFreq: 0, numMap: {} }
+  ).mode;
+}
+
+const median = arr => {
+  const mid = Math.floor(arr.length / 2),
+    nums = [...arr].sort((a, b) => a - b);
+  return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
+};
+
+function mode2(arr) {
+  if (modeFunction(arr) == null) {
+    console.log(arr, median(arr));
+    return median(arr);
+  } else {
+    return modeFunction(arr);
+  }
 }

@@ -13,6 +13,7 @@ import { Year2020Component } from './year2020/year2020.component';
 import { AddYearComponent } from './add-year/add-year.component';
 import { UploadEntryComponent } from './upload-entry/upload-entry.component';
 import { ActionDeleteComponent } from './action-delete/action-delete.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ActionDeleteComponent } from './action-delete/action-delete.component';
     Year2020Component,
     AddYearComponent,
     UploadEntryComponent,
-    ActionDeleteComponent
+    ActionDeleteComponent,
+    UsersComponent
   ],
   imports: [
     CommonModule,

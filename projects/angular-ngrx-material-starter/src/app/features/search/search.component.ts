@@ -21,7 +21,9 @@ export class SearchComponent implements OnInit {
   isSearching: boolean;
   isNoResult: boolean;
   newSearch = '';
-  imagePath = 'http://localhost:4200/assets/';
+  // imagePath = 'http://localhost:4200/assets/';
+  // imagePath = 'http://172.16.130.20/files/apmis/';
+  imagePath = 'http://172.16.128.163:3900/images/';
 
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
 

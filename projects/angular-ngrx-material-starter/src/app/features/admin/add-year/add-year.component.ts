@@ -39,7 +39,6 @@ export class AddYearComponent implements OnInit {
     { value: 'November' },
     { value: 'December' }
   ];
-
   entryForm: any;
   commodity: [{ id: number; name: string; imageSrc: string }];
 
@@ -69,7 +68,10 @@ export class AddYearComponent implements OnInit {
       price2: new FormControl(0),
       low2: new FormControl(0),
       high2: new FormControl(0),
-      date: new FormControl(0),
+      price3: new FormControl(0),
+      low3: new FormControl(0),
+      high3: new FormControl(0),
+      date: new FormControl(''),
       name: new FormControl('')
     });
   }
@@ -78,6 +80,7 @@ export class AddYearComponent implements OnInit {
     this.entryForm.value.name = this.commodity.find(
       (x: any) => x.id === this.entryForm.value.commodity_id
     ).name;
+    console.log(this.entryForm.value);
     this.apmisService
       .insertPriceRow(this.entryForm.value)
       .subscribe((result: any) => {
@@ -85,10 +88,11 @@ export class AddYearComponent implements OnInit {
           result = { ...this.entryForm.value, price_id: result.price_id };
           console.log(result);
           this.dialogRef.close();
-          this._snackBar.open('New Commodity inserted', 'Ok', {
+          this._snackBar.open('New Row inserted', 'Ok', {
             duration: 2000
           });
           this.data.gridApi.applyTransaction({ add: [result] });
+          this.data.gridApi.redrawRows(); // create the row again from scratch
         }
       });
   }
