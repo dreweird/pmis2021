@@ -1,0 +1,95 @@
+<div class="container">
+    <div class="row" [ngClass]="routeAnimationsElements">
+        <div class="col-12">
+            <h2>Locked Physical Accomplishment</h2>
+    </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Month </th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Last Updated</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let l of locked; index as i">
+                    <td>{{ l.month }} </td>
+                    <td> 
+                        <span *ngIf="l.checked == 0" class="closed"> Closed </span>
+                        <span *ngIf="l.checked == 1" class="opened"> Opened </span>
+                    </td>
+                    <td> {{l.last_updated}} </td>
+                    <td><mat-slide-toggle  [(ngModel)]="l.checked" (click)="toggle($event, l)">
+                        Slide Toggle Checked: {{l.checked}}
+                    </mat-slide-toggle></td>
+                </tr>
+            
+              
+                </tbody>
+              </table> 
+    </div>
+      </div>
+    
+      <div class="row">
+        <div class="col-12">
+            <h2>Announcement</h2>
+    </div>
+      </div>
+      <div class="row" [ngClass]="routeAnimationsElements">
+        <div class="col-12">
+          <form [formGroup]="inputForm" #formDirective="ngForm">
+            <table class="table example-full-width">
+              <tr>
+                <td>
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Announcement</mat-label>
+                    <textarea matInput formControlName="text"></textarea>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <button [disabled]="!inputForm.valid" mat-raised-button color="primary"
+                  (click)="onPost(formDirective)">Update Announcement</button>
+                </td>
+              </tr>
+            </table> 
+        </form>
+        </div>
+ 
+    </div>
+
+      <div class="row" [ngClass]="routeAnimationsElements">     
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Announcement </th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Last Updated</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let l of announced; index as i">
+                    <td>{{ l.text }} </td>
+                    <td> 
+                        <span *ngIf="l.checked == 0" class="closed"> Closed </span>
+                        <span *ngIf="l.checked == 1" class="opened"> Opened </span>
+                    </td>
+                    <td> {{l.last_updated}} </td>
+                    <td><mat-slide-toggle  [(ngModel)]="l.checked" (click)="toggle2($event, l)">
+                        Slide Toggle Checked: {{l.checked}}
+                    </mat-slide-toggle></td>
+                </tr>
+            
+              
+                </tbody>
+              </table> 
+        </div>
+ 
+      </div>
+</div>
+

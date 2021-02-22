@@ -1,5 +1,5 @@
 import browser from 'browser-detect';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 
@@ -20,6 +20,7 @@ import {
   actionSettingsChangeAnimationsPageDisabled,
   actionSettingsChangeLanguage
 } from '../core/settings/settings.actions';
+import { PmisService } from '../core/services/pmis.service';
 
 @Component({
   selector: 'anms-root',
@@ -42,10 +43,22 @@ export class AppComponent implements OnInit {
   theme$: Observable<string>;
   navigation: { link: string; label: string; disable: Observable<boolean> }[];
   user: any;
+  announced: any;
+  checked: boolean = false;
+
+  getAnnouncement() {
+    this.pmisService.getAnnouncement().subscribe(data => {
+      this.announced = data[0].text;
+      this.checked = data[0].checked;
+      this.cd.markForCheck();
+    });
+  }
 
   constructor(
     private store: Store,
-    private storageService: LocalStorageService
+    private storageService: LocalStorageService,
+    private pmisService: PmisService,
+    private cd: ChangeDetectorRef
   ) {
     // forced log-out if token is expired
     this.user = JSON.parse(localStorage.getItem('ANMS-AUTH')) || 0;
@@ -79,10 +92,11 @@ export class AppComponent implements OnInit {
 
     this.navigation = [
       { link: 'about', label: 'About', disable: of(true) },
-      { link: 'search', label: 'Search', disable: of(true) },
+      { link: 'dashboard', label: 'Dashboard', disable: of(true) },
       { link: 'admin', label: 'Admin Page', disable: this.isAuthenticated$ }
     ];
 
+    this.getAnnouncement();
   }
 
   onLoginClick() {

@@ -1,9 +1,19 @@
 @import '../../../../styles-variables';
 
+fa-icon {
+  font-size: 40px;
+  color: rgb(102, 102, 7);
+}
+
+.center {
+  text-align: center;
+  width: 100%;
+}
+
 h1 {
   text-align: center;
   font-size: 3em;
-  text-transform: uppercase;
+  //@debug: uppercase;
 }
 
 h2 {

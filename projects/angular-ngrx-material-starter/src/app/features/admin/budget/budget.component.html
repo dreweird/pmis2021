@@ -1,0 +1,39 @@
+<div class="container" rtl>
+
+    <div class="row">
+        <div class="col-md border">
+            <h4 [ngClass]="routeAnimationsElements">REGULAR</h4>
+            <span *ngFor="let m of menu">
+                <button class="button" mat-raised-button *ngIf="m.cat == 'Regular' " (click)="setPID(m.pid, m.prog)"> {{m.prog }}</button>     
+            </span>
+        </div>
+        <div class="col-md border">
+            <h4 [ngClass]="routeAnimationsElements">FPMA</h4>
+            <span *ngFor="let m of menu">
+                <button class="button" mat-raised-button *ngIf="m.cat == 'FPMA' " (click)="setPID(m.pid, m.prog)"> {{m.prog }}</button>     
+            </span>
+        </div>
+        <div class="col-md border">
+            <h4 [ngClass]="routeAnimationsElements">Special Program</h4>
+            <span *ngFor="let m of menu">
+                <button class="button" mat-raised-button *ngIf="m.cat == 'Special' " (click)="setPID(m.pid, m.prog)"> {{m.prog }}</button>     
+            </span>
+        </div>
+    </div>
+    <br>
+    <div class="row" [ngClass]="routeAnimationsElements">
+        <div class="col-12" *ngIf = 'user.b == 1'>
+          <anms-obligation [pid]="pid" [name]="name"></anms-obligation> 
+        </div>
+        <div class="col-12" *ngIf = 'user.b == 2'>
+            <anms-disbursement [pid]="pid" [name]="name"></anms-disbursement> 
+        </div>
+        <div class="col-12" *ngIf = 'user.b == 3 || user.b == 4 '>
+            <anms-physical [pid]="pid" [name]="name"></anms-physical> 
+            <anms-obligation [pid]="pid" [name]="name"></anms-obligation> 
+            <anms-disbursement [pid]="pid" [name]="name"></anms-disbursement> 
+        </div>
+      </div>
+
+  </div>
+  

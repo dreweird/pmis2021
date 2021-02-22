@@ -1,0 +1,31 @@
+<div class="container" rtl>
+  <div class="row" [ngClass]="routeAnimationsElements">
+    <div class="col"><h3 [ngClass]="routeAnimationsElements" *ngIf="rowData">{{rowData[0].header_subindicator}} - {{ rowData[0].mfo_name }}</h3></div>
+    <div class="col-12 col-sm-auto"><input type="button" (click)="syncPhysical()" value="Sync to Physical" ></div>
+</div>
+    <div class="row">
+      <div class="col-md-12" [ngClass]="routeAnimationsElements">
+        <ag-grid-angular
+        #agGrid
+        style="width: 100%; height: 600px; margin-bottom: 20px;"
+        id="myGrid"
+        class="ag-theme-alpine"
+        [columnDefs]="columnDefs"
+        [columnTypes]="columnTypes"
+        [defaultColDef]="defaultColDef"
+        [autoGroupColumnDef]="autoGroupColumnDef"
+        [modules]="modules"
+        [rowData]="rowData"
+        [suppressAggFuncInHeader]= "true"
+        [groupIncludeFooter]="true"
+        [groupIncludeTotalFooter]="true"
+        [aggFuncs]="aggFuncs"
+        (cellValueChanged)="onCellValueChanged($event)"
+        (gridReady)="onGridReady($event)">
+    </ag-grid-angular>
+
+        </div>   
+      </div>
+
+  </div>
+  

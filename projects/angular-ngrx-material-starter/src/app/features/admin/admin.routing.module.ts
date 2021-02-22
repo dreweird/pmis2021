@@ -1,30 +1,75 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
-import { CommodityComponent } from './commodity/commodity.component';
 import { AuthGuardService } from '../../core/core.module';
-import { Year2020Component } from './year2020/year2020.component';
 import { UsersComponent } from './users/users.component';
+import { ObligationComponent } from './obligation/obligation.component';
+import { PhysicalComponent } from './physical/physical.component';
+import { DisbursementComponent } from './disbursement/disbursement.component';
+import { BudgetComponent } from './budget/budget.component';
+import { LockedComponent } from './locked/locked.component';
+import { LogsComponent } from './logs/logs.component';
+import { AreaComponent } from './area/area.component';
+import { BydistrictComponent } from './bydistrict/bydistrict.component';
+import { BymunComponent } from './bymun/bymun.component';
+
 const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
     children: [
       {
-        path: '',
-        redirectTo: 'commodity',
-        pathMatch: 'full'
-      },
-      {
-        path: 'commodity',
-        component: CommodityComponent,
-        data: { title: 'Commodity' },
+        path: 'bydistrict',
+        component: BydistrictComponent,
+        data: { title: 'By District' },
         canActivate: [AuthGuardService]
       },
       {
-        path: 'year2020',
-        component: Year2020Component,
-        data: { title: '2020' },
+        path: 'bymun',
+        component: BymunComponent,
+        data: { title: 'By Municipal' },
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'area/:mfo_id',
+        component: AreaComponent,
+        data: { title: 'Area' },
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'logs/:uid',
+        component: LogsComponent,
+        data: { title: 'Logs' },
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'locked',
+        component: LockedComponent,
+        data: { title: 'Locked' },
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'budget',
+        component: BudgetComponent,
+        data: { title: 'Budget' },
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'obligation',
+        component: ObligationComponent,
+        data: { title: 'Obligation' },
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'physical',
+        component: PhysicalComponent,
+        data: { title: 'Physical' },
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'disburesment',
+        component: DisbursementComponent,
+        data: { title: 'Disbursement' },
         canActivate: [AuthGuardService]
       },
       {

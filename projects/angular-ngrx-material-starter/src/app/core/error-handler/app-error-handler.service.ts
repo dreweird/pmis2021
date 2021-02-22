@@ -21,11 +21,16 @@ export class AppErrorHandler extends ErrorHandler {
 
     if (error instanceof HttpErrorResponse) {
       if (error.status === 401) {
-        this.notificationsService.error(
-          'Your Token was expired!! Please login again!'
-        );
-      } else if (error.status === 404) {
-        this.notificationsService.error(error.error.message);
+        this.notificationsService.error(error.error);
+      }
+      // if (error.status === 401) {
+      //   this.notificationsService.error(
+      //     'Your Token was expired!! Please login again!'
+      //   );
+
+      // }
+      else if (error.status === 404) {
+        this.notificationsService.error('API Not found / Network Failure');
       } else if (error.status === 400) {
         this.notificationsService.error(error.error);
       } else {

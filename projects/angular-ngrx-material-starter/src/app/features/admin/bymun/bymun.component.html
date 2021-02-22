@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>By Municipality Table</h2>
+        </div>
+      </div>
+      <div class="row" >
+        <div class="col">
+          <form [formGroup]="inputForm" #formDirective="ngForm">
+              <table class="example-full-width" cellspacing="0">
+                <tr>
+                  <td>
+                    <mat-form-field>
+                      <mat-label>Select Program</mat-label>
+                      <mat-select formControlName="prog">
+                        <mat-option *ngFor="let p of prog" [value]="p.pid">{{p.value}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field>
+                      <mat-label>Select Province</mat-label>
+                      <mat-select formControlName="prov" (selectionChange)="provSelected($event)">
+                        <mat-option *ngFor="let p of prov" [value]="p.province">{{p.province}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                  <td>
+      
+                    <mat-form-field>
+                      <mat-label>Select Municipal</mat-label>
+                      <mat-select formControlName="mun">
+                        <mat-option *ngFor="let m of munfilter" [value]="m.municipal">{{m.municipal}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button [disabled]="!inputForm.valid" mat-raised-button color="primary"
+                      (click)="onGenerate(formDirective)">Generate Report</button>
+                  </td>
+                </tr>
+              </table>
+            </form>
+          </div>
+          <div  class="col-12 col-sm-auto">
+            <input type="button" (click)="export()" value="Export to Excel" >
+          </div>
+  
+      </div>
+      <div class="row" *ngIf="provselect">
+        <div class="col-12">
+        <h3>{{munselect}}, {{provselect}}</h3>
+        </div>
+    </div>
+    <br>
+    <div>
+        <ag-grid-angular 
+        style="width: 100%; height: 600px; margin-bottom: 20px;"
+        class="ag-theme-alpine"
+          [rowData]="rowData" 
+          [columnDefs]="columnDefs"
+          [components]="components"
+          [excelStyles]="excelStyles"
+          [modules]="modules"
+          [groupDefaultExpanded]=-1
+          [defaultColDef]="defaultColDef"
+          [autoGroupColumnDef]="autoGroupColumnDef"
+          (gridReady)="onGridReady($event)"
+       
+
+          >
+      </ag-grid-angular>
+      </div> <br>
+</div>

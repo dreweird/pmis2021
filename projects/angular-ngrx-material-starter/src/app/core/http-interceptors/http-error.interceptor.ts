@@ -43,16 +43,16 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             const appErrorHandler = this.injector.get(ErrorHandler);
             appErrorHandler.handleError(err);
           }
+          console.log(err);
           if (err.status === 401) {
             this.localStorageService.setItem('AUTH', {
               isAuthenticated: false,
-              isAdmin: false,
               username: null,
               token: ''
             });
-            alert('Your session was expired! \n Please Login again.');
-            window.location.reload();
-           // this.router.navigate(['']);
+            //alert('Your session was expired! \n Please Login again.');
+            //window.location.reload();
+            // this.router.navigate(['']);
           }
         }
       })

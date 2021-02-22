@@ -4,7 +4,7 @@
 
     <mat-sidenav #sidenav mode="push">
       <div class="branding"><img [src]="logo" />
-        <span>APMIS</span></div>
+        <span>PMIS</span></div>
       <mat-nav-list>
       <span *ngFor="let item of navigation">
         <a mat-list-item *ngIf="(isAuthenticated$ | async)" (click)="sidenav.close()" [routerLink]="[item.link]"
@@ -29,7 +29,7 @@
           <span routerLink="" class="branding spacer center d-inline d-sm-none">
             <img [src]="logo" /></span>
           <span routerLink="" class="branding spacer center d-none d-sm-inline d-md-none"><img [src]="logo" /> APMIS</span>
-          <span routerLink="" class="branding spacer d-none d-md-inline"><img [src]="logo" /> Agri Presyo Monitoring System</span>
+          <span routerLink="" class="branding spacer d-none d-md-inline"><img [src]="logo" /> PMIS 2021</span>
 
           <span class="d-none d-md-inline">
             <span *ngFor="let item of navigation">
@@ -85,6 +85,9 @@
       </div>
 
       <div class="content" [@routeAnimations]="o.isActivated && o.activatedRoute.routeConfig.data && o.activatedRoute.routeConfig.data.title">
+        <marquee direction="left" height="30" width="100%" bgcolor="pink" *ngIf="checked">
+          <b> {{ announced }} </b> 
+         </marquee>
         <router-outlet #o="outlet"></router-outlet>
       </div>
 

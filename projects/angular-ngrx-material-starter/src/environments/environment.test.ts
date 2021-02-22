@@ -1,7 +1,7 @@
 const packageJson = require('../../../../package.json');
 
 export const environment = {
-  appName: 'AgriPresyo Monitoring System',
+  appName: 'PMIS2021',
   envName: 'TEST',
   production: false,
   test: true,

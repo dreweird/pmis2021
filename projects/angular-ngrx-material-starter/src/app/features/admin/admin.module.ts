@@ -5,39 +5,42 @@ import { AgGridModule } from '@ag-grid-community/angular';
 import { SharedModule } from '../../shared/shared.module';
 import { AdminComponent } from './admin.component';
 import { AdminRoutingModule } from './admin.routing.module';
-import { CommodityComponent } from './commodity/commodity.component';
-import { ActionComponent } from './action/action.component';
-import { PhotoRendererComponent } from './photo-renderer/photo-renderer.component';
-import { AddEntryComponent } from './add-entry/add-entry.component';
-import { Year2020Component } from './year2020/year2020.component';
-import { AddYearComponent } from './add-year/add-year.component';
-import { UploadEntryComponent } from './upload-entry/upload-entry.component';
-import { ActionDeleteComponent } from './action-delete/action-delete.component';
-import { UsersComponent } from './users/users.component';
+import { ObligationComponent } from './obligation/obligation.component';
+import { PhysicalComponent } from './physical/physical.component';
+import { DisbursementComponent } from './disbursement/disbursement.component';
+import { BydistrictComponent } from './bydistrict/bydistrict.component';
+import { BymunComponent } from './bymun/bymun.component';
+import { PdzComponent } from './pdz/pdz.component';
+import { BudgetComponent } from './budget/budget.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { AddObjectDialogComponent } from './obligation/addObject-dialog.component';
+import { LockedComponent } from './locked/locked.component';
+import { MomentModule } from 'ngx-moment';
+import { LogsComponent } from './logs/logs.component';
+import { AreaComponent } from './area/area.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
-    CommodityComponent,
-    ActionComponent,
-    PhotoRendererComponent,
-    AddEntryComponent,
-    Year2020Component,
-    AddYearComponent,
-    UploadEntryComponent,
-    ActionDeleteComponent,
-    UsersComponent
+    ObligationComponent,
+    PhysicalComponent,
+    DisbursementComponent,
+    BydistrictComponent,
+    BymunComponent,
+    PdzComponent,
+    BudgetComponent,
+    AddObjectDialogComponent,
+    LockedComponent,
+    LogsComponent,
+    AreaComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
     AdminRoutingModule,
-    AgGridModule.withComponents([
-      ActionComponent,
-      PhotoRendererComponent,
-      ActionDeleteComponent
-    ])
-  ],
-  entryComponents: [AddEntryComponent, AddYearComponent, UploadEntryComponent]
+    NgxMatSelectSearchModule,
+    MomentModule,
+    AgGridModule.withComponents([])
+  ]
 })
 export class AdminModule {}

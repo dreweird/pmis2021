@@ -1,5 +1,5 @@
 {
-  "name": "apmis2020",
+  "name": "pmis2021",
   "version": "2.0",
   "license": "MIT",
   "scripts": {
@@ -75,8 +75,8 @@
     "ng2-image-viewer": "^3.0.5",
     "ng2-pdf-viewer": "^6.3.0",
     "ngx-extended-pdf-viewer": "^3.3.2",
-    "ngx-mat-select-search": "^2.1.1",
-    "ngx-moment": "^3.5.0",
+    "ngx-mat-select-search": "^3.2.0",
+    "ngx-moment": "^5.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "uuid": "^3.4.0",

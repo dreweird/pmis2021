@@ -1,8 +1,8 @@
 const packageJson = require('../../../../package.json');
 
 export const environment = {
-  appName: 'AgriPresyo Monitoring System',
-  envName: 'APMIS',
+  appName: 'PMIS2021',
+  envName: 'PMIS2021',
   production: true,
   test: false,
   i18nPrefix: '/angular-ngrx-material-starter',

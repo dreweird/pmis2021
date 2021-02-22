@@ -5,77 +5,139 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PmisService {
-  // apiRoot: string = 'http://172.16.128.163:3900';
-  // apiRoot: string = 'http://210.5.100.45:4000';
-  apiRoot: string = 'http://localhost:3900';
+  apiRoot: string = 'http://172.16.128.37:3117';
+  // apiRoot: string = 'http://localhost:3117';
 
   constructor(private http: HttpClient) {}
 
-  find_commodity(id) {
-    const url = `${this.apiRoot}/commodity/` + id;
+  logsReport() {
+    const url = `${this.apiRoot}/logsReport/`;
     return this.http.get(url);
   }
 
-  find_price(id) {
-    const url = `${this.apiRoot}/find_price/` + id;
+  postAnnouncement(text, id) {
+    const url = `${this.apiRoot}/postAnnouncement`;
+    let entries = { text: text, id: id };
+    return this.http.put(url, { entries });
+  }
+
+  updateAnnouncement(checked, id) {
+    const url = `${this.apiRoot}/upAnnouncement`;
+    let entries = { checked: checked, id: id };
+    return this.http.put(url, { entries });
+  }
+
+  getAnnouncement() {
+    const url = `${this.apiRoot}/getAnnouncement/`;
     return this.http.get(url);
   }
 
-  getRowCommodity() {
-    const url = `${this.apiRoot}/commodity`;
+  by_mun_generation(params) {
+    const url = `${this.apiRoot}/by_mun/${params.prov}/${params.mun}/${params.prog}`;
     return this.http.get(url);
   }
 
-  getRow2020() {
-    const url = `${this.apiRoot}/price/year2020`;
+  distinctMun() {
+    const url = `${this.apiRoot}/distinctMun`;
     return this.http.get(url);
   }
 
-  insertCommodity(entries) {
-    const url = `${this.apiRoot}/commodity`;
+  by_district_generation(params) {
+    const url = `${this.apiRoot}/by_district/${params.prov}/${params.district}/${params.prog}`;
+    return this.http.get(url);
+  }
+
+  distinctProv() {
+    const url = `${this.apiRoot}/distinctProv`;
+    return this.http.get(url);
+  }
+
+  syncPhysicalDistrict(mfo_id) {
+    const url = `${this.apiRoot}/syncPhysicalDistrict/${mfo_id}`;
+    return this.http.get(url);
+  }
+
+  updateDistrict(col, value, id) {
+    const url = `${this.apiRoot}/upDistrict`;
+    let entries = { col: col, value: value, id: id };
+    return this.http.put(url, { entries });
+  }
+
+  getAreabyMfoID(mfo_id) {
+    const url = `${this.apiRoot}/getAreabyMfoID/${mfo_id}`;
+    return this.http.get(url);
+  }
+
+  getAllLogs(uid) {
+    const url = `${this.apiRoot}/getAllLogs/${uid}`;
+    return this.http.get(url);
+  }
+
+  lastUpdated(pid, beds) {
+    const url = `${this.apiRoot}/lastUpdated/${pid}/${beds}`;
+    return this.http.get(url);
+  }
+
+  addLogs(entries) {
+    const url = `${this.apiRoot}/addLogs`;
     return this.http.post(url, { entries });
   }
 
-  insertPriceRow(entries) {
-    const url = `${this.apiRoot}/price`;
-    return this.http.post(url, { entries });
+  updateLocked(checked, id) {
+    const url = `${this.apiRoot}/upLocked`;
+    let entries = { checked: checked, id: id };
+    return this.http.put(url, { entries });
   }
 
-  updateCommodity(id, col, value) {
-    const url = `${this.apiRoot}/commodity/` + id;
-    return this.http.put(url, { col, value });
-  }
-
-  updatePrice(id, col, value) {
-    const url = `${this.apiRoot}/price/` + id;
-    return this.http.put(url, { col, value });
-  }
-
-  searchCommodity(search) {
-    const url = `${this.apiRoot}/searchCommodity/` + search;
+  month_locked() {
+    const url = `${this.apiRoot}/getLocked/`;
     return this.http.get(url);
   }
 
-  add_files(newFile) {
-    const url = `${this.apiRoot}/add-files`;
-    return this.http.post(url, { newFile });
+  updatePhysical(col, value, id) {
+    const url = `${this.apiRoot}/upPhysical`;
+    let entries = { col: col, value: value, mfo_id: id };
+    return this.http.put(url, { entries });
   }
 
-  removePriceRow(id) {
-    const url = `${this.apiRoot}/price/` + id;
+  updateAllotment(col, value, id) {
+    const url = `${this.apiRoot}/upAllotment`;
+    let entries = { col: col, value: value, id: id };
+    return this.http.put(url, { entries });
+  }
+
+  removeObject(id) {
+    const url = `${this.apiRoot}/delObject/` + id;
     return this.http.delete(url);
+  }
+
+  addObject(mfo_id, object_id, pid) {
+    const url = `${this.apiRoot}/addObject`;
+    return this.http.post(url, { mfo_id, object_id, pid });
+  }
+
+  getObjectCode() {
+    const url = `${this.apiRoot}/getObjectCode/`;
+    return this.http.get(url);
+  }
+
+  getBudgetAssignmnet(uid) {
+    const url = `${this.apiRoot}/budget_assignment/` + uid;
+    return this.http.get(url);
+  }
+
+  getObligation(pid) {
+    const url = `${this.apiRoot}/getObligation/` + pid;
+    return this.http.get(url);
+  }
+
+  getPhysical(pid) {
+    const url = `${this.apiRoot}/getPhysical/` + pid;
+    return this.http.get(url);
   }
 
   login(username, password) {
     const url = `${this.apiRoot}/authenticate`;
     return this.http.post(url, { username, password });
-  }
-
-  upload(formData) {
-    const url = `${this.apiRoot}/multiple-upload`;
-    return this.http.post<any>(url, formData, {
-      reportProgress: true,
-      observe: 'events'
-    });
   }
 }

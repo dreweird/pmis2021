@@ -69,7 +69,11 @@ import {
   faRocket,
   faPowerOff,
   faUserCircle,
-  faPlayCircle
+  faPlayCircle,
+  faInbox,
+  faVoicemail,
+  faPhone,
+  faFile
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGithub,
@@ -191,7 +195,11 @@ export class CoreModule {
       faMediumM,
       faTwitter,
       faInstagram,
-      faYoutube
+      faYoutube,
+      faInbox,
+      faVoicemail,
+      faPhone,
+      faFile
     );
   }
 }

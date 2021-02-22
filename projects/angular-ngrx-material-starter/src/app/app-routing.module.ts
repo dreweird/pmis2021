@@ -23,20 +23,22 @@ const routes: Routes = [
       import('./features/login/login.module').then(m => m.LoginModule)
   },
   {
-    path: 'search',
+    path: 'dashboard',
     loadChildren: () =>
-      import('./features/search/search.module').then(m => m.SearchModule)
+      import('./features/dashboard/dashboard.module').then(
+        m => m.DashboardModule
+      )
   },
   {
     path: 'admin',
     loadChildren: () =>
       import('./features/admin/admin.module').then(m => m.AdminModule)
   },
-  {
-    path: 'view/:id/details',
-    loadChildren: () =>
-      import('./features/view/view.module').then(m => m.ViewModule)
-  },
+  // {
+  //   path: 'view/:id/details',
+  //   loadChildren: () =>
+  //     import('./features/view/view.module').then(m => m.ViewModule)
+  // },
   {
     path: '**',
     redirectTo: 'about'
