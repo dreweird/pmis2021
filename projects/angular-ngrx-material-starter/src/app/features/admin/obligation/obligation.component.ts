@@ -681,8 +681,9 @@ export class ObligationComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.getRow(this.user.pid);
-    this.lastUpdated(this.user.pid);
+    this.pid = this.user.pid;
+    this.getRow(this.pid);
+    this.lastUpdated(this.pid);
   }
 }
 

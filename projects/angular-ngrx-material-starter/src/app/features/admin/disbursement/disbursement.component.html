@@ -7,7 +7,7 @@
   </div>
 
     <div class="row" [ngClass]="routeAnimationsElements">
-      <div class="col"><h5>Last Updated: {{date_updated | amTimeAgo }} -- <a href="" [routerLink]="['/admin/logs', user.user_id]">See Audit Logs</a> </h5></div>
+      <div class="col"><h5>Last Updated: {{date_updated | amTimeAgo }} -- <a href="" [routerLink]="['/admin/logs', pid]">See Audit Logs</a> </h5></div>
       <div class="col-12 col-sm-auto"><input type="button" (click)="export()" value="Export to Excel" ></div>
   </div>
   <div class="row" [ngClass]="routeAnimationsElements">

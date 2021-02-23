@@ -18,6 +18,7 @@ import { LockedComponent } from './locked/locked.component';
 import { MomentModule } from 'ngx-moment';
 import { LogsComponent } from './logs/logs.component';
 import { AreaComponent } from './area/area.component';
+import { Bed123Component } from './bed123/bed123.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AreaComponent } from './area/area.component';
     AddObjectDialogComponent,
     LockedComponent,
     LogsComponent,
-    AreaComponent
+    AreaComponent,
+    Bed123Component
   ],
   imports: [
     CommonModule,

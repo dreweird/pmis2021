@@ -49,6 +49,7 @@ export class AdminComponent implements OnInit {
         { link: 'obligation', label: 'Obligation' },
         { link: 'physical', label: 'Physical' },
         { link: 'disburesment', label: 'Disbursement' },
+        { link: 'bed123', label: 'BED123' },
         { link: 'bydistrict', label: 'By District' },
         { link: 'bymun', label: 'By Municipality' }
       ];
@@ -56,7 +57,8 @@ export class AdminComponent implements OnInit {
       this.examples = [
         { link: 'obligation', label: 'Obligation' },
         { link: 'physical', label: 'Physical' },
-        { link: 'disburesment', label: 'Disbursement' }
+        { link: 'disburesment', label: 'Disbursement' },
+        { link: 'bed123', label: 'BED123' }
       ];
     }
   }

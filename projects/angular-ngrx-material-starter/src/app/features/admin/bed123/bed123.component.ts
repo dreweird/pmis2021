@@ -17,12 +17,13 @@ import { AllModules } from '@ag-grid-enterprise/all-modules';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'anms-physical',
-  templateUrl: './physical.component.html',
-  styleUrls: ['./physical.component.scss'],
+  selector: 'anms-bed123',
+  templateUrl: './bed123.component.html',
+  styleUrls: ['./bed123.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PhysicalComponent implements OnInit {
+export class Bed123Component implements OnInit {
+
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
 
   public modules: Module[] = AllModules;
@@ -51,7 +52,6 @@ export class PhysicalComponent implements OnInit {
   ngOnChanges(changes: any) {
     this.pid = changes.pid.currentValue;
     this.getRow(this.pid);
-    this.lastUpdated(this.pid);
   }
 
   getRow(pid) {
@@ -61,52 +61,9 @@ export class PhysicalComponent implements OnInit {
     });
   }
 
-  getLocked() {
-    this.apmisService.month_locked().subscribe(data => {
-      this.locked = data;
-      this.cd.markForCheck();
-    });
-  }
 
-  lastUpdated(pid) {
-    this.apmisService.lastUpdated(pid, 2).subscribe(data => {
-      if (data === undefined) this.date_updated = '';
-      else this.date_updated = data;
-      this.cd.markForCheck();
-    });
-  }
 
-  onCellValueChanged(event: any) {
-    if (
-      isNaN(+event.newValue) &&
-      event.colDef.cellEditor != 'agLargeTextCellEditor'
-    ) {
-      event.node.setDataValue(event.colDef.field, event.oldValue);
-      alert('Invalid entry...please input numbers only');
-    } else {
-      this.apmisService
-        .updatePhysical(event.colDef.field, event.newValue, event.data.mfo_id)
-        .subscribe(data => {
-          if (!data) {
-            alert('something wrong happen!');
-          }
-        });
-      let entries = {
-        pid: this.pid,
-        uid: this.user.user_id,
-        mfo_id: event.data.mfo_id,
-        beds: 2,
-        month: event.colDef.field,
-        old_value: event.oldValue,
-        new_value: event.newValue
-      };
-      this.apmisService.addLogs(entries).subscribe(data => {
-        if (!data) {
-          alert('something wrong happen with Logs!');
-        }
-      });
-    }
-  }
+
 
   onGridReady(params) {
     this.gridApi = params.api;
@@ -124,15 +81,7 @@ export class PhysicalComponent implements OnInit {
     });
   }
 
-  onCellClicked(event) {
-    if (
-      event.data != undefined &&
-      event.data.area == 1 &&
-      event.colDef.field == 'mfo_name'
-    ) {
-      this.router.navigate(['/admin/area', event.data.mfo_id]);
-    }
-  }
+ 
 
   prog_ou: any;
   export() {
@@ -141,58 +90,62 @@ export class PhysicalComponent implements OnInit {
     var ck = [
       'mfo_name',
       'unitmeasure',
+      'janft',
+      'febft',
+      'marft',
+      'Q1_ft',
+      'aprft',
+      'mayft',
+      'junft',
+      'Q2_ft',
+      'julft',
+      'augft',
+      'sepft',
+      'Q3_ft',
+      'octft',
+      'novft',
+      'decft',
+      'Q4_ft',
+      'FT',
       'jant',
       'febt',
       'mart',
-      'Q1',
+      'Q1_pt',
       'aprt',
       'mayt',
       'junt',
-      'Q2',
+      'Q2_pt',
       'jult',
       'augt',
       'sept',
-      'Q3',
+      'Q3_pt',
       'octt',
       'novt',
       'dect',
-      'Q4',
-      'TT',
-      'jana',
-      'feba',
-      'mara',
-      'Q1A',
-      'apra',
-      'maya',
-      'juna',
-      'Q2A',
-      'jula',
-      'auga',
-      'sepa',
-      'Q3A',
-      'octa',
-      'nova',
-      'deca',
-      'Q4A',
-      'TA',
-      'Var',
-      'Per',
-      'janr',
-      'febr',
-      'marr',
-      'aprr',
-      'mayr',
-      'junr',
-      'julr',
-      'augr',
-      'sepr',
-      'octr',
-      'novr',
-      'decr'
+      'Q4_pt',
+      'PT',
+      'jandt',
+      'febdt',
+      'mardt',
+      'Q1_dt',
+      'aprdt',
+      'maydt',
+      'jundt',
+      'Q2_dt',
+      'juldt',
+      'augdt',
+      'sepdt',
+      'Q3_dt',
+      'octdt',
+      'novdt',
+      'decdt',
+      'Q4_dt',
+      'DT',
+
     ];
     this.gridApi.exportDataAsExcel({
-      sheetName: 'BED-2 ' + this.prog_ou,
-      fileName: 'BED-2 ' + this.prog_ou,
+      sheetName: 'BED123 ' + this.prog_ou,
+      fileName: 'BED123 ' + this.prog_ou,
       customHeader: [
         [
           {
@@ -209,7 +162,7 @@ export class PhysicalComponent implements OnInit {
         [
           {
             styleId: 'headappend',
-            data: { type: 'String', value: 'BED2 Physical Report 2021' }
+            data: { type: 'String', value: 'BED123 Target Report 2021' }
           }
         ],
         [
@@ -240,20 +193,18 @@ export class PhysicalComponent implements OnInit {
           { data: { type: 'String', value: '' } },
           {
             styleId: 't',
-            data: { type: 'String', value: 'Physical Targets' },
+            data: { type: 'String', value: 'BED1 - Obligation Targets' },
             mergeAcross: 16
           },
           {
             styleId: 'a',
-            data: { type: 'String', value: 'Physical Accomplishments' },
+            data: { type: 'String', value: 'BED 2 - Physical Targets' },
             mergeAcross: 16
           },
-          { styleId: 'p1', data: { type: 'String', value: '' } },
-          { styleId: 'p1', data: { type: 'String', value: '' } },
           {
             styleId: 'r',
-            data: { type: 'String', value: 'Remarks' },
-            mergeAcross: 11
+            data: { type: 'String', value: 'BED 3 - Disbursement Targets' },
+            mergeAcross: 16
           }
         ]
       ],
@@ -295,8 +246,7 @@ export class PhysicalComponent implements OnInit {
     public apmisService: PmisService,
     private cd: ChangeDetectorRef,
     public dialog: MatDialog,
-    private localStorageService: LocalStorageService,
-    private router: Router
+    private localStorageService: LocalStorageService
   ) {
     this.user = this.localStorageService.getItem('AUTH');
     this.canEdit = this.user.b == 0;
@@ -368,7 +318,142 @@ export class PhysicalComponent implements OnInit {
         cellClass: ['data']
       },
       {
-        headerName: 'Physical Target',
+        headerName: 'BED 1 - Obligation Target',
+        children: [
+          {
+            headerName: 'Jan',
+            field: 'janft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+          {
+            headerName: 'Feb',
+            field: 'febft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+          {
+            headerName: 'Mar',
+            field: 'marft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+
+          {
+            headerName: 'Q1',
+            colId: 'Q1_ft',
+            type: 'quarterColumn',
+            valueGetter: TotalQ1ValueGetter2,
+            cellClass: ['data', 't']
+          },
+
+          {
+            headerName: 'Apr',
+            field: 'aprft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+          {
+            headerName: 'May',
+            field: 'mayft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+          {
+            headerName: 'Jun',
+            field: 'junft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+
+          {
+            headerName: 'Q2',
+            colId: 'Q2_ft',
+            type: 'quarterColumn',
+            valueGetter: TotalQ2ValueGetter2,
+            cellClass: ['data', 't']
+          },
+
+          {
+            headerName: 'Jul',
+            field: 'julft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+          {
+            headerName: 'Aug',
+            field: 'augft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+          {
+            headerName: 'Sep',
+            field: 'sepft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+
+          {
+            headerName: 'Q3',
+            colId: 'Q3_ft',
+            type: 'quarterColumn',
+            valueGetter: TotalQ3ValueGetter2,
+            cellClass: ['data', 't']
+          },
+
+          {
+            headerName: 'Oct',
+            field: 'octft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+          {
+            headerName: 'Nov',
+            field: 'novft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+          {
+            headerName: 'Dec',
+            field: 'decft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+
+          {
+            headerName: 'Q4',
+            colId: 'Q4_ft',
+            type: 'quarterColumn',
+            valueGetter: TotalQ4ValueGetter2,
+            cellClass: ['data', 't']
+          },
+          {
+            headerName: 'Total',
+            colId: 'FT',
+            width: 110,
+            cellStyle: { color: 'black', 'background-color': '#81f7a6' },
+            aggFunc: TotalPhysicalTargetAggFunc,
+            valueGetter: TotalObligationTargetValueGetter,
+            valueFormatter: this.currencyFormatter,
+            type: 'numericColumn',
+            cellClass: ['data', 'total']
+          }
+        ]
+      },
+      {
+        headerName: 'BED 2 - Physical Target',
         children: [
           {
             headerName: 'Jan',
@@ -394,8 +479,8 @@ export class PhysicalComponent implements OnInit {
 
           {
             headerName: 'Q1',
-            colId: 'Q1',
-            type: 'quarterColumn',
+            colId: 'Q1_pt',
+            type: 'quarterColumn2',
             valueGetter: TotalQ1ValueGetter,
             cellClass: ['data', 't']
           },
@@ -424,8 +509,8 @@ export class PhysicalComponent implements OnInit {
 
           {
             headerName: 'Q2',
-            colId: 'Q2',
-            type: 'quarterColumn',
+            colId: 'Q2_pt',
+            type: 'quarterColumn2',
             valueGetter: TotalQ2ValueGetter,
             cellClass: ['data', 't']
           },
@@ -454,8 +539,8 @@ export class PhysicalComponent implements OnInit {
 
           {
             headerName: 'Q3',
-            colId: 'Q3',
-            type: 'quarterColumn',
+            colId: 'Q3_pt',
+            type: 'quarterColumn2',
             valueGetter: TotalQ3ValueGetter,
             cellClass: ['data', 't']
           },
@@ -484,14 +569,14 @@ export class PhysicalComponent implements OnInit {
 
           {
             headerName: 'Q4',
-            colId: 'Q4',
-            type: 'quarterColumn',
+            colId: 'Q4_pt',
+            type: 'quarterColumn2',
             valueGetter: TotalQ4ValueGetter,
             cellClass: ['data', 't']
           },
           {
             headerName: 'Total',
-            colId: 'TT',
+            colId: 'PT',
             width: 110,
             cellStyle: { color: 'black', 'background-color': '#81f7a6' },
             aggFunc: TotalPhysicalTargetAggFunc,
@@ -503,311 +588,140 @@ export class PhysicalComponent implements OnInit {
         ]
       },
       {
-        headerName: 'Physical Accomplishment',
+        headerName: 'BED 3 - Disbursement Target',
         children: [
           {
             headerName: 'Jan',
-            field: 'jana',
+            field: 'jandt',
             type: 'valueColumn',
-            cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[0].checked && this.canEdit) return true;
-              else return false;
-            }
+            cellClass: ['data']
           },
           {
             headerName: 'Feb',
-            field: 'feba',
+            field: 'febdt',
             type: 'valueColumn',
-            cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[1].checked && this.canEdit) return true;
-              else return false;
-            }
+            cellClass: ['data']
           },
           {
             headerName: 'Mar',
-            field: 'mara',
+            field: 'mardt',
             type: 'valueColumn',
-            cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[2].checked && this.canEdit) return true;
-              else return false;
-            }
+            cellClass: ['data']
           },
 
           {
             headerName: 'Q1',
-            colId: 'Q1A',
-            type: 'quarterColumn2',
-            valueGetter: TotalQ1ValueGetter2,
-            cellClass: ['data', 'a']
+            colId: 'Q1_dt',
+            type: 'quarterColumn3',
+            valueGetter: TotalQ1ValueGetter3,
+            cellClass: ['data', 't']
           },
 
           {
             headerName: 'Apr',
-            field: 'apra',
+            field: 'aprdt',
             type: 'valueColumn',
-            cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[3].checked && this.canEdit) return true;
-              else return false;
-            }
+            cellClass: ['data']
           },
           {
             headerName: 'May',
-            field: 'maya',
+            field: 'maydt',
             type: 'valueColumn',
-            cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[4].checked && this.canEdit) return true;
-              else return false;
-            }
+            cellClass: ['data']
           },
           {
             headerName: 'Jun',
-            field: 'juna',
+            field: 'jundt',
             type: 'valueColumn',
-            cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[5].checked && this.canEdit) return true;
-              else return false;
-            }
+            cellClass: ['data']
           },
 
           {
             headerName: 'Q2',
-            colId: 'Q2A',
-            type: 'quarterColumn2',
-            valueGetter: TotalQ2ValueGetter2,
-            cellClass: ['data', 'a']
+            colId: 'Q2_dt',
+            type: 'quarterColumn3',
+            valueGetter: TotalQ2ValueGetter3,
+            cellClass: ['data', 't']
           },
 
           {
             headerName: 'Jul',
-            field: 'jula',
+            field: 'juldt',
             type: 'valueColumn',
-            cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[6].checked && this.canEdit) return true;
-              else return false;
-            }
+            cellClass: ['data']
           },
           {
             headerName: 'Aug',
-            field: 'auga',
+            field: 'augdt',
             type: 'valueColumn',
-            cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[7].checked && this.canEdit) return true;
-              else return false;
-            }
+            cellClass: ['data']
           },
           {
             headerName: 'Sep',
-            field: 'sepa',
+            field: 'sepdt',
             type: 'valueColumn',
-            cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[8].checked && this.canEdit) return true;
-              else return false;
-            }
+            cellClass: ['data']
           },
 
           {
             headerName: 'Q3',
-            colId: 'Q3A',
-            type: 'quarterColumn2',
-            valueGetter: TotalQ3ValueGetter2,
-            cellClass: ['data', 'a']
+            colId: 'Q3_dt',
+            type: 'quarterColumn3',
+            valueGetter: TotalQ3ValueGetter3,
+            cellClass: ['data', 't']
           },
 
           {
             headerName: 'Oct',
-            field: 'octa',
+            field: 'octdt',
             type: 'valueColumn',
-            cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[9].checked && this.canEdit) return true;
-              else return false;
-            }
+            cellClass: ['data']
           },
           {
             headerName: 'Nov',
-            field: 'nova',
+            field: 'novdt',
             type: 'valueColumn',
-            cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[10].checked && this.canEdit) return true;
-              else return false;
-            }
+            cellClass: ['data']
           },
           {
             headerName: 'Dec',
-            field: 'deca',
+            field: 'decdt',
             type: 'valueColumn',
-            cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[11].checked && this.canEdit) return true;
-              else return false;
-            }
+            cellClass: ['data']
           },
 
           {
             headerName: 'Q4',
-            colId: 'Q4A',
-            type: 'quarterColumn2',
-            valueGetter: TotalQ4ValueGetter2,
-            cellClass: ['data', 'a']
+            colId: 'Q4_dt',
+            type: 'quarterColumn3',
+            valueGetter: TotalQ4ValueGetter3,
+            cellClass: ['data', 't']
           },
           {
             headerName: 'Total',
-            colId: 'TA',
+            colId: 'DT',
             width: 110,
             cellStyle: { color: 'black', 'background-color': '#81f7a6' },
             aggFunc: TotalPhysicalTargetAggFunc,
-            valueGetter: TotalPhysicalAccomplishmentValueGetter,
+            valueGetter: TotalObligationTargetValueGetter,
             valueFormatter: this.currencyFormatter,
             type: 'numericColumn',
             cellClass: ['data', 'total']
           }
         ]
       },
-      {
-        headerName: 'Variance',
-        colId: 'Var',
-        width: 110,
-        cellStyle: { color: 'black', 'background-color': '#f7adad' },
-        aggFunc: TotalVarianceAggFunc,
-        valueGetter: TotalUnObligationValueGetter,
-        valueFormatter: this.currencyFormatter,
-        type: 'numericColumn',
-        cellClass: ['data', 'v']
-      },
-      {
-        headerName: 'Percentage',
-        colId: 'Per',
-        width: 110,
-        cellStyle: { color: 'black', 'background-color': '#dfa9f5' },
-        aggFunc: TotalPercentageAggFunc,
-        valueGetter: TotalPercentageValueGetter,
-        valueFormatter: this.currencyFormatter,
-        type: 'numericColumn',
-        cellClass: ['data', 'p']
-      },
-      {
-        headerName: 'Remarks',
-        children: [
-          {
-            headerName: 'Jan',
-            field: 'janr',
-            type: 'remarksColumn',
-            editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor',
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Feb',
-            field: 'febr',
-            type: 'remarksColumn',
-            editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor',
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Mar',
-            field: 'marr',
-            type: 'remarksColumn',
-            editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor',
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Apr',
-            field: 'aprr',
-            type: 'remarksColumn',
-            editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor',
-            cellClass: ['data']
-          },
-          {
-            headerName: 'May',
-            field: 'mayr',
-            type: 'remarksColumn',
-            editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor',
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Jun',
-            field: 'junr',
-            type: 'remarksColumn',
-            editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor',
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Jul',
-            field: 'julr',
-            type: 'remarksColumn',
-            editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor',
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Aug',
-            field: 'augr',
-            type: 'remarksColumn',
-            editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor',
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Sep',
-            field: 'sepr',
-            type: 'remarksColumn',
-            editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor',
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Oct',
-            field: 'octr',
-            type: 'remarksColumn',
-            editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor',
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Nov',
-            field: 'novr',
-            type: 'remarksColumn',
-            editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor',
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Dec',
-            field: 'decr',
-            type: 'remarksColumn',
-            editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor',
-            cellClass: ['data']
-          }
-        ]
-      }
     ];
 
     this.excelStyles = [
@@ -899,9 +813,7 @@ export class PhysicalComponent implements OnInit {
 
     this.aggFuncs = {
       TotalQuarterAggFunc: TotalQuarterAggFunc,
-      TotalPhysicalTargetAggFunc: TotalPhysicalTargetAggFunc,
-      TotalVarianceAggFunc: TotalVarianceAggFunc,
-      TotalPercentageAggFunc: TotalPercentageAggFunc
+      TotalPhysicalTargetAggFunc: TotalPhysicalTargetAggFunc
     };
 
     this.columnTypes = {
@@ -934,6 +846,17 @@ export class PhysicalComponent implements OnInit {
         },
         valueFormatter: this.currencyFormatter
       },
+      quarterColumn3: {
+        width: 110,
+        aggFunc: TotalQuarterAggFunc,
+        cellRenderer: 'agAnimateShowChangeCellRenderer',
+        cellStyle: {
+          'text-align': 'right',
+          color: 'black',
+          'background-color': '#ffaff8'
+        },
+        valueFormatter: this.currencyFormatter
+      },
       remarksColumn: { width: 120, maxLength: 500, cols: 40, rows: 5 }
     };
 
@@ -953,8 +876,6 @@ export class PhysicalComponent implements OnInit {
   ngOnInit(): void {
     this.pid = this.user.pid
     this.getRow(this.pid);
-    this.getLocked();
-    this.lastUpdated(this.pid);
   }
 }
 
@@ -1149,9 +1070,9 @@ function TotalPhysicalTargetAggFunc(values) {
 function TotalQ1ValueGetter2(params) {
   if (!params.node.group) {
     return createQuarterTotalValueObject(
-      params.data.jana,
-      params.data.feba,
-      params.data.mara
+      params.data.janft,
+      params.data.febft,
+      params.data.marft
     );
   }
 }
@@ -1159,9 +1080,9 @@ function TotalQ1ValueGetter2(params) {
 function TotalQ2ValueGetter2(params) {
   if (!params.node.group) {
     return createQuarterTotalValueObject(
-      params.data.apra,
-      params.data.maya,
-      params.data.juna
+      params.data.aprft,
+      params.data.mayft,
+      params.data.junft
     );
   }
 }
@@ -1169,149 +1090,100 @@ function TotalQ2ValueGetter2(params) {
 function TotalQ3ValueGetter2(params) {
   if (!params.node.group) {
     return createQuarterTotalValueObject(
-      params.data.jula,
-      params.data.auga,
-      params.data.sepa
+      params.data.julft,
+      params.data.augft,
+      params.data.sepft
     );
   }
 }
 function TotalQ4ValueGetter2(params) {
   if (!params.node.group) {
     return createQuarterTotalValueObject(
-      params.data.octa,
-      params.data.nova,
-      params.data.deca
+      params.data.octft,
+      params.data.novft,
+      params.data.decft
     );
   }
 }
 
-function TotalPhysicalAccomplishmentValueGetter(params) {
+function TotalQ1ValueGetter3(params) {
+  if (!params.node.group) {
+    return createQuarterTotalValueObject(
+      params.data.jandt,
+      params.data.febdt,
+      params.data.mardt
+    );
+  }
+}
+
+function TotalQ2ValueGetter3(params) {
+  if (!params.node.group) {
+    return createQuarterTotalValueObject(
+      params.data.aprdt,
+      params.data.maydt,
+      params.data.jundt
+    );
+  }
+}
+
+function TotalQ3ValueGetter3(params) {
+  if (!params.node.group) {
+    return createQuarterTotalValueObject(
+      params.data.juldt,
+      params.data.augdt,
+      params.data.sepdt
+    );
+  }
+}
+function TotalQ4ValueGetter3(params) {
+  if (!params.node.group) {
+    return createQuarterTotalValueObject(
+      params.data.octdt,
+      params.data.novdt,
+      params.data.decdt
+    );
+  }
+}
+
+function TotalObligationTargetValueGetter(params) {
   if (!params.node.group) {
     return createTotalPhysicalTarget(
-      params.data.jana,
-      params.data.feba,
-      params.data.mara,
-      params.data.apra,
-      params.data.maya,
-      params.data.juna,
-      params.data.jula,
-      params.data.auga,
-      params.data.sepa,
-      params.data.octa,
-      params.data.nova,
-      params.data.deca
+      params.data.janft,
+      params.data.febft,
+      params.data.marft,
+      params.data.aprft,
+      params.data.mayft,
+      params.data.junft,
+      params.data.julft,
+      params.data.augft,
+      params.data.sepft,
+      params.data.octft,
+      params.data.novft,
+      params.data.decft
     );
   }
 }
 
-function TotalUnObligationValueGetter(params) {
+function TotalDisbursementTargetValueGetter(params) {
   if (!params.node.group) {
-    var totalAccomplishment =
-      params.data.jana +
-      params.data.feba +
-      params.data.mara +
-      params.data.apra +
-      params.data.maya +
-      params.data.juna +
-      params.data.jula +
-      params.data.auga +
-      params.data.sepa +
-      params.data.octa +
-      params.data.nova +
-      params.data.deca;
-    var totalTarget =
-      params.data.jant +
-      params.data.febt +
-      params.data.mart +
-      params.data.aprt +
-      params.data.mayt +
-      params.data.junt +
-      params.data.jult +
-      params.data.augt +
-      params.data.sept +
-      params.data.octt +
-      params.data.novt +
-      params.data.dect;
-
-    return createTotalVarianceValueObject(totalAccomplishment, totalTarget);
+    return createTotalPhysicalTarget(
+      params.data.jandt,
+      params.data.febdt,
+      params.data.mardt,
+      params.data.aprdt,
+      params.data.maydt,
+      params.data.jundt,
+      params.data.juldt,
+      params.data.augdt,
+      params.data.sepdt,
+      params.data.octdt,
+      params.data.novdt,
+      params.data.decdt
+    );
   }
 }
 
-function createTotalVarianceValueObject(a, b) {
-  return {
-    a: a,
-    b: b,
-    toString: function() {
-      return b - a;
-    }
-  };
-}
 
-function TotalVarianceAggFunc(values) {
-  var [a, b] = [0, 0];
-  values.forEach(function(value) {
-    if (value && value.a) {
-      a += value.a;
-    }
-    if (value && value.b) {
-      b += value.b;
-    }
-  });
-  return createTotalVarianceValueObject(a, b);
-}
 
-function TotalPercentageAggFunc(values) {
-  var [a, b] = [0, 0];
-  values.forEach(function(value) {
-    if (value && value.a) {
-      a += value.a;
-    }
-    if (value && value.b) {
-      b += value.b;
-    }
-  });
-  return createTotalPercentageValueObject(a, b);
-}
 
-function createTotalPercentageValueObject(a, b) {
-  return {
-    a: a,
-    b: b,
-    toString: function() {
-      return a && b ? (a / b) * 100 : 0;
-    }
-  };
-}
 
-function TotalPercentageValueGetter(params) {
-  if (!params.node.group) {
-    var totalAccomplishment =
-      params.data.jana +
-      params.data.feba +
-      params.data.mara +
-      params.data.apra +
-      params.data.maya +
-      params.data.juna +
-      params.data.jula +
-      params.data.auga +
-      params.data.sepa +
-      params.data.octa +
-      params.data.nova +
-      params.data.deca;
-    var totalTarget =
-      params.data.jant +
-      params.data.febt +
-      params.data.mart +
-      params.data.aprt +
-      params.data.mayt +
-      params.data.junt +
-      params.data.jult +
-      params.data.augt +
-      params.data.sept +
-      params.data.octt +
-      params.data.novt +
-      params.data.dect;
-
-    return createTotalPercentageValueObject(totalAccomplishment, totalTarget);
-  }
-}

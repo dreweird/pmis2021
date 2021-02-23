@@ -52,9 +52,7 @@ export class LogsComponent implements OnInit {
         headerName: 'Date Updated',
         field: 'date_updated',
         valueFormatter: function(params) {
-          return moment(new Date(params.value)).format(
-            'MMMM Do YYYY, h:mm:ss a'
-          );
+          return moment(new Date(params.value)).format('lll');
         }
       },
       {
