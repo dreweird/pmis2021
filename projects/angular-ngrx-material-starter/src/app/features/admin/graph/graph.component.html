@@ -1,0 +1,76 @@
+<div class="container" rtl>
+    <div class="row" [ngClass]="routeAnimationsElements">
+        <div class="col-md-12" >
+            <h1 >Mid-Year Summary</h1>
+        </div>
+        <div class="col-md-12" >
+            <mat-card>
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">BED2 Plan vs. Actual Physical Accomplishment</th>
+                        <th scope="col">BED1 Plan vs. Actual Obligation Accomplishment</th>
+                        <th scope="col">BED3 Plan vs. Actual Disbursement Accomplishment</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td> {{pp_midyear | percent: '1.2-2'}} </td>
+                        <td> {{op_midyear | percent: '1.2-2'}} </td>
+                        <td> {{dp_midyear | percent: '1.2-2'}} </td>
+                    </tr>  
+                    </tbody>
+                  </table> 
+            </mat-card>
+ 
+        </div>
+    </div>
+        
+    <div class="row">
+        <div class="col-md-12" [ngClass]="routeAnimationsElements">
+            <mat-card>
+                <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+            </mat-card>
+        
+
+        </div>    
+    </div>
+
+    <div class="row" [ngClass]="routeAnimationsElements">
+        <div class="col-md-12" >
+            <h1 >Year-End Summary</h1>
+        </div>
+        <div class="col-md-12" >
+            <mat-card>
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">BED2 Plan vs. Actual Physical Accomplishment</th>
+                        <th scope="col">BED1 Plan vs. Actual Obligation Accomplishment</th>
+                        <th scope="col">BED3 Plan vs. Actual Disbursement Accomplishment</th>
+                   </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td> {{pp_yearend | percent: '1.2-2'}} </td>
+                        <td> {{op_yearend | percent: '1.2-2'}} </td>
+                        <td> {{dp_yearend | percent: '1.2-2'}} </td>
+                    </tr>  
+                    </tbody>
+                  </table> 
+            </mat-card>
+ 
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" [ngClass]="routeAnimationsElements">
+            <mat-card>
+                <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+            </mat-card>
+        
+
+        </div>    
+    </div>
+</div>
+    

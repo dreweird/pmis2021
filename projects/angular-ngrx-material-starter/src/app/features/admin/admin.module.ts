@@ -19,6 +19,7 @@ import { MomentModule } from 'ngx-moment';
 import { LogsComponent } from './logs/logs.component';
 import { AreaComponent } from './area/area.component';
 import { Bed123Component } from './bed123/bed123.component';
+import { GraphComponent } from './graph/graph.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { Bed123Component } from './bed123/bed123.component';
     LockedComponent,
     LogsComponent,
     AreaComponent,
-    Bed123Component
+    Bed123Component,
+    GraphComponent
   ],
   imports: [
     CommonModule,

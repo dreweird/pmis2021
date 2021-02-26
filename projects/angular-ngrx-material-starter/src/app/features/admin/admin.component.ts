@@ -50,6 +50,7 @@ export class AdminComponent implements OnInit {
         { link: 'physical', label: 'Physical' },
         { link: 'disburesment', label: 'Disbursement' },
         { link: 'bed123', label: 'BED123' },
+        { link: 'graph', label: 'Graph' },
         { link: 'bydistrict', label: 'By District' },
         { link: 'bymun', label: 'By Municipality' }
       ];
@@ -58,7 +59,8 @@ export class AdminComponent implements OnInit {
         { link: 'obligation', label: 'Obligation' },
         { link: 'physical', label: 'Physical' },
         { link: 'disburesment', label: 'Disbursement' },
-        { link: 'bed123', label: 'BED123' }
+        { link: 'bed123', label: 'BED123' },
+        { link: 'graph', label: 'Graph' }
       ];
     }
   }

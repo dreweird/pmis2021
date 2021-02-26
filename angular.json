@@ -18,7 +18,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apmis2020",
+            "outputPath": "dist/pmis2021",
             "index": "projects/angular-ngrx-material-starter/src/index.html",
             "main": "projects/angular-ngrx-material-starter/src/main.ts",
             "polyfills": "projects/angular-ngrx-material-starter/src/polyfills.ts",

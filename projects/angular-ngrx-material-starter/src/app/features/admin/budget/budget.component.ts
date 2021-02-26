@@ -38,6 +38,7 @@ export class BudgetComponent implements OnInit {
     if (this.user.pid == 100) {
       this.user.user_id = 62;
     }
+    console.log(this.user.user_id);
     this.pmisService.getBudgetAssignmnet(this.user.user_id).subscribe(data => {
       this.menu = data;
       this.cd.markForCheck();

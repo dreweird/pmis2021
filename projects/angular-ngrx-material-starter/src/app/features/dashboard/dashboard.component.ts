@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
   da_dis: any;
   locked: any;
   logs: any;
+  summary: any;
 
   getLocked() {
     this.pmisService.month_locked().subscribe(data => {
@@ -32,7 +33,15 @@ export class DashboardComponent implements OnInit {
   getLogsReport() {
     this.pmisService.logsReport().subscribe(data => {
       this.logs = data;
-      console.log(this.logs);
+      this.cd.markForCheck();
+    });
+  }
+
+  
+  getSummary() {
+    this.pmisService.summary_all().subscribe(data => {
+      this.summary = data;
+      console.log(this.summary);
       this.cd.markForCheck();
     });
   }
@@ -40,7 +49,10 @@ export class DashboardComponent implements OnInit {
   constructor(public pmisService: PmisService, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
+    this.getSummary();
     this.getLocked();
     this.getLogsReport();
   }
 }
+
+

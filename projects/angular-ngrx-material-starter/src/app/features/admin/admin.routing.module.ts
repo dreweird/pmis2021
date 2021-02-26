@@ -13,12 +13,19 @@ import { AreaComponent } from './area/area.component';
 import { BydistrictComponent } from './bydistrict/bydistrict.component';
 import { BymunComponent } from './bymun/bymun.component';
 import { Bed123Component } from './bed123/bed123.component';
+import { GraphComponent } from './graph/graph.component';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
     children: [
+      {
+        path: 'graph',
+        component: GraphComponent,
+        data: { title: 'Graph' },
+        canActivate: [AuthGuardService]
+      },
       {
         path: 'bed123',
         component: Bed123Component,
