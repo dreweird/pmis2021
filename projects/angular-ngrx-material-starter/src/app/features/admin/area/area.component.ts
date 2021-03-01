@@ -239,7 +239,7 @@ export class AreaComponent implements OnInit {
             field: 'q1',
             type: 'remarksColumn',
             width: 70,
-            editable: true,
+            editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor'
           },
           {
@@ -247,7 +247,7 @@ export class AreaComponent implements OnInit {
             field: 'q2',
             type: 'remarksColumn',
             width: 70,
-            editable: true,
+            editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor'
           },
           {
@@ -255,7 +255,7 @@ export class AreaComponent implements OnInit {
             field: 'q3',
             type: 'remarksColumn',
             width: 70,
-            editable: true,
+            editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor'
           },
           {
@@ -263,7 +263,7 @@ export class AreaComponent implements OnInit {
             field: 'q4',
             type: 'remarksColumn',
             width: 70,
-            editable: true,
+            editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor'
           }
         ]

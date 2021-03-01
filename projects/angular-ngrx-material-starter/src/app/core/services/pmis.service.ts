@@ -5,10 +5,16 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PmisService {
-    apiRoot: string = 'http://172.16.128.37:3117';
-    // apiRoot: string = 'http://localhost:3117';
+    // apiRoot: string = 'http://172.16.128.37:3117';
+     apiRoot: string = 'http://localhost:3117';
 
   constructor(private http: HttpClient) {}
+
+  pdz() {
+    const url = `${this.apiRoot}/pdz`;
+    return this.http.get(url);
+  }
+
 
   summary_all() {
     const url = `${this.apiRoot}/summary_all`;

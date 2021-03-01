@@ -61,10 +61,6 @@ export class Bed123Component implements OnInit {
     });
   }
 
-
-
-
-
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;

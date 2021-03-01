@@ -14,12 +14,19 @@ import { BydistrictComponent } from './bydistrict/bydistrict.component';
 import { BymunComponent } from './bymun/bymun.component';
 import { Bed123Component } from './bed123/bed123.component';
 import { GraphComponent } from './graph/graph.component';
+import { PdzComponent } from './pdz/pdz.component';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
     children: [
+      {
+        path: 'pdz',
+        component: PdzComponent,
+        data: { title: 'PDZ' },
+        canActivate: [AuthGuardService]
+      },
       {
         path: 'graph',
         component: GraphComponent,

@@ -25,7 +25,7 @@ export class AdminComponent implements OnInit {
     private localStorageService: LocalStorageService
   ) {
     this.user = this.localStorageService.getItem('AUTH');
-    console.log(this.user);
+    // console.log(this.user);
 
     if (this.user.b == 1) {
       this.examples = [{ link: 'budget', label: 'Budget' }];
@@ -35,14 +35,17 @@ export class AdminComponent implements OnInit {
       this.examples = [
         { link: 'budget', label: 'M&E' },
         { link: 'bydistrict', label: 'By District' },
-        { link: 'bymun', label: 'By Municipality' }
+        { link: 'bymun', label: 'By Municipality' },
+        { link: 'pdz', label: 'PDZ' },
       ];
     } else if (this.user.b == 4) {
       this.examples = [
         { link: 'budget', label: 'M&E' },
         { link: 'locked', label: 'Locked' },
         { link: 'bydistrict', label: 'By District' },
-        { link: 'bymun', label: 'By Municipality' }
+        { link: 'bymun', label: 'By Municipality' },
+        { link: 'pdz', label: 'PDZ' },
+        
       ];
     } else if (this.user.pid <= 5) {
       this.examples = [
