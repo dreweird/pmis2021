@@ -7,9 +7,6 @@
 @import '../../../node_modules/ag-grid-community/src/styles/ag-grid.scss';
 @import '../../../node_modules/ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin.scss';
 
-.ag-theme-alpine {
-  @include ag-theme-alpine();
-}
 @import '~@angular/material/theming';
 
 @include mat-core();
@@ -23,24 +20,14 @@
 @import './app/app/app.component.scss-theme';
 @import './app/shared/big-input/big-input/big-input.component.scss-theme';
 @import './app/features/about/about/about.component.scss-theme';
-// @import './app/features/examples/notifications/components/notifications.component.scss-theme';
-// @import './app/features/examples/todos/components/todos-container.component.scss-theme';
-// @import './app/features/examples/stock-market/components/stock-market-container.component.scss-theme';
-// @import './app/features/examples/theming/parent/parent.component.scss-theme';
-// @import './app/features/examples/theming/child/child.component.scss-theme';
-// @import './app/features/examples/examples/examples.component.scss-theme';
+
 
 @mixin custom-components-theme($theme) {
   @include anms-styles-reset-theme($theme);
   @include anms-app-component-theme($theme);
   @include anms-about-component-theme($theme);
   @include anms-big-input-component-theme($theme);
-  // @include anms-notifications-component-theme($theme);
-  // @include anms-todos-container-component-theme($theme);
-  // @include anms-stock-market-container-component-theme($theme);
-  // @include anms-parent-component-theme($theme);
-  // @include anms-child-component-theme($theme);
-  // @include anms-examples-component-theme($theme);
+
 }
 
 .default-theme {
@@ -61,4 +48,18 @@
 .nature-theme {
   @include angular-material-theme($anms-nature-theme);
   @include custom-components-theme($anms-nature-theme);
+}
+
+.ag-theme-alpine {
+  @include ag-theme-alpine((
+      cell-horizontal-border: solid ag-derived(secondary-border-color)
+  ));
+
+a {
+  color: green;
+}
+
+  .ag-header {
+      border-right: 1px solid ag-param(secondary-border-color);
+  }
 }

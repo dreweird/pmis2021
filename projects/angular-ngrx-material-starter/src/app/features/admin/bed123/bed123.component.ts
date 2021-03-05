@@ -3,7 +3,8 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Input
+  Input,
+  OnChanges
 } from '@angular/core';
 import { ROUTE_ANIMATIONS_ELEMENTS } from '../../../core/animations/route.animations';
 import { PmisService } from '../../../core/services/pmis.service';
@@ -22,11 +23,13 @@ import * as moment from 'moment';
   styleUrls: ['./bed123.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Bed123Component implements OnInit {
+export class Bed123Component implements OnInit, OnChanges {
 
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
 
   public modules: Module[] = AllModules;
+  @Input() pid: number = 0;
+  @Input() name: string = '';
 
   gridApi: any;
   gridColumnApi: any;
@@ -45,9 +48,6 @@ export class Bed123Component implements OnInit {
   locked: any;
   date_updated: any;
   excelStyles: any;
-
-  @Input() pid: number = 0;
-  @Input() name: string = '';
 
   ngOnChanges(changes: any) {
     this.pid = changes.pid.currentValue;

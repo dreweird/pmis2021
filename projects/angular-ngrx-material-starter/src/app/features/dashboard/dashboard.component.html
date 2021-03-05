@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12" [ngClass]="routeAnimationsElements">
+      <br>
       <h1 class="main-heading">PMIS Dashboard</h1>
     </div>
   </div>
@@ -34,49 +35,38 @@
       </mat-card>
     </div>
 </div>  -->
-<div class="row">
+<div class="row"> 
   <div class="col-md-12" [ngClass]="routeAnimationsElements">
-    <mat-card style="height: 500px; overflow:auto;">
-      <h3 class="sticky">Percentage Summary</h3>
-      <table class="table table-bordered tableFixHead">
-          <thead>
-            <tr>
-              <th scope="col" rowspan="2">Banner/OUs </th>
-              <th scope="col" colspan="2">Physical</th>
-              <th scope="col" colspan="2">Obligation</th>
-              <th scope="col" colspan="2">Disbursement</th>
-            </tr>
-            <tr>
-              <th>MidYear</th>
-              <th>YearEnd</th>
-              <th>MidYear</th>
-              <th>YearEnd</th>
-              <th>MidYear</th>
-              <th>YearEnd</th>
-            </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let s of summary">
-              <td>{{ s.name }} </td>
-              <td> {{ ((s.jana + s.feba + s.mara + s.apra + + s.maya + s.juna) / (s.jant + s.febt + s.mart + s.aprt + + s.mayt + s.junt)) | percent: '1.2-2' }} </td>
-              <td> {{ (s.pa / s.pt) | percent: '1.2-2' }} </td>
-              <td> {{ ((s.janfa + s.febfa + s.marfa + s.aprfa + + s.mayfa + s.junfa) / (s.janft + s.febft + s.marft + s.aprft + + s.mayft + s.junft)) | percent: '1.2-2' }} </td>
-              <td> {{ (s.fin / s.ft) | percent: '1.2-2' }} </td>
-              <td> {{ ((s.janda + s.febda + s.marda + s.aprda + + s.mayda + s.junda) / (s.jandt + s.febdt + s.mardt + s.aprdt + + s.maydt + s.jundt)) | percent: '1.2-2' }}</td>
-              <td> {{ (s.dis / s.ft) | percent: '1.2-2' }} </td>
-          </tr>
-      
-        
-          </tbody>
-        </table> 
-        </mat-card>
+    <mat-card>
+      <h3>Percentage Summary</h3>
+    <ag-grid-angular
+    #agGrid
+    style="width: 100%; height: 400px; margin-bottom: 20px;"
+    id="myGrid"
+    class="ag-theme-alpine"
+    [columnDefs]="columnDefs"
+    [columnTypes]="columnTypes"
+    [defaultColDef]="defaultColDef"
+    [context]="context"
+    [autoGroupColumnDef]="autoGroupColumnDef"
+    [rowSelection]="rowSelection"
+    [frameworkComponents]="frameworkComponents"
+    [components]="components"
+    [modules]="modules"
+    [rowData]="rowData"
+    (gridReady)="onGridReady($event)">
+</ag-grid-angular>
+</mat-card>
+
+  </div>   
+
 </div>
-</div>
+
 <div class="row">
   <div class="col-md-4" [ngClass]="routeAnimationsElements">
     <mat-card style="height: 500px; overflow:auto;">
       <h3>Physical Inputting Status</h3>
-      <table class="table">
+      <table class="table tableFixHead">
           <thead>
             <tr>
               <th scope="col">Month </th>
@@ -100,7 +90,7 @@
 <div class="col-md-8" [ngClass]="routeAnimationsElements">
   <mat-card style="height: 500px; overflow:auto;">
     <h3>Logs Report - last updated</h3>
-    <table class="table">
+    <table class="table tableFixHead">
      <thead>
        <tr>
          <th scope="col">Banner/OUs</th>

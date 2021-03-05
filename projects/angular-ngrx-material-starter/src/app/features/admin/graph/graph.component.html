@@ -1,7 +1,8 @@
 <div class="container" rtl>
     <div class="row" [ngClass]="routeAnimationsElements">
-        <div class="col-md-12" >
-            <h1 >Mid-Year Summary</h1>
+        <div class="col-md-12 title" >
+            <h2 >Mid-Year Summary</h2>
+            <h2><i>{{name}}</i></h2>
         </div>
         <div class="col-md-12" >
             <mat-card>
@@ -29,16 +30,31 @@
     <div class="row">
         <div class="col-md-12" [ngClass]="routeAnimationsElements">
             <mat-card>
-                <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                <div id="chartPhysicalMidyear" style="height: 370px; width: 100%;"></div>
             </mat-card>
         
 
         </div>    
     </div>
 
+    <div class="row">
+        <div class="col-md-6" [ngClass]="routeAnimationsElements">
+            <mat-card>
+                <div id="chartObligationMidyear" style="height: 370px; width: 100%;"></div>
+            </mat-card>
+        </div>
+        <div class="col-md-6" [ngClass]="routeAnimationsElements">
+            <mat-card>
+                <div id="chartDisbursementMidyear" style="height: 370px; width: 100%;"></div>
+            </mat-card>
+        </div>      
+    </div>
+
+
     <div class="row" [ngClass]="routeAnimationsElements">
-        <div class="col-md-12" >
-            <h1 >Year-End Summary</h1>
+        <div class="col-md-12 title" >
+            <h2 >YearEnd Summary</h2>
+            <h2><i>{{name}}</i></h2>
         </div>
         <div class="col-md-12" >
             <mat-card>
@@ -66,11 +82,23 @@
     <div class="row">
         <div class="col-md-12" [ngClass]="routeAnimationsElements">
             <mat-card>
-                <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+                <div id="chartPhysicalYearEnd" style="height: 370px; width: 100%;"></div>
             </mat-card>
         
 
         </div>    
+    </div>
+    <div class="row">
+        <div class="col-md-6" [ngClass]="routeAnimationsElements">
+            <mat-card>
+                <div id="chartObligationYearEnd" style="height: 370px; width: 100%;"></div>
+            </mat-card>
+        </div>
+        <div class="col-md-6" [ngClass]="routeAnimationsElements">
+            <mat-card>
+                <div id="chartDisbursementYearEnd" style="height: 370px; width: 100%;"></div>
+            </mat-card>
+        </div>      
     </div>
 </div>
     

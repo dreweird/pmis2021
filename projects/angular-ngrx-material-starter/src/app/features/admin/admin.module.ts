@@ -45,6 +45,7 @@ import { GraphComponent } from './graph/graph.component';
     NgxMatSelectSearchModule,
     MomentModule,
     AgGridModule.withComponents([])
-  ]
+  ],
+  exports: [GraphComponent]
 })
 export class AdminModule {}
