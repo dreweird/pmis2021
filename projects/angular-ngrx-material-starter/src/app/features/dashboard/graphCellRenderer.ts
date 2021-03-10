@@ -22,7 +22,7 @@ export class graphCellRenderer implements ICellRendererAngularComp {
   }
 
   navigate(){
-      this.router.navigate(['/dashboard/chart', this.params.data.pid, this.params.data.name]);
+      this.router.navigate(['/dashboard/chart', this.params.data.program_id, this.params.data.name]);
   }
 
 

@@ -54,7 +54,7 @@ export class ObligationComponent implements OnInit, OnChanges {
   }
 
   getRow(pid) {
-    this.pmisService.getObligation(pid).subscribe(data => {
+    this.pmisService.getPhysical(pid).subscribe(data => {
       this.rowData = data;
       this.cd.markForCheck();
     });
@@ -114,7 +114,7 @@ export class ObligationComponent implements OnInit, OnChanges {
       event.newValue = null;
     } else {
       this.pmisService
-        .updateAllotment(event.colDef.field, event.newValue, event.data.id)
+        .updatePhysical(event.colDef.field, event.newValue, event.data.mfo_id)
         .subscribe(data => {
           if (!data) {
             alert('something wrong happen!');
@@ -153,23 +153,40 @@ export class ObligationComponent implements OnInit, OnChanges {
       'name',
       'object_id',
       'budget',
+      'janft',
+      'febft',
+      'marft',
+      'Q1_ft',
+      'aprft',
+      'mayft',
+      'junft',
+      'Q2_ft',
+      'julft',
+      'augft',
+      'sepft',
+      'Q3_ft',
+      'octft',
+      'novft',
+      'decft',
+      'Q4_ft',
+      'FT',
       'adjustment',
       'adjusted',
-      'jan',
-      'feb',
-      'mar',
+      'janfa',
+      'febfa',
+      'marfa',
       'Q1',
-      'apr',
-      'may',
-      'jun',
+      'aprfa',
+      'mayfa',
+      'junfa',
       'Q2',
-      'jul',
-      'aug',
-      'sep',
+      'julfa',
+      'augfa',
+      'sepfa',
       'Q3',
-      'oct',
-      'nov',
-      'decm',
+      'octfa',
+      'novfa',
+      'decfa',
       'Q4',
       'to',
       'un',
@@ -223,13 +240,17 @@ export class ObligationComponent implements OnInit, OnChanges {
         [
           {
             styleId: 'p1',
-            data: { type: 'String', value: '' },
-            mergeAcross: 5
+            data: { type: 'String', value: '' }
+          },
+          {
+            styleId: 't',
+            data: { type: 'String', value: 'BED1 Target' },
+            mergeAcross: 18
           },
           {
             styleId: 'a',
             data: { type: 'String', value: 'Obligations' },
-            mergeAcross: 18
+            mergeAcross: 15
           }
         ]
       ],
@@ -339,26 +360,140 @@ export class ObligationComponent implements OnInit, OnChanges {
           }
         }
       },
+      {
+        headerName: 'BED 1 - Obligation Target',
+        children: [
+          {
+            headerName: 'Jan',
+            field: 'janft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+          {
+            headerName: 'Feb',
+            field: 'febft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+          {
+            headerName: 'Mar',
+            field: 'marft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
 
-      {
-        headerName: 'Description',
-        field: 'name',
-        width: 150,
-        pinned: 'left',
-        cellClass: ['data']
-      },
-      {
-        headerName: 'UACS Object Code',
-        field: 'object_id',
-        width: 120,
-        cellClass: ['data']
-      },
-      {
-        headerName: 'Original Allotment',
-        field: 'budget',
-        type: 'valueColumn',
-        editable: this.canEdit,
-        cellClass: ['data']
+          {
+            headerName: 'Q1',
+            colId: 'Q1_ft',
+            type: 'quarterColumn2',
+            valueGetter: TotalQ1ValueGetter2,
+            cellClass: ['data', 't']
+          },
+
+          {
+            headerName: 'Apr',
+            field: 'aprft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+          {
+            headerName: 'May',
+            field: 'mayft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+          {
+            headerName: 'Jun',
+            field: 'junft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+
+          {
+            headerName: 'Q2',
+            colId: 'Q2_ft',
+            type: 'quarterColumn2',
+            valueGetter: TotalQ2ValueGetter2,
+            cellClass: ['data', 't']
+          },
+
+          {
+            headerName: 'Jul',
+            field: 'julft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+          {
+            headerName: 'Aug',
+            field: 'augft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+          {
+            headerName: 'Sep',
+            field: 'sepft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+
+          {
+            headerName: 'Q3',
+            colId: 'Q3_ft',
+            type: 'quarterColumn2',
+            valueGetter: TotalQ3ValueGetter2,
+            cellClass: ['data', 't']
+          },
+
+          {
+            headerName: 'Oct',
+            field: 'octft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+          {
+            headerName: 'Nov',
+            field: 'novft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+          {
+            headerName: 'Dec',
+            field: 'decft',
+            type: 'valueColumn',
+            columnGroupShow: 'open',
+            cellClass: ['data']
+          },
+
+          {
+            headerName: 'Q4',
+            colId: 'Q4_ft',
+            type: 'quarterColumn2',
+            valueGetter: TotalQ4ValueGetter2,
+            cellClass: ['data', 't']
+          },
+          {
+            headerName: 'Total',
+            colId: 'FT',
+            width: 110,
+            cellStyle: { color: 'black', 'background-color': '#81f7a6' },
+            aggFunc: TotalPhysicalTargetAggFunc,
+            valueGetter: TotalObligationTargetValueGetter,
+            valueFormatter: this.currencyFormatter,
+            type: 'numericColumn',
+            cellClass: ['data', 'total']
+          }
+        ]
       },
       {
         headerName: 'Adjustment',
@@ -371,7 +506,7 @@ export class ObligationComponent implements OnInit, OnChanges {
         headerName: 'Adjusted Allotment',
         field: 'adjusted',
         width: 130,
-        cellStyle: { color: 'black', 'background-color': '#fae091' },
+        cellStyle: { color: 'white', 'background-color': 'teal' },
         cellClass: ['data', 't'],
         aggFunc: TotalAdjustedAggFunc,
         valueGetter: TotalAdjustedValueGetter,
@@ -383,7 +518,7 @@ export class ObligationComponent implements OnInit, OnChanges {
         children: [
           {
             headerName: 'Jan',
-            field: 'jan',
+            field: 'janfa',
             type: 'valueColumn',
             columnGroupShow: 'open',
             editable: this.canEdit,
@@ -391,7 +526,7 @@ export class ObligationComponent implements OnInit, OnChanges {
           },
           {
             headerName: 'Feb',
-            field: 'feb',
+            field: 'febfa',
             type: 'valueColumn',
             columnGroupShow: 'open',
             editable: this.canEdit,
@@ -399,7 +534,7 @@ export class ObligationComponent implements OnInit, OnChanges {
           },
           {
             headerName: 'Mar',
-            field: 'mar',
+            field: 'marfa',
             type: 'valueColumn',
             columnGroupShow: 'open',
             editable: this.canEdit,
@@ -416,7 +551,7 @@ export class ObligationComponent implements OnInit, OnChanges {
 
           {
             headerName: 'Apr',
-            field: 'apr',
+            field: 'aprfa',
             type: 'valueColumn',
             columnGroupShow: 'open',
             editable: this.canEdit,
@@ -424,7 +559,7 @@ export class ObligationComponent implements OnInit, OnChanges {
           },
           {
             headerName: 'May',
-            field: 'may',
+            field: 'mayfa',
             type: 'valueColumn',
             columnGroupShow: 'open',
             editable: this.canEdit,
@@ -432,7 +567,7 @@ export class ObligationComponent implements OnInit, OnChanges {
           },
           {
             headerName: 'Jun',
-            field: 'jun',
+            field: 'junfa',
             type: 'valueColumn',
             columnGroupShow: 'open',
             editable: this.canEdit,
@@ -449,7 +584,7 @@ export class ObligationComponent implements OnInit, OnChanges {
 
           {
             headerName: 'Jul',
-            field: 'jul',
+            field: 'julfa',
             type: 'valueColumn',
             columnGroupShow: 'open',
             editable: this.canEdit,
@@ -457,7 +592,7 @@ export class ObligationComponent implements OnInit, OnChanges {
           },
           {
             headerName: 'Aug',
-            field: 'aug',
+            field: 'augfa',
             type: 'valueColumn',
             columnGroupShow: 'open',
             editable: this.canEdit,
@@ -465,7 +600,7 @@ export class ObligationComponent implements OnInit, OnChanges {
           },
           {
             headerName: 'Sep',
-            field: 'sep',
+            field: 'sepfa',
             type: 'valueColumn',
             columnGroupShow: 'open',
             editable: this.canEdit,
@@ -482,7 +617,7 @@ export class ObligationComponent implements OnInit, OnChanges {
 
           {
             headerName: 'Oct',
-            field: 'oct',
+            field: 'octfa',
             type: 'valueColumn',
             columnGroupShow: 'open',
             editable: this.canEdit,
@@ -490,7 +625,7 @@ export class ObligationComponent implements OnInit, OnChanges {
           },
           {
             headerName: 'Nov',
-            field: 'nov',
+            field: 'novfa',
             type: 'valueColumn',
             columnGroupShow: 'open',
             editable: this.canEdit,
@@ -498,7 +633,7 @@ export class ObligationComponent implements OnInit, OnChanges {
           },
           {
             headerName: 'Dec',
-            field: 'decm',
+            field: 'decfa',
             type: 'valueColumn',
             columnGroupShow: 'open',
             editable: this.canEdit,
@@ -582,6 +717,16 @@ export class ObligationComponent implements OnInit, OnChanges {
           'text-align': 'right',
           color: 'black',
           'background-color': '#a2dde5'
+        },
+        valueFormatter: this.currencyFormatter
+      },
+      quarterColumn2: {
+        width: 130,
+        aggFunc: TotalQuarterAggFunc,
+        cellRenderer: 'agAnimateShowChangeCellRenderer',
+        cellStyle: {
+          'text-align': 'right',
+          color: 'black', 'background-color': '#fae091'
         },
         valueFormatter: this.currencyFormatter
       }
@@ -710,7 +855,11 @@ function getSimpleCellRenderer() {
 
 function TotalAdjustedValueGetter(params) {
   if (!params.node.group) {
-    return createValueObject(params.data.budget, params.data.adjustment);
+    let budget = params.data.janft + params.data.febft  + params.data.marft 
+    + params.data.aprft + params.data.mayft + params.data.junft
+    + params.data.julft + params.data.augft + params.data.sepft
+    + params.data.octft + params.data.novft + params.data.decft
+    return createValueObject(budget, params.data.adjustment);
   }
 }
 
@@ -720,6 +869,7 @@ function createValueObject(budget, adjustment) {
     adjustment: adjustment,
     toString: function() {
       return budget + adjustment;
+
     }
   };
 }
@@ -843,9 +993,9 @@ function TotalObligationsAggFunc(values) {
 function TotalQ1ValueGetter(params) {
   if (!params.node.group) {
     return createQuarterTotalValueObject(
-      params.data.jan,
-      params.data.feb,
-      params.data.mar
+      params.data.janfa,
+      params.data.febfa,
+      params.data.marfa
     );
   }
 }
@@ -853,9 +1003,9 @@ function TotalQ1ValueGetter(params) {
 function TotalQ2ValueGetter(params) {
   if (!params.node.group) {
     return createQuarterTotalValueObject(
-      params.data.apr,
-      params.data.may,
-      params.data.jun
+      params.data.aprfa,
+      params.data.mayfa,
+      params.data.junfa
     );
   }
 }
@@ -863,18 +1013,18 @@ function TotalQ2ValueGetter(params) {
 function TotalQ3ValueGetter(params) {
   if (!params.node.group) {
     return createQuarterTotalValueObject(
-      params.data.jul,
-      params.data.aug,
-      params.data.sep
+      params.data.julfa,
+      params.data.augfa,
+      params.data.sepfa
     );
   }
 }
 function TotalQ4ValueGetter(params) {
   if (!params.node.group) {
     return createQuarterTotalValueObject(
-      params.data.oct,
-      params.data.nov,
-      params.data.decm
+      params.data.octfa,
+      params.data.novfa,
+      params.data.decfa
     );
   }
 }
@@ -882,18 +1032,18 @@ function TotalQ4ValueGetter(params) {
 function TotalObligationValueGetter(params) {
   if (!params.node.group) {
     return createTotalObligationsValueObject(
-      params.data.jan,
-      params.data.feb,
-      params.data.mar,
-      params.data.apr,
-      params.data.may,
-      params.data.jun,
-      params.data.jul,
-      params.data.aug,
-      params.data.sep,
-      params.data.oct,
-      params.data.nov,
-      params.data.decm
+      params.data.janfa,
+      params.data.febfa,
+      params.data.marfa,
+      params.data.aprfa,
+      params.data.mayfa,
+      params.data.junfa,
+      params.data.julfa,
+      params.data.augfa,
+      params.data.sepfa,
+      params.data.octfa,
+      params.data.novfa,
+      params.data.decfa
     );
   }
 }
@@ -901,19 +1051,31 @@ function TotalObligationValueGetter(params) {
 function TotalUnObligationValueGetter(params) {
   if (!params.node.group) {
     var totalObligation =
-      params.data.jan +
-      params.data.feb +
-      params.data.mar +
-      params.data.apr +
-      params.data.may +
-      params.data.jun +
-      params.data.jul +
-      params.data.aug +
-      params.data.sep +
-      params.data.oct +
-      params.data.nov +
-      params.data.decm;
-    var totalBudget = params.data.budget + params.data.adjustment;
+      params.data.janfa +
+      params.data.febfa +
+      params.data.marfa +
+      params.data.aprfa +
+      params.data.mayfa +
+      params.data.junfa +
+      params.data.julfa +
+      params.data.augfa +
+      params.data.sepfa +
+      params.data.octfa +
+      params.data.novfa +
+      params.data.decfa;
+    var totalBudget =  
+      params.data.janft +
+      params.data.febft +
+      params.data.marft +
+      params.data.aprft +
+      params.data.mayft +
+      params.data.junft +
+      params.data.julft +
+      params.data.augft +
+      params.data.sepft +
+      params.data.octft +
+      params.data.novft +
+      params.data.decft + params.data.adjustment;
     return createTotalUnObligationsValueObject(totalObligation, totalBudget);
   }
 }
@@ -944,19 +1106,31 @@ function TotalUnObligationsAggFunc(values) {
 function TotalPercentageValueGetter(params) {
   if (!params.node.group) {
     var totalObligation =
-      params.data.jan +
-      params.data.feb +
-      params.data.mar +
-      params.data.apr +
-      params.data.may +
-      params.data.jun +
-      params.data.jul +
-      params.data.aug +
-      params.data.sep +
-      params.data.oct +
-      params.data.nov +
-      params.data.decm;
-    var totalBudget = params.data.budget + params.data.adjustment;
+      params.data.janfa +
+      params.data.febfa +
+      params.data.marfa +
+      params.data.aprfa +
+      params.data.mayfa +
+      params.data.junfa +
+      params.data.julfa +
+      params.data.augfa +
+      params.data.sepfa +
+      params.data.octfa +
+      params.data.novfa +
+      params.data.decfa;
+      var totalBudget =  
+        params.data.janft +
+        params.data.febft +
+        params.data.marft +
+        params.data.aprft +
+        params.data.mayft +
+        params.data.junft +
+        params.data.julft +
+        params.data.augft +
+        params.data.sepft +
+        params.data.octft +
+        params.data.novft +
+        params.data.decft + params.data.adjustment;
     return createTotalPercentageValueObject(totalObligation, totalBudget);
   }
 }
@@ -982,4 +1156,138 @@ function TotalPercentageAggFunc(values) {
     }
   });
   return createTotalPercentageValueObject(a, b);
+}
+
+function TotalQ1ValueGetter2(params) {
+  if (!params.node.group) {
+    return createQuarterTotalValueObject(
+      params.data.janft,
+      params.data.febft,
+      params.data.marft
+    );
+  }
+}
+
+function TotalQ2ValueGetter2(params) {
+  if (!params.node.group) {
+    return createQuarterTotalValueObject(
+      params.data.aprft,
+      params.data.mayft,
+      params.data.junft
+    );
+  }
+}
+
+function TotalQ3ValueGetter2(params) {
+  if (!params.node.group) {
+    return createQuarterTotalValueObject(
+      params.data.julft,
+      params.data.augft,
+      params.data.sepft
+    );
+  }
+}
+function TotalQ4ValueGetter2(params) {
+  if (!params.node.group) {
+    return createQuarterTotalValueObject(
+      params.data.octft,
+      params.data.novft,
+      params.data.decft
+    );
+  }
+}
+
+function TotalPhysicalTargetAggFunc(values) {
+  var [a, b, c, d, e, f, g, h, i, j, k, l] = [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ];
+  values.forEach(function(value) {
+    if (value && value.a) {
+      a += value.a;
+    }
+    if (value && value.b) {
+      b += value.b;
+    }
+    if (value && value.c) {
+      c += value.c;
+    }
+    if (value && value.d) {
+      d += value.d;
+    }
+    if (value && value.e) {
+      e += value.e;
+    }
+    if (value && value.f) {
+      f += value.f;
+    }
+    if (value && value.g) {
+      g += value.g;
+    }
+    if (value && value.h) {
+      h += value.h;
+    }
+    if (value && value.i) {
+      i += value.i;
+    }
+    if (value && value.j) {
+      j += value.j;
+    }
+    if (value && value.k) {
+      k += value.k;
+    }
+    if (value && value.l) {
+      l += value.l;
+    }
+  });
+  return createTotalPhysicalTarget(a, b, c, d, e, f, g, h, i, j, k, l);
+}
+
+function createTotalPhysicalTarget(a, b, c, d, e, f, g, h, i, j, k, l) {
+  return {
+    a: a,
+    b: b,
+    c: c,
+    d: d,
+    e: e,
+    f: f,
+    g: g,
+    h: h,
+    i: i,
+    j: j,
+    k: k,
+    l: l,
+    toString: function() {
+      return a + b + c + d + e + f + g + h + i + j + k + l;
+    }
+  };
+}
+
+function TotalObligationTargetValueGetter(params) {
+  if (!params.node.group) {
+    return createTotalPhysicalTarget(
+      params.data.janft,
+      params.data.febft,
+      params.data.marft,
+      params.data.aprft,
+      params.data.mayft,
+      params.data.junft,
+      params.data.julft,
+      params.data.augft,
+      params.data.sepft,
+      params.data.octft,
+      params.data.novft,
+      params.data.decft
+    );
+  }
 }

@@ -711,7 +711,7 @@ export class Bed123Component implements OnInit, OnChanges {
             width: 110,
             cellStyle: { color: 'black', 'background-color': '#81f7a6' },
             aggFunc: TotalPhysicalTargetAggFunc,
-            valueGetter: TotalObligationTargetValueGetter,
+            valueGetter: TotalDisbursementTargetValueGetter,
             valueFormatter: this.currencyFormatter,
             type: 'numericColumn',
             cellClass: ['data', 'total']

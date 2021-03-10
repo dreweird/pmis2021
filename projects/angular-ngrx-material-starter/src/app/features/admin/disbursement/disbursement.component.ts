@@ -53,7 +53,7 @@ export class DisbursementComponent implements OnInit, OnChanges {
   }
 
   getRow(pid) {
-    this.apmisService.getObligation(pid).subscribe(data => {
+    this.apmisService.getPhysical(pid).subscribe(data => {
       this.rowData = data;
       this.cd.markForCheck();
     });
@@ -81,7 +81,7 @@ export class DisbursementComponent implements OnInit, OnChanges {
       event.newValue = null;
     } else {
       this.apmisService
-        .updateAllotment(event.colDef.field, event.newValue, event.data.id)
+        .updatePhysical(event.colDef.field, event.newValue, event.data.mfo_id)
         .subscribe(data => {
           if (!data) {
             alert('something wrong happen!');
@@ -179,20 +179,6 @@ export class DisbursementComponent implements OnInit, OnChanges {
           }
         }
       },
-
-      {
-        headerName: 'Description',
-        cellClass: ['data'],
-        field: 'name',
-        width: 150,
-        pinned: 'left'
-      },
-      {
-        headerName: 'UACS Object Code',
-        cellClass: ['data'],
-        field: 'object_id',
-        width: 120
-      },
       {
         headerName: 'Adjusted Allotment',
         cellClass: ['data', 't'],
@@ -209,21 +195,21 @@ export class DisbursementComponent implements OnInit, OnChanges {
         children: [
           {
             headerName: 'Jan',
-            field: 'jan',
+            field: 'janfa',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open'
           },
           {
             headerName: 'Feb',
-            field: 'feb',
+            field: 'febfa',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open'
           },
           {
             headerName: 'Mar',
-            field: 'mar',
+            field: 'marfa',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open'
@@ -239,21 +225,21 @@ export class DisbursementComponent implements OnInit, OnChanges {
 
           {
             headerName: 'Apr',
-            field: 'apr',
+            field: 'aprfa',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open'
           },
           {
             headerName: 'May',
-            field: 'may',
+            field: 'mayfa',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open'
           },
           {
             headerName: 'Jun',
-            field: 'jun',
+            field: 'junfa',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open'
@@ -269,21 +255,21 @@ export class DisbursementComponent implements OnInit, OnChanges {
 
           {
             headerName: 'Jul',
-            field: 'jul',
+            field: 'julfa',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open'
           },
           {
             headerName: 'Aug',
-            field: 'aug',
+            field: 'augfa',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open'
           },
           {
             headerName: 'Sep',
-            field: 'sep',
+            field: 'sepfa',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open'
@@ -299,21 +285,21 @@ export class DisbursementComponent implements OnInit, OnChanges {
 
           {
             headerName: 'Oct',
-            field: 'oct',
+            field: 'octfa',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open'
           },
           {
             headerName: 'Nov',
-            field: 'nov',
+            field: 'novfa',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open'
           },
           {
             headerName: 'Dec',
-            field: 'decm',
+            field: 'decfa',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open'
@@ -347,7 +333,7 @@ export class DisbursementComponent implements OnInit, OnChanges {
         children: [
           {
             headerName: 'Jan',
-            field: 'jan_da',
+            field: 'janda',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open',
@@ -355,7 +341,7 @@ export class DisbursementComponent implements OnInit, OnChanges {
           },
           {
             headerName: 'Feb',
-            field: 'feb_da',
+            field: 'febda',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open',
@@ -363,7 +349,7 @@ export class DisbursementComponent implements OnInit, OnChanges {
           },
           {
             headerName: 'Mar',
-            field: 'mar_da',
+            field: 'marda',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open',
@@ -380,7 +366,7 @@ export class DisbursementComponent implements OnInit, OnChanges {
 
           {
             headerName: 'Apr',
-            field: 'apr_da',
+            field: 'aprda',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open',
@@ -388,7 +374,7 @@ export class DisbursementComponent implements OnInit, OnChanges {
           },
           {
             headerName: 'May',
-            field: 'may_da',
+            field: 'mayda',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open',
@@ -396,7 +382,7 @@ export class DisbursementComponent implements OnInit, OnChanges {
           },
           {
             headerName: 'Jun',
-            field: 'jun_da',
+            field: 'junda',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open',
@@ -413,7 +399,7 @@ export class DisbursementComponent implements OnInit, OnChanges {
 
           {
             headerName: 'Jul',
-            field: 'jul_da',
+            field: 'julda',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open',
@@ -421,7 +407,7 @@ export class DisbursementComponent implements OnInit, OnChanges {
           },
           {
             headerName: 'Aug',
-            field: 'aug_da',
+            field: 'augda',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open',
@@ -429,7 +415,7 @@ export class DisbursementComponent implements OnInit, OnChanges {
           },
           {
             headerName: 'Sep',
-            field: 'sep_da',
+            field: 'sepda',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open',
@@ -446,7 +432,7 @@ export class DisbursementComponent implements OnInit, OnChanges {
 
           {
             headerName: 'Oct',
-            field: 'oct_da',
+            field: 'octda',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open',
@@ -454,7 +440,7 @@ export class DisbursementComponent implements OnInit, OnChanges {
           },
           {
             headerName: 'Nov',
-            field: 'nov_da',
+            field: 'novda',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open',
@@ -462,7 +448,7 @@ export class DisbursementComponent implements OnInit, OnChanges {
           },
           {
             headerName: 'Dec',
-            field: 'dec_da',
+            field: 'decda',
             cellClass: ['data'],
             type: 'valueColumn',
             columnGroupShow: 'open',
@@ -669,40 +655,39 @@ export class DisbursementComponent implements OnInit, OnChanges {
     let ck = [
       'mfo_name',
       'name',
-      'object_id',
       'adjusted',
-      'jan',
-      'feb',
-      'mar',
+      'janfa',
+      'febfa',
+      'marfa',
       'Q1',
-      'apr',
-      'may',
-      'jun',
+      'aprfa',
+      'mayfa',
+      'junfa',
       'Q2',
-      'jul',
-      'aug',
-      'sep',
+      'julfa',
+      'augfa',
+      'sepfa',
       'Q3',
-      'oct',
-      'nov',
-      'decm',
+      'octfa',
+      'novfa',
+      'decfa',
       'Q4',
       'to',
-      'jan_da',
-      'feb_da',
-      'mar_da',
+      'janda',
+      'febda',
+      'marda',
       'Q1D',
-      'apr_da',
-      'may_da',
-      'jun_da',
+      'aprda',
+      'mayda',
+      'junda',
       'Q2D',
-      'jul_da',
-      'aug_da',
-      'sep_da',
+      'julda',
+      'augda',
+      'sepda',
       'Q3D',
-      'oct_da',
-      'nov_da',
-      'dec_da',
+      'octda',
+      'novda',
+      'decda',
       'Q4D',
       'td',
       'uo',
@@ -756,8 +741,7 @@ export class DisbursementComponent implements OnInit, OnChanges {
         [
           {
             styleId: 'p1',
-            data: { type: 'String', value: '' },
-            mergeAcross: 3
+            data: { type: 'String', value: '' }
           },
           {
             styleId: 'a',
@@ -831,9 +815,13 @@ function getSimpleCellRenderer() {
   return SimpleCellRenderer;
 }
 
-function TotalAdjustedValueGetter(params) {
+function TotalAdjustedValueGetter(params)  {
   if (!params.node.group) {
-    return createValueObject(params.data.budget, params.data.adjustment);
+    let budget = params.data.janft + params.data.febft  + params.data.marft 
+    + params.data.aprft + params.data.mayft + params.data.junft
+    + params.data.julft + params.data.augft + params.data.sepft
+    + params.data.octft + params.data.novft + params.data.decft ;
+    return createValueObject(budget, params.data.adjustment);
   }
 }
 
@@ -966,9 +954,9 @@ function TotalObligationsAggFunc(values) {
 function TotalQ1ValueGetter(params) {
   if (!params.node.group) {
     return createQuarterTotalValueObject(
-      params.data.jan,
-      params.data.feb,
-      params.data.mar
+      params.data.janfa,
+      params.data.febfa,
+      params.data.marfa
     );
   }
 }
@@ -976,9 +964,9 @@ function TotalQ1ValueGetter(params) {
 function TotalQ2ValueGetter(params) {
   if (!params.node.group) {
     return createQuarterTotalValueObject(
-      params.data.apr,
-      params.data.may,
-      params.data.jun
+      params.data.aprfa,
+      params.data.mayfa,
+      params.data.junfa
     );
   }
 }
@@ -986,18 +974,18 @@ function TotalQ2ValueGetter(params) {
 function TotalQ3ValueGetter(params) {
   if (!params.node.group) {
     return createQuarterTotalValueObject(
-      params.data.jul,
-      params.data.aug,
-      params.data.sep
+      params.data.julfa,
+      params.data.augfa,
+      params.data.sepfa
     );
   }
 }
 function TotalQ4ValueGetter(params) {
   if (!params.node.group) {
     return createQuarterTotalValueObject(
-      params.data.oct,
-      params.data.nov,
-      params.data.decm
+      params.data.octfa,
+      params.data.novfa,
+      params.data.decfa
     );
   }
 }
@@ -1005,9 +993,9 @@ function TotalQ4ValueGetter(params) {
 function TotalQ1ValueGetter2(params) {
   if (!params.node.group) {
     return createQuarterTotalValueObject(
-      params.data.jan_da,
-      params.data.feb_da,
-      params.data.mar_da
+      params.data.janda,
+      params.data.febda,
+      params.data.marda
     );
   }
 }
@@ -1015,9 +1003,9 @@ function TotalQ1ValueGetter2(params) {
 function TotalQ2ValueGetter2(params) {
   if (!params.node.group) {
     return createQuarterTotalValueObject(
-      params.data.apr_da,
-      params.data.may_da,
-      params.data.jun_da
+      params.data.aprda,
+      params.data.mayda,
+      params.data.junda
     );
   }
 }
@@ -1025,18 +1013,18 @@ function TotalQ2ValueGetter2(params) {
 function TotalQ3ValueGetter2(params) {
   if (!params.node.group) {
     return createQuarterTotalValueObject(
-      params.data.jul_da,
-      params.data.aug_da,
-      params.data.sep_da
+      params.data.julda,
+      params.data.augda,
+      params.data.sepda
     );
   }
 }
 function TotalQ4ValueGetter2(params) {
   if (!params.node.group) {
     return createQuarterTotalValueObject(
-      params.data.oct_da,
-      params.data.nov_da,
-      params.data.dec_da
+      params.data.octda,
+      params.data.novda,
+      params.data.decda
     );
   }
 }
@@ -1044,18 +1032,18 @@ function TotalQ4ValueGetter2(params) {
 function TotalObligationValueGetter(params) {
   if (!params.node.group) {
     return createTotalObligationsValueObject(
-      params.data.jan,
-      params.data.feb,
-      params.data.mar,
-      params.data.apr,
-      params.data.may,
-      params.data.jun,
-      params.data.jul,
-      params.data.aug,
-      params.data.sep,
-      params.data.oct,
-      params.data.nov,
-      params.data.decm
+      params.data.janfa,
+      params.data.febfa,
+      params.data.marfa,
+      params.data.aprfa,
+      params.data.mayfa,
+      params.data.junfa,
+      params.data.julfa,
+      params.data.augfa,
+      params.data.sepfa,
+      params.data.octfa,
+      params.data.novfa,
+      params.data.decfa
     );
   }
 }
@@ -1063,18 +1051,18 @@ function TotalObligationValueGetter(params) {
 function TotalDisbursementValueGetter(params) {
   if (!params.node.group) {
     return createTotalObligationsValueObject(
-      params.data.jan_da,
-      params.data.feb_da,
-      params.data.mar_da,
-      params.data.apr_da,
-      params.data.may_da,
-      params.data.jun_da,
-      params.data.jul_da,
-      params.data.aug_da,
-      params.data.sep_da,
-      params.data.oct_da,
-      params.data.nov_da,
-      params.data.dec_da
+      params.data.janda,
+      params.data.febda,
+      params.data.marda,
+      params.data.aprda,
+      params.data.mayda,
+      params.data.junda,
+      params.data.julda,
+      params.data.augda,
+      params.data.sepda,
+      params.data.octda,
+      params.data.novda,
+      params.data.decda
     );
   }
 }
@@ -1105,31 +1093,31 @@ function TotalUnpaidAggFunc(values) {
 function TotalPercentageValueGetter(params) {
   if (!params.node.group) {
     var totalObligation =
-      params.data.jan +
-      params.data.feb +
-      params.data.mar +
-      params.data.apr +
-      params.data.may +
-      params.data.jun +
-      params.data.jul +
-      params.data.aug +
-      params.data.sep +
-      params.data.oct +
-      params.data.nov +
-      params.data.decm;
+      params.data.janfa +
+      params.data.febfa +
+      params.data.marfa +
+      params.data.aprfa +
+      params.data.mayfa +
+      params.data.junfa +
+      params.data.julfa +
+      params.data.augfa +
+      params.data.sepfa +
+      params.data.octfa +
+      params.data.novfa +
+      params.data.decfa;
     var totalDisbursement =
-      params.data.jan_da +
-      params.data.feb_da +
-      params.data.mar_da +
-      params.data.apr_da +
-      params.data.may_da +
-      params.data.jun_da +
-      params.data.jul_da +
-      params.data.aug_da +
-      params.data.sep_da +
-      params.data.oct_da +
-      params.data.nov_da +
-      params.data.dec_da;
+      params.data.janda +
+      params.data.febda +
+      params.data.marda +
+      params.data.aprda +
+      params.data.mayda +
+      params.data.junda +
+      params.data.julda +
+      params.data.augda +
+      params.data.sepda +
+      params.data.octda +
+      params.data.novda +
+      params.data.decda;
 
     return createTotalPercentageValueObject(totalDisbursement, totalObligation);
   }
@@ -1161,31 +1149,31 @@ function TotalPercentageAggFunc(values) {
 function TotalUnpaidValueGetter(params) {
   if (!params.node.group) {
     var totalObligation =
-      params.data.jan +
-      params.data.feb +
-      params.data.mar +
-      params.data.apr +
-      params.data.may +
-      params.data.jun +
-      params.data.jul +
-      params.data.aug +
-      params.data.sep +
-      params.data.oct +
-      params.data.nov +
-      params.data.decm;
+      params.data.janfa +
+      params.data.febfa +
+      params.data.marfa +
+      params.data.aprfa +
+      params.data.mayfa +
+      params.data.junfa +
+      params.data.julfa +
+      params.data.augfa +
+      params.data.sepfa +
+      params.data.octfa +
+      params.data.novfa +
+      params.data.decfa;
     var totalDisbursement =
-      params.data.jan_da +
-      params.data.feb_da +
-      params.data.mar_da +
-      params.data.apr_da +
-      params.data.may_da +
-      params.data.jun_da +
-      params.data.jul_da +
-      params.data.aug_da +
-      params.data.sep_da +
-      params.data.oct_da +
-      params.data.nov_da +
-      params.data.dec_da;
+      params.data.janda +
+      params.data.febda +
+      params.data.marda +
+      params.data.aprda +
+      params.data.mayda +
+      params.data.junda +
+      params.data.julda +
+      params.data.augda +
+      params.data.sepda +
+      params.data.octda +
+      params.data.novda +
+      params.data.decda;
 
     return createTotalUnObligationsValueObject(
       totalObligation,

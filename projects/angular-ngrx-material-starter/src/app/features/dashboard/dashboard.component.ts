@@ -117,7 +117,7 @@ export class DashboardComponent implements OnInit {
         valueGetter: function(params) {
           let s = params.data;
           if(s){
-            return (s.fin / s.ft) * 100
+            return (s.fa / s.ft) * 100
           }
         }},
       ] 
@@ -135,7 +135,7 @@ export class DashboardComponent implements OnInit {
         valueGetter: function(params) {
           let s = params.data;
           if(s){
-            return (s.dis / s.ft) * 100
+            return (s.da / s.dt) * 100
           }
         }},
       ] 

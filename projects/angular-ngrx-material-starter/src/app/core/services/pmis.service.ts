@@ -10,6 +10,11 @@ export class PmisService {
 
   constructor(private http: HttpClient) {}
 
+  getChart(pid) {
+    const url = `${this.apiRoot}/chart/${pid}`;
+    return this.http.get(url);
+  }
+
   pdz() {
     const url = `${this.apiRoot}/pdz`;
     return this.http.get(url);

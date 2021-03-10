@@ -214,9 +214,9 @@ export class BydistrictComponent implements OnInit {
         var total = 0;
         if (data) {
           for (var i = 0, l = data.location.length; i < l; i++) {
-            total = total + data.location[i].target;
+            total = total + data.location[i].cost;
           }
-          return total * Number(data.cost);
+          return total;
         }
       }
     },
