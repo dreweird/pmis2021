@@ -38,7 +38,7 @@ export class AdminComponent implements OnInit {
         { link: 'bymun', label: 'By Municipality' },
         { link: 'pdz', label: 'PDZ' },
       ];
-    } else if (this.user.b == 4) {
+    } else if (this.user.b == 4 || this.user.b == 5 ) {
       this.examples = [
         { link: 'budget', label: 'M&E' },
         { link: 'locked', label: 'Locked' },

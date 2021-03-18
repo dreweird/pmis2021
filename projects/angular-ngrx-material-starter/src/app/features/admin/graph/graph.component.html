@@ -1,17 +1,17 @@
 <div class="container" rtl>
-    <div class="row" [ngClass]="routeAnimationsElements">
-        <div class="col-md-12 title" >
+    <div class="row title" [ngClass]="routeAnimationsElements">
+        <div class="col-md-12" >
             <h2 >Mid-Year Summary</h2>
             <h2><i>{{name}}</i></h2>
         </div>
         <div class="col-md-12" >
             <mat-card>
-                <table class="table">
+                <table class="table table-bordered midyear">
                     <thead>
                       <tr>
-                        <th scope="col">BED2 Plan vs. Actual Physical Accomplishment</th>
-                        <th scope="col">BED1 Plan vs. Actual Obligation Accomplishment</th>
-                        <th scope="col">BED3 Plan vs. Actual Disbursement Accomplishment</th>
+                        <th scope="col">Actual Physical Accomplishment vs. BED2 Target</th>
+                        <th scope="col">Actual Obligation Accomplishment vs. BED1 Target</th>
+                        <th scope="col">Actual Disbursement Accomplishment vs. BED3 Target</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -26,44 +26,46 @@
  
         </div>
     </div>
-        
-    <div class="row">
-        <div class="col-md-12" [ngClass]="routeAnimationsElements">
-            <mat-card>
-                <div id="chartPhysicalMidyear" style="height: 370px; width: 100%;"></div>
-            </mat-card>
-        
-
-        </div>    
-    </div>
-
-    <div class="row">
-        <div class="col-md-6" [ngClass]="routeAnimationsElements">
-            <mat-card>
-                <div id="chartObligationMidyear" style="height: 370px; width: 100%;"></div>
-            </mat-card>
+    <div class="title">
+        <div class="row">
+            <div class="col-md-12" [ngClass]="routeAnimationsElements">
+                <mat-card>
+                    <div id="chartPhysicalMidyear" style="height: 370px; width: 100%;"></div>
+                </mat-card>
+            
+    
+            </div>    
         </div>
-        <div class="col-md-6" [ngClass]="routeAnimationsElements">
-            <mat-card>
-                <div id="chartDisbursementMidyear" style="height: 370px; width: 100%;"></div>
-            </mat-card>
-        </div>      
-    </div>
+    
+        <div class="row">
+            <div class="col-md-6" [ngClass]="routeAnimationsElements">
+                <mat-card>
+                    <div id="chartObligationMidyear" style="height: 370px; width: 100%;"></div>
+                </mat-card>
+            </div>
+            <div class="col-md-6" [ngClass]="routeAnimationsElements">
+                <mat-card>
+                    <div id="chartDisbursementMidyear" style="height: 370px; width: 100%;"></div>
+                </mat-card>
+            </div>      
+        </div>
+    </div>  
 
 
-    <div class="row" [ngClass]="routeAnimationsElements">
-        <div class="col-md-12 title" >
+
+    <div class="row title2" [ngClass]="routeAnimationsElements">
+        <div class="col-md-12" >
             <h2 >YearEnd Summary</h2>
             <h2><i>{{name}}</i></h2>
         </div>
         <div class="col-md-12" >
             <mat-card>
-                <table class="table">
+                <table class="table table-bordered yearend">
                     <thead>
                       <tr>
-                        <th scope="col">BED2 Plan vs. Actual Physical Accomplishment</th>
-                        <th scope="col">BED1 Plan vs. Actual Obligation Accomplishment</th>
-                        <th scope="col">BED3 Plan vs. Actual Disbursement Accomplishment</th>
+                        <th scope="col">Actual Physical Accomplishment vs. BED2 Target</th>
+                        <th scope="col">Actual Obligation Accomplishment vs. BED1 Target</th>
+                        <th scope="col">Actual Disbursement Accomplishment vs. BED3 Target</th>
                    </tr>
                     </thead>
                     <tbody>
@@ -78,7 +80,7 @@
  
         </div>
     </div>
-
+<div class="title2">
     <div class="row">
         <div class="col-md-12" [ngClass]="routeAnimationsElements">
             <mat-card>
@@ -100,5 +102,7 @@
             </mat-card>
         </div>      
     </div>
+</div>
+
 </div>
     

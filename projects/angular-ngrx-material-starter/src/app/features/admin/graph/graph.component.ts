@@ -32,6 +32,7 @@ export class GraphComponent implements OnInit, OnChanges {
   
   }
   getChart(pid){
+    console
     this.pmisService.getChart(pid).subscribe((data: any) => {
       console.log(data);
     
@@ -346,18 +347,18 @@ export class GraphComponent implements OnInit, OnChanges {
             showInLegend: true,
             name: 'Actual Disbursement',
             dataPoints: [
-              { y: ((this.data.janda / this.data.da) * 100), label: 'Jan' },
-              { y: ((this.data.janda + this.data.febda) / this.data.da * 100), label: 'Feb' },
-              { y: ((this.data.janda + this.data.febda + this.data.marda)  / this.data.da * 100), label: 'Mar' },
-              { y: ((this.data.janda + this.data.febda + this.data.marda + this.data.aprda)  / this.data.da * 100), label: 'Apr' },
-              { y: ((this.data.janda + this.data.febda + this.data.marda + this.data.aprda + this.data.mayda) / this.data.da * 100 ), label: 'May' },
-              { y: ( this.data.da_mid / this.data.da) * 100, label: 'Jun' },
-              { y: ((this.data.da_mid + this.data.julda) / this.data.da) * 100, label: 'Jul' },
-              { y: ((this.data.da_mid + this.data.julda + this.data.augda) / this.data.da) * 100, label: 'Aug' },
-              { y: ((this.data.da_mid + this.data.julda + this.data.augda + this.data.sepda) / this.data.da) * 100, label: 'Sep' },
-              { y: ((this.data.da_mid + this.data.julda + this.data.augda + this.data.sepda + this.data.octda) / this.data.da) * 100, label: 'Oct' },
-              { y: ((this.data.da_mid + this.data.julda + this.data.augda + this.data.sepda + this.data.octda + this.data.novda) / this.data.da) * 100, label: 'Nov' },
-              { y: ( this.data.da / this.data.da) * 100, label: 'Dec' },
+              { y: ((this.data.janda / this.data.dt) * 100), label: 'Jan' },
+              { y: ((this.data.janda + this.data.febda) / this.data.dt * 100), label: 'Feb' },
+              { y: ((this.data.janda + this.data.febda + this.data.marda)  / this.data.dt * 100), label: 'Mar' },
+              { y: ((this.data.janda + this.data.febda + this.data.marda + this.data.aprda)  / this.data.dt * 100), label: 'Apr' },
+              { y: ((this.data.janda + this.data.febda + this.data.marda + this.data.aprda + this.data.mayda) / this.data.dt * 100 ), label: 'May' },
+              { y: ( this.data.da_mid / this.data.dt) * 100, label: 'Jun' },
+              { y: ((this.data.da_mid + this.data.julda) / this.data.dt) * 100, label: 'Jul' },
+              { y: ((this.data.da_mid + this.data.julda + this.data.augda) / this.data.dt) * 100, label: 'Aug' },
+              { y: ((this.data.da_mid + this.data.julda + this.data.augda + this.data.sepda) / this.data.dt) * 100, label: 'Sep' },
+              { y: ((this.data.da_mid + this.data.julda + this.data.augda + this.data.sepda + this.data.octda) / this.data.dt) * 100, label: 'Oct' },
+              { y: ((this.data.da_mid + this.data.julda + this.data.augda + this.data.sepda + this.data.octda + this.data.novda) / this.data.dt) * 100, label: 'Nov' },
+              { y: ( this.data.da / this.data.dt) * 100, label: 'Dec' },
             ]
           },
           {

@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { Module } from '@ag-grid-community/all-modules';
 import { AllModules } from '@ag-grid-enterprise/all-modules';
 import * as moment from 'moment';
+import * as custom from '../obligation/valueGetter.js';
 
 @Component({
   selector: 'anms-bed123',
@@ -55,7 +56,7 @@ export class Bed123Component implements OnInit, OnChanges {
   }
 
   getRow(pid) {
-    this.apmisService.getPhysical(pid).subscribe(data => {
+    this.pmisService.getPhysical(pid).subscribe(data => {
       this.rowData = data;
       this.cd.markForCheck();
     });
@@ -77,6 +78,21 @@ export class Bed123Component implements OnInit, OnChanges {
     });
   }
 
+  onCellValueChanged(event: any) {
+    if (isNaN(+event.newValue)) {
+      alert('Invalid entry...input numbers only');
+      event.newValue = null;
+    } else {
+      this.pmisService
+        .updatePhysical(event.colDef.field, event.newValue, event.data.mfo_id)
+        .subscribe(data => {
+          if (!data) {
+            alert('something wrong happen!');
+          }
+        });
+    }
+  }
+
  
 
   prog_ou: any;
@@ -86,23 +102,13 @@ export class Bed123Component implements OnInit, OnChanges {
     var ck = [
       'mfo_name',
       'unitmeasure',
-      'janft',
-      'febft',
-      'marft',
-      'Q1_ft',
-      'aprft',
-      'mayft',
-      'junft',
-      'Q2_ft',
-      'julft',
-      'augft',
-      'sepft',
-      'Q3_ft',
-      'octft',
-      'novft',
-      'decft',
-      'Q4_ft',
-      'FT',
+      'janft', 'janft_co', 'jan_tot', 'febft', 'febft_co', 'feb_tot', 'marft', 'marft_co', 'mar_tot', 'q1ft', 'q1ft_co', 'q1_tot',
+      'aprft', 'aprft_co', 'apr_tot', 'mayft', 'mayft_co', 'may_tot', 'junft', 'junft_co', 'jun_tot', 'q2ft', 'q2ft_co', 'q2_tot',
+       
+      'julft', 'julft_co', 'jul_tot', 'augft', 'augft_co', 'aug_tot', 'sepft', 'sepft_co', 'sep_tot', 'q3ft', 'q3ft_co', 'q3_tot',
+       'octft', 'octft_co', 'oct_tot', 'novft', 'novft_co', 'nov_tot', 'decft', 'decft_co', 'dec_tot', 'q4ft', 'q4ft_co', 'q4_tot',
+      
+      'total_ft', 'total_ft_co', 'grandtotal_ft',
       'jant',
       'febt',
       'mart',
@@ -120,23 +126,13 @@ export class Bed123Component implements OnInit, OnChanges {
       'dect',
       'Q4_pt',
       'PT',
-      'jandt',
-      'febdt',
-      'mardt',
-      'Q1_dt',
-      'aprdt',
-      'maydt',
-      'jundt',
-      'Q2_dt',
-      'juldt',
-      'augdt',
-      'sepdt',
-      'Q3_dt',
-      'octdt',
-      'novdt',
-      'decdt',
-      'Q4_dt',
-      'DT',
+      'jandt', 'jandt_co', 'jandt_tot', 'febdt', 'febdt_co', 'febdt_tot', 'mardt', 'mardt_co', 'mardt_tot', 'q1dt', 'q1dt_co', 'q1dt_tot',
+      'aprdt', 'aprdt_co', 'aprdt_tot', 'maydt', 'maydt_co', 'maydt_tot', 'jundt', 'jundt_co', 'jundt_tot', 'q2dt', 'q2dt_co', 'q2dt_tot',
+       
+      'juldt', 'juldt_co', 'juldt_tot', 'augdt', 'augdt_co', 'augdt_tot', 'sepdt', 'sepdt_co', 'sepdt_tot', 'q3dt', 'q3dt_co', 'q3dt_tot',
+       'octdt', 'octdt_co', 'octdt_tot', 'novdt', 'novdt_co', 'novdt_tot', 'decdt', 'decdt_co', 'decdt_tot', 'q4dt', 'q4dt_co', 'q4dt_tot',
+      
+      'total_dt', 'total_dt_co', 'grandtotal_dt'
 
     ];
     this.gridApi.exportDataAsExcel({
@@ -190,7 +186,7 @@ export class Bed123Component implements OnInit, OnChanges {
           {
             styleId: 't',
             data: { type: 'String', value: 'BED1 - Obligation Targets' },
-            mergeAcross: 16
+            mergeAcross: 50
           },
           {
             styleId: 'a',
@@ -198,10 +194,49 @@ export class Bed123Component implements OnInit, OnChanges {
             mergeAcross: 16
           },
           {
-            styleId: 'r',
+            styleId: 't',
             data: { type: 'String', value: 'BED 3 - Disbursement Targets' },
-            mergeAcross: 16
+            mergeAcross: 50
           }
+        ],
+        [
+          { styleId: 'p1', data: { type: 'String', value: '' }, mergeAcross: 1},
+          { styleId: 'month', data: { type: 'String', value: 'Jan' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Feb' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Mar' }, mergeAcross: 2},
+          { styleId: 'quarter', data: { type: 'String', value: 'Q1' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Apr' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'May' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Jun' }, mergeAcross: 2},
+          { styleId: 'quarter', data: { type: 'String', value: 'Q2' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Jul' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Aug' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Sep' }, mergeAcross: 2},
+          { styleId: 'quarter', data: { type: 'String', value: 'Q3' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Oct' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Nov' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Dec' }, mergeAcross: 2},
+          { styleId: 'quarter', data: { type: 'String', value: 'Q4' }, mergeAcross: 2},
+          { styleId: 'total', data: { type: 'String', value: 'Grand Total' }, mergeAcross: 2},
+          { styleId: 'p', data: { type: 'String', value: '' }, mergeAcross: 16},
+          { styleId: 'month', data: { type: 'String', value: 'Jan' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Feb' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Mar' }, mergeAcross: 2},
+          { styleId: 'quarter', data: { type: 'String', value: 'Q1' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Apr' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'May' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Jun' }, mergeAcross: 2},
+          { styleId: 'quarter', data: { type: 'String', value: 'Q2' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Jul' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Aug' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Sep' }, mergeAcross: 2},
+          { styleId: 'quarter', data: { type: 'String', value: 'Q3' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Oct' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Nov' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: 'Dec' }, mergeAcross: 2},
+          { styleId: 'quarter', data: { type: 'String', value: 'Q4' }, mergeAcross: 2},
+          { styleId: 'total', data: { type: 'String', value: 'Grand Total' }, mergeAcross: 2}
+  
         ]
       ],
       columnKeys: ck,
@@ -239,13 +274,13 @@ export class Bed123Component implements OnInit, OnChanges {
   }
 
   constructor(
-    public apmisService: PmisService,
+    public pmisService: PmisService,
     private cd: ChangeDetectorRef,
     public dialog: MatDialog,
     private localStorageService: LocalStorageService
   ) {
     this.user = this.localStorageService.getItem('AUTH');
-    this.canEdit = this.user.b == 0;
+    this.canEdit = this.user.b == 5;
 
     this.columnDefs = [
       {
@@ -315,136 +350,146 @@ export class Bed123Component implements OnInit, OnChanges {
       },
       {
         headerName: 'BED 1 - Obligation Target',
+        marryChildren: true,
         children: [
           {
-            headerName: 'Jan',
-            field: 'janft',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
+            headerName: 'Jan', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'janft', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'janft_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_janft, colId: 'jan_tot'}
+            ]
           },
           {
-            headerName: 'Feb',
-            field: 'febft',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
+            headerName: 'Feb', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'febft', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'febft_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_febft, colId: 'feb_tot'}
+            ]
           },
           {
-            headerName: 'Mar',
-            field: 'marft',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
+            headerName: 'Mar', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'marft', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'marft_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_marft, colId: 'mar_tot'}
+            ]
           },
-
           {
             headerName: 'Q1',
-            colId: 'Q1_ft',
-            type: 'quarterColumn',
-            valueGetter: TotalQ1ValueGetter2,
-            cellClass: ['data', 't']
-          },
-
-          {
-            headerName: 'Apr',
-            field: 'aprft',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1ft', valueGetter: custom.total_q1_mooe_ft},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1ft_co', valueGetter: custom.total_q1_co_ft},
+              { headerName: 'TOTAL', type: 'obligationColumn', cellClass: ['data', 't'], colId: 'q1_tot', valueGetter: custom.total_q1}
+            ]
           },
           {
-            headerName: 'May',
-            field: 'mayft',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
+            headerName: 'Apr', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'aprft', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'aprft_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_aprft, colId: 'apr_tot'}
+            ]
           },
           {
-            headerName: 'Jun',
-            field: 'junft',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
+            headerName: 'May', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'mayft', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'mayft_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_mayft, colId: 'may_tot'}
+            ]
           },
-
+          {
+            headerName: 'Jun', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'junft', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'junft_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_junft, colId: 'jun_tot'}
+            ]
+          },
           {
             headerName: 'Q2',
-            colId: 'Q2_ft',
-            type: 'quarterColumn',
-            valueGetter: TotalQ2ValueGetter2,
-            cellClass: ['data', 't']
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2ft', valueGetter: custom.total_q2_mooe_ft},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2ft_co', valueGetter: custom.total_q2_co_ft},
+              { headerName: 'TOTAL', type: 'obligationColumn', cellClass: ['data', 't'], colId: 'q2_tot', valueGetter: custom.total_q2}
+            ]
           },
 
           {
-            headerName: 'Jul',
-            field: 'julft',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
+            headerName: 'Jul', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'julft', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'julft_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_julft, colId: 'jul_tot'}
+            ]
           },
           {
-            headerName: 'Aug',
-            field: 'augft',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Sep',
-            field: 'sepft',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
+            headerName: 'Aug', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'augft', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'augft_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_augft, colId: 'aug_tot'}
+            ]
           },
 
+          {
+            headerName: 'Sep', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'sepft', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'sepft_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_sepft, colId: 'sep_tot'}
+            ]
+          },
           {
             headerName: 'Q3',
-            colId: 'Q3_ft',
-            type: 'quarterColumn',
-            valueGetter: TotalQ3ValueGetter2,
-            cellClass: ['data', 't']
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3ft', valueGetter: custom.total_q3_mooe_ft},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3ft_co', valueGetter: custom.total_q3_co_ft},
+              { headerName: 'TOTAL', type: 'obligationColumn', cellClass: ['data', 't'], colId: 'q3_tot', valueGetter: custom.total_q3}
+            ]
+          },
+          {
+            headerName: 'Oct', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'octft', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'octft_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_octft, colId: 'oct_tot'}
+            ]
+          },
+          {
+            headerName: 'Nov', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'novft', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'novft_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_novft, colId: 'nov_tot'}
+            ]
           },
 
           {
-            headerName: 'Oct',
-            field: 'octft',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
+            headerName: 'Dec', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'decft', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'decft_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_decft, colId: 'dec_tot'}
+            ]
           },
-          {
-            headerName: 'Nov',
-            field: 'novft',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Dec',
-            field: 'decft',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
-          },
-
           {
             headerName: 'Q4',
-            colId: 'Q4_ft',
-            type: 'quarterColumn',
-            valueGetter: TotalQ4ValueGetter2,
-            cellClass: ['data', 't']
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4ft', valueGetter: custom.total_q4_mooe_ft},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4ft_co', valueGetter: custom.total_q4_co_ft},
+              { headerName: 'TOTAL', type: 'obligationColumn', cellClass: ['data', 't'], colId: 'q4_tot', valueGetter: custom.total_q4}
+            ]
           },
           {
-            headerName: 'Total',
-            colId: 'FT',
-            width: 110,
-            cellStyle: { color: 'black', 'background-color': '#81f7a6' },
-            aggFunc: TotalPhysicalTargetAggFunc,
-            valueGetter: TotalObligationTargetValueGetter,
-            valueFormatter: this.currencyFormatter,
-            type: 'numericColumn',
-            cellClass: ['data', 'total']
+            headerName: 'Grand Total',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_ft', valueGetter: custom.total_mooe_ft},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_ft_co', valueGetter: custom.total_co_ft},
+              { headerName: 'TOTAL', type: 'numericColumn', cellClass: ['data', 'total'], colId: 'grandtotal_ft', valueGetter: custom.grandtotal_ft, cellStyle: { color: 'black', 'background-color': '#81f7a6' },width: 110,aggFunc: custom.TotalYearAggFunc,}
+            ]
           }
         ]
       },
@@ -455,29 +500,29 @@ export class Bed123Component implements OnInit, OnChanges {
             headerName: 'Jan',
             field: 'jant',
             type: 'valueColumn',
-            columnGroupShow: 'open',
+            columnGroupShow: 'open', editable: this.canEdit,
             cellClass: ['data']
           },
           {
             headerName: 'Feb',
             field: 'febt',
             type: 'valueColumn',
-            columnGroupShow: 'open',
+            columnGroupShow: 'open', editable: this.canEdit,
             cellClass: ['data']
           },
           {
             headerName: 'Mar',
             field: 'mart',
             type: 'valueColumn',
-            columnGroupShow: 'open',
+            columnGroupShow: 'open', editable: this.canEdit,
             cellClass: ['data']
           },
 
           {
             headerName: 'Q1',
             colId: 'Q1_pt',
-            type: 'quarterColumn2',
-            valueGetter: TotalQ1ValueGetter,
+            type: 'PhysicalColumn',
+            valueGetter: custom.Q1_Physical,
             cellClass: ['data', 't']
           },
 
@@ -485,29 +530,29 @@ export class Bed123Component implements OnInit, OnChanges {
             headerName: 'Apr',
             field: 'aprt',
             type: 'valueColumn',
-            columnGroupShow: 'open',
+            columnGroupShow: 'open', editable: this.canEdit,
             cellClass: ['data']
           },
           {
             headerName: 'May',
             field: 'mayt',
             type: 'valueColumn',
-            columnGroupShow: 'open',
+            columnGroupShow: 'open', editable: this.canEdit,
             cellClass: ['data']
           },
           {
             headerName: 'Jun',
             field: 'junt',
             type: 'valueColumn',
-            columnGroupShow: 'open',
+            columnGroupShow: 'open', editable: this.canEdit,
             cellClass: ['data']
           },
 
           {
             headerName: 'Q2',
             colId: 'Q2_pt',
-            type: 'quarterColumn2',
-            valueGetter: TotalQ2ValueGetter,
+            type: 'PhysicalColumn',
+            valueGetter: custom.Q2_Physical,
             cellClass: ['data', 't']
           },
 
@@ -515,29 +560,29 @@ export class Bed123Component implements OnInit, OnChanges {
             headerName: 'Jul',
             field: 'jult',
             type: 'valueColumn',
-            columnGroupShow: 'open',
+            columnGroupShow: 'open', editable: this.canEdit,
             cellClass: ['data']
           },
           {
             headerName: 'Aug',
             field: 'augt',
             type: 'valueColumn',
-            columnGroupShow: 'open',
+            columnGroupShow: 'open', editable: this.canEdit,
             cellClass: ['data']
           },
           {
             headerName: 'Sep',
             field: 'sept',
             type: 'valueColumn',
-            columnGroupShow: 'open',
+            columnGroupShow: 'open', editable: this.canEdit,
             cellClass: ['data']
           },
 
           {
             headerName: 'Q3',
             colId: 'Q3_pt',
-            type: 'quarterColumn2',
-            valueGetter: TotalQ3ValueGetter,
+            type: 'PhysicalColumn',
+            valueGetter: custom.Q3_Physical,
             cellClass: ['data', 't']
           },
 
@@ -545,29 +590,29 @@ export class Bed123Component implements OnInit, OnChanges {
             headerName: 'Oct',
             field: 'octt',
             type: 'valueColumn',
-            columnGroupShow: 'open',
+            columnGroupShow: 'open', editable: this.canEdit,
             cellClass: ['data']
           },
           {
             headerName: 'Nov',
             field: 'novt',
             type: 'valueColumn',
-            columnGroupShow: 'open',
+            columnGroupShow: 'open', editable: this.canEdit,
             cellClass: ['data']
           },
           {
             headerName: 'Dec',
             field: 'dect',
             type: 'valueColumn',
-            columnGroupShow: 'open',
+            columnGroupShow: 'open', editable: this.canEdit,
             cellClass: ['data']
           },
 
           {
             headerName: 'Q4',
             colId: 'Q4_pt',
-            type: 'quarterColumn2',
-            valueGetter: TotalQ4ValueGetter,
+            type: 'PhysicalColumn',
+            valueGetter: custom.Q4_Physical,
             cellClass: ['data', 't']
           },
           {
@@ -575,8 +620,8 @@ export class Bed123Component implements OnInit, OnChanges {
             colId: 'PT',
             width: 110,
             cellStyle: { color: 'black', 'background-color': '#81f7a6' },
-            aggFunc: TotalPhysicalTargetAggFunc,
-            valueGetter: TotalPhysicalTargetValueGetter,
+            aggFunc: custom.TotalYearAggFunc,
+            valueGetter: custom.GrandTotal_Physical,
             valueFormatter: this.currencyFormatter,
             type: 'numericColumn',
             cellClass: ['data', 'total']
@@ -585,221 +630,152 @@ export class Bed123Component implements OnInit, OnChanges {
       },
       {
         headerName: 'BED 3 - Disbursement Target',
+        marryChildren: true,
         children: [
           {
-            headerName: 'Jan',
-            field: 'jandt',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
+            headerName: 'Jan', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'jandt', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'jandt_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_jandt, colId: 'jandt_tot'}
+            ]
           },
           {
-            headerName: 'Feb',
-            field: 'febdt',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
+            headerName: 'Feb', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'febdt', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'febdt_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_febdt, colId: 'febdt_tot'}
+            ]
           },
           {
-            headerName: 'Mar',
-            field: 'mardt',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
+            headerName: 'Mar', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'mardt', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'mardt_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_mardt, colId: 'mardt_tot'}
+            ]
           },
-
           {
             headerName: 'Q1',
-            colId: 'Q1_dt',
-            type: 'quarterColumn3',
-            valueGetter: TotalQ1ValueGetter3,
-            cellClass: ['data', 't']
-          },
-
-          {
-            headerName: 'Apr',
-            field: 'aprdt',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1dt', valueGetter: custom.total_q1_mooe_dt},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1dt_co', valueGetter: custom.total_q1_co_dt},
+              { headerName: 'TOTAL', type: 'disbursementColumn', cellClass: ['data', 't'], colId: 'q1dt_tot', valueGetter: custom.totaldt_q1}
+            ]
           },
           {
-            headerName: 'May',
-            field: 'maydt',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
+            headerName: 'Apr', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'aprdt', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'aprdt_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_aprdt, colId: 'aprdt_tot'}
+            ]
           },
           {
-            headerName: 'Jun',
-            field: 'jundt',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
+            headerName: 'May', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'maydt', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'maydt_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_maydt, colId: 'maydt_tot'}
+            ]
           },
-
+          {
+            headerName: 'Jun', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'jundt', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'jundt_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_jundt, colId: 'jundt_tot'}
+            ]
+          },
           {
             headerName: 'Q2',
-            colId: 'Q2_dt',
-            type: 'quarterColumn3',
-            valueGetter: TotalQ2ValueGetter3,
-            cellClass: ['data', 't']
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2dt', valueGetter: custom.total_q2_mooe_dt},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2dt_co', valueGetter: custom.total_q2_co_dt},
+              { headerName: 'TOTAL', type: 'disbursementColumn', cellClass: ['data', 't'], colId: 'q2dt_tot', valueGetter: custom.totaldt_q2}
+            ]
           },
 
           {
-            headerName: 'Jul',
-            field: 'juldt',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
+            headerName: 'Jul', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'juldt', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'juldt_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_juldt, colId: 'juldt_tot'}
+            ]
           },
           {
-            headerName: 'Aug',
-            field: 'augdt',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Sep',
-            field: 'sepdt',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
+            headerName: 'Aug', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'augdt', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'augdt_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_augdt, colId: 'augdt_tot'}
+            ]
           },
 
+          {
+            headerName: 'Sep', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'sepdt', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'sepdt_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_sepdt, colId: 'sepdt_tot'}
+            ]
+          },
           {
             headerName: 'Q3',
-            colId: 'Q3_dt',
-            type: 'quarterColumn3',
-            valueGetter: TotalQ3ValueGetter3,
-            cellClass: ['data', 't']
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3dt', valueGetter: custom.total_q3_mooe_dt},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3dt_co', valueGetter: custom.total_q3_co_dt},
+              { headerName: 'TOTAL', type: 'disbursementColumn', cellClass: ['data', 't'], colId: 'q3dt_tot', valueGetter: custom.totaldt_q3}
+            ]
+          },
+          {
+            headerName: 'Oct', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'octdt', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'octdt_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_octdt, colId: 'octdt_tot'}
+            ]
+          },
+          {
+            headerName: 'Nov', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'novdt', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'novdt_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_novdt, colId: 'novdt_tot'}
+            ]
           },
 
           {
-            headerName: 'Oct',
-            field: 'octdt',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
+            headerName: 'Dec', columnGroupShow: 'open',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'decdt', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'decdt_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn', cellClass: ['data', 't'], valueGetter: custom.total_decdt, colId: 'decdt_tot'}
+            ]
           },
-          {
-            headerName: 'Nov',
-            field: 'novdt',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Dec',
-            field: 'decdt',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
-          },
-
           {
             headerName: 'Q4',
-            colId: 'Q4_dt',
-            type: 'quarterColumn3',
-            valueGetter: TotalQ4ValueGetter3,
-            cellClass: ['data', 't']
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4dt', valueGetter: custom.total_q4_mooe_dt},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4dt_co', valueGetter: custom.total_q4_co_dt},
+              { headerName: 'TOTAL', type: 'disbursementColumn', cellClass: ['data', 't'], colId: 'q4dt_tot', valueGetter: custom.totaldt_q4}
+            ]
           },
           {
-            headerName: 'Total',
-            colId: 'DT',
-            width: 110,
-            cellStyle: { color: 'black', 'background-color': '#81f7a6' },
-            aggFunc: TotalPhysicalTargetAggFunc,
-            valueGetter: TotalDisbursementTargetValueGetter,
-            valueFormatter: this.currencyFormatter,
-            type: 'numericColumn',
-            cellClass: ['data', 'total']
+            headerName: 'Grand Total',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_dt', valueGetter: custom.total_mooe_dt},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_dt_co', valueGetter: custom.total_co_dt},
+              { headerName: 'TOTAL', type: 'numericColumn', cellClass: ['data', 'total'], colId: 'grandtotal_dt', valueGetter: custom.grandtotal_dt, cellStyle: { color: 'black', 'background-color': '#81f7a6' },width: 110,aggFunc: custom.TotalYearAggFunc,}
+            ]
           }
         ]
       },
     ];
 
-    this.excelStyles = [
-      { id: 'indent1', alignment: { indent: 1 }, dataType: 'string' },
-      { id: 'indent2', alignment: { indent: 2 }, dataType: 'string' },
-      { id: 'indent3', alignment: { indent: 3 }, dataType: 'string' },
-      { id: 'indent4', alignment: { indent: 4 }, dataType: 'string' },
-      { id: 'indent5', alignment: { indent: 5 }, dataType: 'string' },
-      { id: 'bold', font: { bold: true } },
-      {
-        id: 'data',
-        font: { size: 11, fontName: 'Calibri' },
-        borders: {
-          borderBottom: {
-            color: '#000000',
-            lineStyle: 'Continuous',
-            weight: 1
-          },
-          borderLeft: { color: '#000000', lineStyle: 'Continuous', weight: 1 },
-          borderRight: { color: '#000000', lineStyle: 'Continuous', weight: 1 },
-          borderTop: { color: '#000000', lineStyle: 'Continuous', weight: 1 }
-        }
-      },
-      {
-        id: 't',
-        interior: { color: '#fae091', pattern: 'Solid' },
-        font: { size: 11, fontName: 'Calibri', bold: true },
-        alignment: { horizontal: 'Center' }
-      },
-      {
-        id: 'a',
-        interior: { color: '#a2dde5', pattern: 'Solid' },
-        font: { size: 11, fontName: 'Calibri', bold: true },
-        alignment: { horizontal: 'Center' }
-      },
-      {
-        id: 'v',
-        interior: { color: '#ec9fa7', pattern: 'Solid' },
-        font: { size: 11, fontName: 'Calibri', bold: true },
-        alignment: { horizontal: 'Center' }
-      },
-      {
-        id: 'p',
-        interior: { color: '#e6f403', pattern: 'Solid' },
-        font: { size: 11, fontName: 'Calibri', bold: true },
-        alignment: { horizontal: 'Center' }
-      },
-      {
-        id: 'r',
-        interior: { color: '#edbae5', pattern: 'Solid' },
-        font: { size: 11, fontName: 'Calibri', bold: true },
-        alignment: { horizontal: 'Center' }
-      },
-      {
-        id: 'p1',
-        interior: { color: '#7a6f67', pattern: 'Solid' },
-        font: { size: 11, fontName: 'Calibri', bold: true },
-        alignment: { horizontal: 'Center' }
-      },
-      {
-        id: 'total',
-        interior: { color: '#81f7a6', pattern: 'Solid' },
-        font: { size: 11, fontName: 'Calibri', bold: true },
-        alignment: { horizontal: 'Center' }
-      },
-
-      {
-        id: 'header',
-        font: { size: 11, fontName: 'Calibri', bold: true },
-        borders: {
-          borderBottom: {
-            color: '#000000',
-            lineStyle: 'Continuous',
-            weight: 1
-          },
-          borderLeft: { color: '#000000', lineStyle: 'Continuous', weight: 1 },
-          borderRight: { color: '#000000', lineStyle: 'Continuous', weight: 1 },
-          borderTop: { color: '#000000', lineStyle: 'Continuous', weight: 1 }
-        }
-      },
-      { id: 'headappend', font: { size: 11, fontName: 'Calibri', bold: true } }
-    ];
+    this.excelStyles = custom.excelStyles;
 
     this.defaultColDef = { sortable: true, resizable: true, filter: true };
     this.context = { componentParent: this };
@@ -807,10 +783,6 @@ export class Bed123Component implements OnInit, OnChanges {
       simpleCellRenderer: getSimpleCellRenderer()
     };
 
-    this.aggFuncs = {
-      TotalQuarterAggFunc: TotalQuarterAggFunc,
-      TotalPhysicalTargetAggFunc: TotalPhysicalTargetAggFunc
-    };
 
     this.columnTypes = {
       valueColumn: {
@@ -820,9 +792,30 @@ export class Bed123Component implements OnInit, OnChanges {
         cellStyle: { 'text-align': 'right' },
         valueFormatter: this.currencyFormatter
       },
-      quarterColumn: {
+      totalColumn: {
+        width: 130,
+        aggFunc: custom.TotalMonthAggFunc,
+        cellRenderer: 'agAnimateShowChangeCellRenderer',
+        cellStyle: {
+          'text-align': 'right',
+          color: 'black', 'background-color': '#F5F5F5'
+        },
+        valueFormatter: this.currencyFormatter
+      },
+      PhysicalColumn: {
         width: 110,
-        aggFunc: TotalQuarterAggFunc,
+        aggFunc: custom.TotalQuarterAggFunc,
+        cellRenderer: 'agAnimateShowChangeCellRenderer',
+        cellStyle: {
+          'text-align': 'right',
+          color: 'black',
+          'background-color': 'orange'
+        },
+        valueFormatter: this.currencyFormatter
+      },
+      obligationColumn: {
+        width: 110,
+        aggFunc: custom.TotalQuarterAggFunc,
         cellRenderer: 'agAnimateShowChangeCellRenderer',
         cellStyle: {
           'text-align': 'right',
@@ -831,20 +824,9 @@ export class Bed123Component implements OnInit, OnChanges {
         },
         valueFormatter: this.currencyFormatter
       },
-      quarterColumn2: {
+      disbursementColumn: {
         width: 110,
-        aggFunc: TotalQuarterAggFunc,
-        cellRenderer: 'agAnimateShowChangeCellRenderer',
-        cellStyle: {
-          'text-align': 'right',
-          color: 'black',
-          'background-color': '#a2dde5'
-        },
-        valueFormatter: this.currencyFormatter
-      },
-      quarterColumn3: {
-        width: 110,
-        aggFunc: TotalQuarterAggFunc,
+        aggFunc: custom.TotalQuarterAggFunc,
         cellRenderer: 'agAnimateShowChangeCellRenderer',
         cellStyle: {
           'text-align': 'right',
@@ -900,283 +882,6 @@ function getSimpleCellRenderer() {
     return this.eGui;
   };
   return SimpleCellRenderer;
-}
-
-function TotalQuarterAggFunc(values) {
-  var aSum = 0,
-    bSum = 0,
-    cSum = 0;
-  values.forEach(function(value) {
-    if (value && value.a) {
-      aSum += value.a;
-    }
-    if (value && value.b) {
-      bSum += value.b;
-    }
-    if (value && value.c) {
-      cSum += value.c;
-    }
-  });
-  return createQuarterTotalValueObject(aSum, bSum, cSum);
-}
-
-function createQuarterTotalValueObject(a, b, c) {
-  return {
-    a: a,
-    b: b,
-    c: c,
-    toString: function() {
-      return a + b + c;
-    }
-  };
-}
-
-function TotalQ1ValueGetter(params) {
-  if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.jant,
-      params.data.febt,
-      params.data.mart
-    );
-  }
-}
-
-function TotalQ2ValueGetter(params) {
-  if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.aprt,
-      params.data.mayt,
-      params.data.junt
-    );
-  }
-}
-
-function TotalQ3ValueGetter(params) {
-  if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.jult,
-      params.data.augt,
-      params.data.sept
-    );
-  }
-}
-function TotalQ4ValueGetter(params) {
-  if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.octt,
-      params.data.novt,
-      params.data.dect
-    );
-  }
-}
-
-function TotalPhysicalTargetValueGetter(params) {
-  if (!params.node.group) {
-    return createTotalPhysicalTarget(
-      params.data.jant,
-      params.data.febt,
-      params.data.mart,
-      params.data.aprt,
-      params.data.mayt,
-      params.data.junt,
-      params.data.jult,
-      params.data.augt,
-      params.data.sept,
-      params.data.octt,
-      params.data.novt,
-      params.data.dect
-    );
-  }
-}
-
-function createTotalPhysicalTarget(a, b, c, d, e, f, g, h, i, j, k, l) {
-  return {
-    a: a,
-    b: b,
-    c: c,
-    d: d,
-    e: e,
-    f: f,
-    g: g,
-    h: h,
-    i: i,
-    j: j,
-    k: k,
-    l: l,
-    toString: function() {
-      return a + b + c + d + e + f + g + h + i + j + k + l;
-    }
-  };
-}
-function TotalPhysicalTargetAggFunc(values) {
-  var [a, b, c, d, e, f, g, h, i, j, k, l] = [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-  ];
-  values.forEach(function(value) {
-    if (value && value.a) {
-      a += value.a;
-    }
-    if (value && value.b) {
-      b += value.b;
-    }
-    if (value && value.c) {
-      c += value.c;
-    }
-    if (value && value.d) {
-      d += value.d;
-    }
-    if (value && value.e) {
-      e += value.e;
-    }
-    if (value && value.f) {
-      f += value.f;
-    }
-    if (value && value.g) {
-      g += value.g;
-    }
-    if (value && value.h) {
-      h += value.h;
-    }
-    if (value && value.i) {
-      i += value.i;
-    }
-    if (value && value.j) {
-      j += value.j;
-    }
-    if (value && value.k) {
-      k += value.k;
-    }
-    if (value && value.l) {
-      l += value.l;
-    }
-  });
-  return createTotalPhysicalTarget(a, b, c, d, e, f, g, h, i, j, k, l);
-}
-function TotalQ1ValueGetter2(params) {
-  if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.janft,
-      params.data.febft,
-      params.data.marft
-    );
-  }
-}
-
-function TotalQ2ValueGetter2(params) {
-  if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.aprft,
-      params.data.mayft,
-      params.data.junft
-    );
-  }
-}
-
-function TotalQ3ValueGetter2(params) {
-  if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.julft,
-      params.data.augft,
-      params.data.sepft
-    );
-  }
-}
-function TotalQ4ValueGetter2(params) {
-  if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.octft,
-      params.data.novft,
-      params.data.decft
-    );
-  }
-}
-
-function TotalQ1ValueGetter3(params) {
-  if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.jandt,
-      params.data.febdt,
-      params.data.mardt
-    );
-  }
-}
-
-function TotalQ2ValueGetter3(params) {
-  if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.aprdt,
-      params.data.maydt,
-      params.data.jundt
-    );
-  }
-}
-
-function TotalQ3ValueGetter3(params) {
-  if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.juldt,
-      params.data.augdt,
-      params.data.sepdt
-    );
-  }
-}
-function TotalQ4ValueGetter3(params) {
-  if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.octdt,
-      params.data.novdt,
-      params.data.decdt
-    );
-  }
-}
-
-function TotalObligationTargetValueGetter(params) {
-  if (!params.node.group) {
-    return createTotalPhysicalTarget(
-      params.data.janft,
-      params.data.febft,
-      params.data.marft,
-      params.data.aprft,
-      params.data.mayft,
-      params.data.junft,
-      params.data.julft,
-      params.data.augft,
-      params.data.sepft,
-      params.data.octft,
-      params.data.novft,
-      params.data.decft
-    );
-  }
-}
-
-function TotalDisbursementTargetValueGetter(params) {
-  if (!params.node.group) {
-    return createTotalPhysicalTarget(
-      params.data.jandt,
-      params.data.febdt,
-      params.data.mardt,
-      params.data.aprdt,
-      params.data.maydt,
-      params.data.jundt,
-      params.data.juldt,
-      params.data.augdt,
-      params.data.sepdt,
-      params.data.octdt,
-      params.data.novdt,
-      params.data.decdt
-    );
-  }
 }
 
 
