@@ -185,7 +185,9 @@ export class DisbursementComponent implements OnInit, OnChanges {
         cellClass: ['data', 't'],
         colId: 'total_adjusted',
         width: 130,
-        cellStyle: { color: 'black', 'background-color': '#fae091' },
+        cellStyle: params => {
+          if(params.node.group) { return { color: 'black', 'background-color': '#fae091', 'font-weight': 'bold' }}else{return { color: 'black', 'background-color': '#fae091'}}
+        },
         aggFunc: custom.TotalMonthAggFunc,
         valueGetter: custom.adjusted_disbursement_view,
         valueFormatter: this.currencyFormatter,
@@ -221,8 +223,8 @@ export class DisbursementComponent implements OnInit, OnChanges {
           {
             headerName: 'Q1',
             children: [
-              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1fa', valueGetter: custom.total_q1_mooe_fa},
-              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1fa_co', valueGetter: custom.total_q1_co_fa},
+              { headerName: 'MOOE', type: 'quarterColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1fa', valueGetter: custom.total_q1_mooe_fa},
+              { headerName: 'CO', type: 'quarterColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1fa_co', valueGetter: custom.total_q1_co_fa},
               { headerName: 'TOTAL', type: 'quarterColumn', cellClass: ['data', 'a'], colId: 'q1_tota', valueGetter: custom.total_fa_q1}
             ]
           },
@@ -256,8 +258,8 @@ export class DisbursementComponent implements OnInit, OnChanges {
           {
             headerName: 'Q2',
             children: [
-              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2fa', valueGetter: custom.total_q2_mooe_fa},
-              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2fa_co', valueGetter: custom.total_q2_co_fa},
+              { headerName: 'MOOE', type: 'quarterColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2fa', valueGetter: custom.total_q2_mooe_fa},
+              { headerName: 'CO', type: 'quarterColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2fa_co', valueGetter: custom.total_q2_co_fa},
               { headerName: 'TOTAL', type: 'quarterColumn', cellClass: ['data', 'a'], colId: 'q2_tota', valueGetter: custom.total_fa_q2}
             ]
           },
@@ -291,8 +293,8 @@ export class DisbursementComponent implements OnInit, OnChanges {
           {
             headerName: 'Q3',
             children: [
-              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3fa', valueGetter: custom.total_q3_mooe_fa},
-              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3fa_co', valueGetter: custom.total_q3_co_fa},
+              { headerName: 'MOOE', type: 'quarterColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3fa', valueGetter: custom.total_q3_mooe_fa},
+              { headerName: 'CO', type: 'quarterColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3fa_co', valueGetter: custom.total_q3_co_fa},
               { headerName: 'TOTAL', type: 'quarterColumn', cellClass: ['data', 'a'], colId: 'q3_tota', valueGetter: custom.total_fa_q3}
             ]
           },
@@ -326,8 +328,8 @@ export class DisbursementComponent implements OnInit, OnChanges {
           {
             headerName: 'Q4',
             children: [
-              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4fa', valueGetter: custom.total_q4_mooe_fa},
-              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4fa_co', valueGetter: custom.total_q4_co_fa},
+              { headerName: 'MOOE', type: 'quarterColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4fa', valueGetter: custom.total_q4_mooe_fa},
+              { headerName: 'CO', type: 'quarterColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4fa_co', valueGetter: custom.total_q4_co_fa},
               { headerName: 'TOTAL', type: 'quarterColumn', cellClass: ['data', 'a'], colId: 'q4_tota', valueGetter: custom.total_fa_q4}
             ]
           },
@@ -338,7 +340,10 @@ export class DisbursementComponent implements OnInit, OnChanges {
         children: [
           { headerName: 'MOOE', type: 'numericColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_mooe_fa', valueGetter: custom.total_mooe_fa, aggFunc: custom.GrandTotalAggFunc, valueFormatter: this.currencyFormatter},
           { headerName: 'CO', type: 'numericColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_co_fa', valueGetter: custom.total_co_fa, aggFunc: custom.GrandTotalAggFunc, valueFormatter: this.currencyFormatter},
-          { headerName: 'TOTAL', type: 'numericColumn', cellClass: ['data', 'total'], colId: 'grandtotal_fa', valueGetter: custom.grandtotal_fa, cellStyle: { color: 'black', 'background-color': '#81f7a6' },width: 110, aggFunc: custom.GrandTotalAggFunc, valueFormatter: this.currencyFormatter, cellRenderer: 'agAnimateShowChangeCellRenderer',}
+          { headerName: 'TOTAL', type: 'numericColumn', cellClass: ['data', 'total'], colId: 'grandtotal_fa', valueGetter: custom.grandtotal_fa, 
+          cellStyle: params => {
+            if(params.node.group) { return { color: 'black', 'background-color': '#81f7a6', 'font-weight': 'bold' }}else{return { color: 'black', 'background-color': '#81f7a6'}}
+          },width: 110, aggFunc: custom.GrandTotalAggFunc, valueFormatter: this.currencyFormatter, cellRenderer: 'agAnimateShowChangeCellRenderer',}
         ]
       }, 
       {
@@ -371,8 +376,8 @@ export class DisbursementComponent implements OnInit, OnChanges {
           {
             headerName: 'Q1',
             children: [
-              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1da', valueGetter: custom.total_q1_mooe_da},
-              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1da_co', valueGetter: custom.total_q1_co_da},
+              { headerName: 'MOOE', type: 'quarterColumn2', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1da', valueGetter: custom.total_q1_mooe_da},
+              { headerName: 'CO', type: 'quarterColumn2', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1da_co', valueGetter: custom.total_q1_co_da},
               { headerName: 'TOTAL', type: 'quarterColumn2', cellClass: ['data', 'a'], colId: 'q1da_tota', valueGetter: custom.total_da_q1}
             ]
           },
@@ -406,8 +411,8 @@ export class DisbursementComponent implements OnInit, OnChanges {
           {
             headerName: 'Q2',
             children: [
-              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2da', valueGetter: custom.total_q2_mooe_da},
-              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2da_co', valueGetter: custom.total_q2_co_da},
+              { headerName: 'MOOE', type: 'quarterColumn2', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2da', valueGetter: custom.total_q2_mooe_da},
+              { headerName: 'CO', type: 'quarterColumn2', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2da_co', valueGetter: custom.total_q2_co_da},
               { headerName: 'TOTAL', type: 'quarterColumn2', cellClass: ['data', 'a'], colId: 'q2da_tota', valueGetter: custom.total_da_q2}
             ]
           },
@@ -441,8 +446,8 @@ export class DisbursementComponent implements OnInit, OnChanges {
           {
             headerName: 'Q3',
             children: [
-              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3da', valueGetter: custom.total_q3_mooe_da},
-              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3da_co', valueGetter: custom.total_q3_co_da},
+              { headerName: 'MOOE', type: 'quarterColumn2', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3da', valueGetter: custom.total_q3_mooe_da},
+              { headerName: 'CO', type: 'quarterColumn2', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3da_co', valueGetter: custom.total_q3_co_da},
               { headerName: 'TOTAL', type: 'quarterColumn2', cellClass: ['data', 'a'], colId: 'q3da_tota', valueGetter: custom.total_da_q3}
             ]
           },
@@ -476,8 +481,8 @@ export class DisbursementComponent implements OnInit, OnChanges {
           {
             headerName: 'Q4',
             children: [
-              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4da', valueGetter: custom.total_q4_mooe_da},
-              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4da_co', valueGetter: custom.total_q4_co_da},
+              { headerName: 'MOOE', type: 'quarterColumn2', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4da', valueGetter: custom.total_q4_mooe_da},
+              { headerName: 'CO', type: 'quarterColumn2', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4da_co', valueGetter: custom.total_q4_co_da},
               { headerName: 'TOTAL', type: 'quarterColumn2', cellClass: ['data', 'a'], colId: 'q4da_tota', valueGetter: custom.total_da_q4}
             ]
           },
@@ -488,7 +493,11 @@ export class DisbursementComponent implements OnInit, OnChanges {
         children: [
           { headerName: 'MOOE', type: 'numericColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_mooe_da', valueGetter: custom.total_mooe_da, width: 110, aggFunc: custom.GrandTotalAggFunc, valueFormatter: this.currencyFormatter},
           { headerName: 'CO', type: 'numericColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_co_da', valueGetter: custom.total_co_da, width: 110, aggFunc: custom.GrandTotalAggFunc, valueFormatter: this.currencyFormatter},
-          { headerName: 'TOTAL', type: 'numericColumn', cellClass: ['data', 'total'], colId: 'grandtotal_da', valueGetter: custom.grandtotal_da, cellStyle: { color: 'black', 'background-color': '#81f7a6' },width: 110, aggFunc: custom.GrandTotalAggFunc, valueFormatter: this.currencyFormatter, cellRenderer: 'agAnimateShowChangeCellRenderer',}
+          { headerName: 'TOTAL', type: 'numericColumn', cellClass: ['data', 'total'], colId: 'grandtotal_da', valueGetter: custom.grandtotal_da, 
+          cellStyle: params => {
+            if(params.node.group) { return { color: 'black', 'background-color': '#81f7a6', 'font-weight': 'bold' }}else{return { color: 'black', 'background-color': '#81f7a6'}}
+          },
+          width: 110, aggFunc: custom.GrandTotalAggFunc, valueFormatter: this.currencyFormatter, cellRenderer: 'agAnimateShowChangeCellRenderer',}
         ]
       }, 
   
@@ -496,7 +505,9 @@ export class DisbursementComponent implements OnInit, OnChanges {
         headerName: 'Unpaid Obligations',
         colId: 'uo',
         width: 130,
-        cellStyle: { color: 'black', 'background-color': '#f7adad' },
+        cellStyle: params => {
+          if(params.node.group) { return { color: 'black', 'background-color': '#f7adad', 'font-weight': 'bold' }}else{return { color: 'black', 'background-color': '#f7adad'}}
+        },
         aggFunc: custom.TotalUnobligatedAggFunc,
         valueGetter: custom.unpaidObligations,
         valueFormatter: this.currencyFormatter,
@@ -508,7 +519,9 @@ export class DisbursementComponent implements OnInit, OnChanges {
         headerName: 'Percentage',
         colId: 'per',
         width: 130,
-        cellStyle: { color: 'black', 'background-color': '#dfa9f5' },
+        cellStyle: params => {
+          if(params.node.group) { return { color: 'black', 'background-color': '#dfa9f5', 'font-weight': 'bold' }}else{return { color: 'black', 'background-color': '#dfa9f5'}}
+        },
         aggFunc: custom.TotalpercentAggFunc,
         valueGetter: custom.disbursementPercentage,
         valueFormatter: this.currencyFormatter,
@@ -529,41 +542,30 @@ export class DisbursementComponent implements OnInit, OnChanges {
     this.columnTypes = {
       valueColumn: {
         width: 130,
-        aggFunc: custom.TotalMonthAggFunc,
+        aggFunc: 'sum',
         valueParser: 'Number(newValue)',
-        cellStyle: { 'text-align': 'right' },
+        cellStyle: custom.customStyleGroup,
         valueFormatter: this.currencyFormatter
       },
       totalColumn: {
         width: 130,
         aggFunc: custom.TotalMonthAggFunc,
         cellRenderer: 'agAnimateShowChangeCellRenderer',
-        cellStyle: {
-          'text-align': 'right',
-          color: 'black', 'background-color': '#F5F5F5'
-        },
+        cellStyle: custom.customStyleGroupTotal,
         valueFormatter: this.currencyFormatter
       },
       quarterColumn: {
         width: 130,
         aggFunc: custom.TotalQuarterAggFunc,
         cellRenderer: 'agAnimateShowChangeCellRenderer',
-        cellStyle: {
-          'text-align': 'right',
-          color: 'black',
-          'background-color': '#a2dde5'
-        },
+        cellStyle: custom.customStyleGroupQuarter,
         valueFormatter: this.currencyFormatter
       },
       quarterColumn2: {
         width: 130,
         aggFunc: custom.TotalQuarterAggFunc,
         cellRenderer: 'agAnimateShowChangeCellRenderer',
-        cellStyle: {
-          'text-align': 'right',
-          color: 'black',
-          'background-color': '#e8eb34'
-        },
+        cellStyle: custom.customStyleGroupQaurter3,
         valueFormatter: this.currencyFormatter
       }
     };

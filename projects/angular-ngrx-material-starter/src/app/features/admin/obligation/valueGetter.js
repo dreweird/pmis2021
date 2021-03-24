@@ -1304,3 +1304,60 @@ export function adjusted_disbursement_view(params) {
   },
   { id: 'headappend', font: { size: 11, fontName: 'Calibri', bold: true } }
 ];
+
+export function customStyleGroup(params){
+  if(params.node.group){
+    return { 'text-align': 'right', 'font-weight': 'bold' };
+  }else{
+    return { 'text-align': 'right'};
+  }
+}
+
+export function customStyleGroupQuarter(params){
+  if(params.node.group){
+    return { 'text-align': 'right', 'color': 'black','background-color': '#a2dde5', 'font-weight': 'bold' };
+  }else{
+    return {  'text-align': 'right','color': 'black','background-color': '#a2dde5'};
+  }
+}
+
+export function customStyleGroupTotal(params){
+  if(params.node.group){
+    return { 'text-align': 'right', 'color': 'black','background-color': '#F5F5F5', 'font-weight': 'bold' };
+  }else{
+    return {  'text-align': 'right','color': 'black','background-color': '#F5F5F5'};
+  }
+}
+
+export function customStyleGroupQaurter2(params){
+  if(params.node.group){
+    return { 'text-align': 'right', 'color': 'black','background-color': '#fae091', 'font-weight': 'bold' };
+  }else{
+    return {  'text-align': 'right','color': 'black','background-color': '#fae091'};
+  }
+}
+
+export function customStyleGroupQaurter3(params){
+  if(params.node.group){
+    return { 'text-align': 'right', 'color': 'black','background-color': '#e8eb34', 'font-weight': 'bold' };
+  }else{
+    return {  'text-align': 'right','color': 'black','background-color': '#e8eb34'};
+  }
+}
+
+export function customStyleGroupDisburse(params){
+  if(params.node.group){
+    return { 'text-align': 'right', 'color': 'black','background-color': '#ffaff8', 'font-weight': 'bold' };
+  }else{
+    return {  'text-align': 'right','color': 'black','background-color': '#ffaff8'};
+  }
+}
+
+export function customStyleGroupPhysical(params){
+  if(params.node.group){
+    return { 'text-align': 'right', 'color': 'black','background-color': 'orange', 'font-weight': 'bold' };
+  }else{
+    return {  'text-align': 'right','color': 'black','background-color': 'orange'};
+  }
+}
+

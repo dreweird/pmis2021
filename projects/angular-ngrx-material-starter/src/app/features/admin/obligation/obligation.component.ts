@@ -68,7 +68,7 @@ export class ObligationComponent implements OnInit, OnChanges {
 
   currencyFormatter(params) {
     const number = parseFloat(params.value);
-    if (params.value === undefined || params.value === null) {
+    if (params.value === undefined || params.value === null || params.value === NaN) {
       return null;
     }
     return number.toLocaleString('en-us', {
@@ -378,8 +378,8 @@ export class ObligationComponent implements OnInit, OnChanges {
           {
             headerName: 'Q1',
             children: [
-              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1ft', valueGetter: custom.total_q1_mooe_ft},
-              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1ft_co', valueGetter: custom.total_q1_co_ft},
+              { headerName: 'MOOE', type: 'quarterColumn2', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1ft', valueGetter: custom.total_q1_mooe_ft},
+              { headerName: 'CO', type: 'quarterColumn2', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1ft_co', valueGetter: custom.total_q1_co_ft},
               { headerName: 'TOTAL', type: 'quarterColumn2', cellClass: ['data', 't'], colId: 'q1_tot', valueGetter: custom.total_q1}
             ]
           },
@@ -410,8 +410,8 @@ export class ObligationComponent implements OnInit, OnChanges {
           {
             headerName: 'Q2',
             children: [
-              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2ft', valueGetter: custom.total_q2_mooe_ft},
-              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2ft_co', valueGetter: custom.total_q2_co_ft},
+              { headerName: 'MOOE', type: 'quarterColumn2', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2ft', valueGetter: custom.total_q2_mooe_ft},
+              { headerName: 'CO', type: 'quarterColumn2', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2ft_co', valueGetter: custom.total_q2_co_ft},
               { headerName: 'TOTAL', type: 'quarterColumn2', cellClass: ['data', 't'], colId: 'q2_tot', valueGetter: custom.total_q2}
             ]
           },
@@ -444,8 +444,8 @@ export class ObligationComponent implements OnInit, OnChanges {
           {
             headerName: 'Q3',
             children: [
-              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3ft', valueGetter: custom.total_q3_mooe_ft},
-              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3ft_co', valueGetter: custom.total_q3_co_ft},
+              { headerName: 'MOOE', type: 'quarterColumn2', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3ft', valueGetter: custom.total_q3_mooe_ft},
+              { headerName: 'CO', type: 'quarterColumn2', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3ft_co', valueGetter: custom.total_q3_co_ft},
               { headerName: 'TOTAL', type: 'quarterColumn2', cellClass: ['data', 't'], colId: 'q3_tot', valueGetter: custom.total_q3}
             ]
           },
@@ -477,17 +477,20 @@ export class ObligationComponent implements OnInit, OnChanges {
           {
             headerName: 'Q4',
             children: [
-              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4ft', valueGetter: custom.total_q4_mooe_ft},
-              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4ft_co', valueGetter: custom.total_q4_co_ft},
+              { headerName: 'MOOE', type: 'quarterColumn2', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4ft', valueGetter: custom.total_q4_mooe_ft},
+              { headerName: 'CO', type: 'quarterColumn2', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4ft_co', valueGetter: custom.total_q4_co_ft},
               { headerName: 'TOTAL', type: 'quarterColumn2', cellClass: ['data', 't'], colId: 'q4_tot', valueGetter: custom.total_q4}
             ]
           },
           {
             headerName: 'Grand Total',
             children: [
-              { headerName: 'MOOE', type: 'numericColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_ft', valueGetter: custom.total_mooe_ft, width: 110, aggFunc: custom.GrandTotalAggFunc, },
-              { headerName: 'CO', type: 'numericColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_ft_co', valueGetter: custom.total_co_ft, width: 110, aggFunc: custom.GrandTotalAggFunc,},
-              { headerName: 'TOTAL', type: 'numericColumn', cellClass: ['data', 'total'], colId: 'grandtotal_ft', valueGetter: custom.grandtotal_ft, cellStyle: { color: 'black', 'background-color': '#81f7a6' },width: 110,aggFunc: custom.GrandTotalAggFunc,}
+              { headerName: 'MOOE', type: 'numericColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_ft', valueGetter: custom.total_mooe_ft, width: 110, aggFunc: custom.GrandTotalAggFunc, cellStyle: custom.customStyleGroup,},
+              { headerName: 'CO', type: 'numericColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_ft_co', valueGetter: custom.total_co_ft, width: 110, aggFunc: custom.GrandTotalAggFunc, cellStyle: custom.customStyleGroup,},
+              { headerName: 'TOTAL', type: 'numericColumn', cellClass: ['data', 'total'], colId: 'grandtotal_ft', valueGetter: custom.grandtotal_ft, 
+              cellStyle: params => {
+                if(params.node.group) { return { color: 'black', 'background-color': '#81f7a6', 'font-weight': 'bold' }}else{return { color: 'black', 'background-color': '#81f7a6'}}
+              },width: 110,aggFunc: custom.GrandTotalAggFunc, valueFormatter: this.currencyFormatter}
             ]
           }
         ]
@@ -495,17 +498,24 @@ export class ObligationComponent implements OnInit, OnChanges {
       {
         headerName: 'Adjustment',
         children: [
-          { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'adj_mooe', field:'adjustment',editable: this.canEdit,},
-          { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'adj_co', field:'adjustment_co',  editable: this.canEdit,},
-          { headerName: 'TOTAL', type: 'numericColumn', cellClass: ['data', 'p1'], colId: 'adj_total', valueGetter: custom.total_adj, cellStyle: { color: 'black', 'background-color': '#FFA07A' },width: 110, aggFunc: custom.TotalMonthAggFunc, valueFormatter: this.currencyFormatter,}
+          { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'adj_mooe', field:'adjustment',editable: this.canEdit, cellStyle: custom.customStyleGroup,},
+          { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'adj_co', field:'adjustment_co',  editable: this.canEdit, cellStyle: custom.customStyleGroup,},
+          { headerName: 'TOTAL', type: 'numericColumn', cellClass: ['data', 'p1'], colId: 'adj_total', valueGetter: custom.total_adj, 
+          cellStyle: params => {
+            if(params.node.group) { return { color: 'black', 'background-color': '#FFA07A', 'font-weight': 'bold' }}else{return { color: 'black', 'background-color': '#FFA07A'}}
+          },
+          width: 110, aggFunc: custom.TotalMonthAggFunc, valueFormatter: this.currencyFormatter,}
         ]
       },
       {
         headerName: 'Adjusted Allotment',
         children: [
-          { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'tot_adj_mooe', valueGetter: custom.tot_adj_mooe},
-          { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'tot_adj_co', valueGetter: custom.tot_adj_co},
-          { headerName: 'TOTAL', type: 'numericColumn', cellClass: ['data', 'p1'], colId: 'adj_allot_total', valueGetter: custom.adj_allot_total, cellStyle: { color: 'white', 'background-color': 'teal' },width: 110, aggFunc: custom.TotalMonthAggFunc, valueFormatter: this.currencyFormatter,}
+          { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'tot_adj_mooe', valueGetter: custom.tot_adj_mooe, cellStyle: custom.customStyleGroup,},
+          { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'tot_adj_co', valueGetter: custom.tot_adj_co, cellStyle: custom.customStyleGroup,},
+          { headerName: 'TOTAL', type: 'numericColumn', cellClass: ['data', 'p1'], colId: 'adj_allot_total', valueGetter: custom.adj_allot_total, 
+          cellStyle: params => {
+            if(params.node.group) { return { color: 'white', 'background-color': 'teal', 'font-weight': 'bold' }}else{return { color: 'white', 'background-color': 'teal'}}
+          },width: 110, aggFunc: custom.TotalMonthAggFunc, valueFormatter: this.currencyFormatter,}
         ]
       },
       {
@@ -538,8 +548,8 @@ export class ObligationComponent implements OnInit, OnChanges {
           {
             headerName: 'Q1',
             children: [
-              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1fa', valueGetter: custom.total_q1_mooe_fa},
-              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1fa_co', valueGetter: custom.total_q1_co_fa},
+              { headerName: 'MOOE', type: 'quarterColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1fa', valueGetter: custom.total_q1_mooe_fa},
+              { headerName: 'CO', type: 'quarterColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q1fa_co', valueGetter: custom.total_q1_co_fa},
               { headerName: 'TOTAL', type: 'quarterColumn', cellClass: ['data', 'a'], colId: 'q1_tota', valueGetter: custom.total_fa_q1}
             ]
           },
@@ -573,8 +583,8 @@ export class ObligationComponent implements OnInit, OnChanges {
           {
             headerName: 'Q2',
             children: [
-              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2fa', valueGetter: custom.total_q2_mooe_fa},
-              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2fa_co', valueGetter: custom.total_q2_co_fa},
+              { headerName: 'MOOE', type: 'quarterColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2fa', valueGetter: custom.total_q2_mooe_fa},
+              { headerName: 'CO', type: 'quarterColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q2fa_co', valueGetter: custom.total_q2_co_fa},
               { headerName: 'TOTAL', type: 'quarterColumn', cellClass: ['data', 'a'], colId: 'q2_tota', valueGetter: custom.total_fa_q2}
             ]
           },
@@ -608,8 +618,8 @@ export class ObligationComponent implements OnInit, OnChanges {
           {
             headerName: 'Q3',
             children: [
-              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3fa', valueGetter: custom.total_q3_mooe_fa},
-              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3fa_co', valueGetter: custom.total_q3_co_fa},
+              { headerName: 'MOOE', type: 'quarterColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3fa', valueGetter: custom.total_q3_mooe_fa},
+              { headerName: 'CO', type: 'quarterColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q3fa_co', valueGetter: custom.total_q3_co_fa},
               { headerName: 'TOTAL', type: 'quarterColumn', cellClass: ['data', 'a'], colId: 'q3_tota', valueGetter: custom.total_fa_q3}
             ]
           },
@@ -643,8 +653,8 @@ export class ObligationComponent implements OnInit, OnChanges {
           {
             headerName: 'Q4',
             children: [
-              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4fa', valueGetter: custom.total_q4_mooe_fa},
-              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4fa_co', valueGetter: custom.total_q4_co_fa},
+              { headerName: 'MOOE', type: 'quarterColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4fa', valueGetter: custom.total_q4_mooe_fa},
+              { headerName: 'CO', type: 'quarterColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'q4fa_co', valueGetter: custom.total_q4_co_fa},
               { headerName: 'TOTAL', type: 'quarterColumn', cellClass: ['data', 'a'], colId: 'q4_tota', valueGetter: custom.total_fa_q4}
             ]
           },
@@ -655,14 +665,20 @@ export class ObligationComponent implements OnInit, OnChanges {
         children: [
           { headerName: 'MOOE', type: 'numericColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_mooe_fa', valueGetter: custom.total_mooe_fa, width: 110,aggFunc: custom.GrandTotalAggFunc, valueFormatter: this.currencyFormatter,},
           { headerName: 'CO', type: 'numericColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_co_fa', valueGetter: custom.total_co_fa, width: 110,aggFunc: custom.GrandTotalAggFunc, valueFormatter: this.currencyFormatter,},
-          { headerName: 'TOTAL', type: 'numericColumn', cellClass: ['data', 'total'], colId: 'grandtotal_fa', valueGetter: custom.grandtotal_fa, cellStyle: { color: 'black', 'background-color': '#81f7a6' },width: 110, aggFunc: custom.GrandTotalAggFunc, valueFormatter: this.currencyFormatter, cellRenderer: 'agAnimateShowChangeCellRenderer',}
+          { headerName: 'TOTAL', type: 'numericColumn', cellClass: ['data', 'total'], colId: 'grandtotal_fa', valueGetter: custom.grandtotal_fa, 
+          cellStyle: params => {
+            if(params.node.group) { return { color: 'black', 'background-color': '#81f7a6', 'font-weight': 'bold' }}else{return { color: 'black', 'background-color': '#81f7a6'}}
+          },
+          width: 110, aggFunc: custom.GrandTotalAggFunc, valueFormatter: this.currencyFormatter, cellRenderer: 'agAnimateShowChangeCellRenderer',}
         ]
       },
       {
         headerName: 'Unobligated',
         colId: 'un',
         width: 130,
-        cellStyle: { color: 'black', 'background-color': '#f7adad' },
+        cellStyle: params => {
+          if(params.node.group) { return { color: 'black', 'background-color': '#f7adad', 'font-weight': 'bold' }}else{return { color: 'black', 'background-color': '#f7adad'}}
+        },
         aggFunc: custom.TotalUnobligatedAggFunc,
         valueGetter: custom.unobligated,
         valueFormatter: this.currencyFormatter,
@@ -674,7 +690,9 @@ export class ObligationComponent implements OnInit, OnChanges {
         headerName: 'Percentage',
         colId: 'fu',
         width: 130,
-        cellStyle: { color: 'black', 'background-color': '#dfa9f5' },
+        cellStyle: params => {
+          if(params.node.group) { return { color: 'black', 'background-color': '#dfa9f5', 'font-weight': 'bold' }}else{return { color: 'black', 'background-color': '#dfa9f5'}}
+        },
         aggFunc: custom.TotalpercentAggFunc,
         valueGetter: custom.percentage,
         valueFormatter: this.currencyFormatter,
@@ -694,40 +712,30 @@ export class ObligationComponent implements OnInit, OnChanges {
     this.columnTypes = {
       valueColumn: {
         width: 130,
-        aggFunc: custom.TotalMonthAggFunc,
+        aggFunc: 'sum',
         valueParser: 'Number(newValue)',
-        cellStyle: { 'text-align': 'right' },
+        cellStyle: custom.customStyleGroup,
         valueFormatter: this.currencyFormatter
       },
       quarterColumn: {
         width: 130,
         aggFunc: custom.TotalQuarterAggFunc,
         cellRenderer: 'agAnimateShowChangeCellRenderer',
-        cellStyle: {
-          'text-align': 'right',
-          color: 'black',
-          'background-color': '#a2dde5'
-        },
+        cellStyle: custom.customStyleGroupQuarter,
         valueFormatter: this.currencyFormatter
       },
       quarterColumn2: {
         width: 130,
         aggFunc: custom.TotalQuarterAggFunc,
         cellRenderer: 'agAnimateShowChangeCellRenderer',
-        cellStyle: {
-          'text-align': 'right',
-          color: 'black', 'background-color': '#fae091'
-        },
+        cellStyle: custom.customStyleGroupQaurter2,
         valueFormatter: this.currencyFormatter
       },
       totalColumn: {
         width: 130,
         aggFunc: custom.TotalMonthAggFunc,
         cellRenderer: 'agAnimateShowChangeCellRenderer',
-        cellStyle: {
-          'text-align': 'right',
-          color: 'black', 'background-color': '#F5F5F5'
-        },
+        cellStyle: custom.customStyleGroupTotal,
         valueFormatter: this.currencyFormatter
       }
     };

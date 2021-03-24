@@ -493,7 +493,9 @@ export class PhysicalComponent implements OnInit {
             headerName: 'Total',
             colId: 'TT',
             width: 110,
-            cellStyle: { color: 'black', 'background-color': '#81f7a6' },
+            cellStyle: params => {
+              if(params.node.group) { return { 'text-align': 'right', color: 'black', 'background-color': '#81f7a6', 'font-weight': 'bold' }}else{return { 'text-align': 'right', color: 'black', 'background-color': '#81f7a6'}}
+            },
             aggFunc: TotalPhysicalTargetAggFunc,
             valueGetter: TotalPhysicalTargetValueGetter,
             valueFormatter: this.currencyFormatter,
@@ -676,7 +678,9 @@ export class PhysicalComponent implements OnInit {
             headerName: 'Total',
             colId: 'TA',
             width: 110,
-            cellStyle: { color: 'black', 'background-color': '#81f7a6' },
+            cellStyle: params => {
+              if(params.node.group) { return { 'text-align': 'right', color: 'black', 'background-color': '#81f7a6', 'font-weight': 'bold' }}else{return { 'text-align': 'right', color: 'black', 'background-color': '#81f7a6'}}
+            },
             aggFunc: TotalPhysicalTargetAggFunc,
             valueGetter: TotalPhysicalAccomplishmentValueGetter,
             valueFormatter: this.currencyFormatter,
@@ -689,7 +693,9 @@ export class PhysicalComponent implements OnInit {
         headerName: 'Variance',
         colId: 'Var',
         width: 110,
-        cellStyle: { color: 'black', 'background-color': '#f7adad' },
+        cellStyle: params => {
+          if(params.node.group) { return { 'text-align': 'right', color: 'black', 'background-color': '#f7adad', 'font-weight': 'bold' }}else{return { 'text-align': 'right', color: 'black', 'background-color': '#f7adad'}}
+        },
         aggFunc: TotalVarianceAggFunc,
         valueGetter: TotalUnObligationValueGetter,
         valueFormatter: this.currencyFormatter,
@@ -700,7 +706,9 @@ export class PhysicalComponent implements OnInit {
         headerName: 'Percentage',
         colId: 'Per',
         width: 110,
-        cellStyle: { color: 'black', 'background-color': '#dfa9f5' },
+        cellStyle: params => {
+          if(params.node.group) { return { 'text-align': 'right', color: 'black', 'background-color': '#dfa9f5', 'font-weight': 'bold' }}else{return { 'text-align': 'right', color: 'black', 'background-color': '#dfa9f5'}}
+        },
         aggFunc: TotalPercentageAggFunc,
         valueGetter: TotalPercentageValueGetter,
         valueFormatter: this.currencyFormatter,
@@ -909,17 +917,17 @@ export class PhysicalComponent implements OnInit {
         width: 110,
         aggFunc: 'sum',
         valueParser: 'Number(newValue)',
-        cellStyle: { 'text-align': 'right' },
+        cellStyle: params => {
+          if(params.node.group) { return { 'text-align': 'right',  'font-weight': 'bold' }}else{return { 'text-align': 'right'}}
+        },
         valueFormatter: this.currencyFormatter
       },
       quarterColumn: {
         width: 110,
         aggFunc: TotalQuarterAggFunc,
         cellRenderer: 'agAnimateShowChangeCellRenderer',
-        cellStyle: {
-          'text-align': 'right',
-          color: 'black',
-          'background-color': '#fae091'
+        cellStyle: params => {
+          if(params.node.group) { return { 'text-align': 'right', color: 'black', 'background-color': '#fae091', 'font-weight': 'bold' }}else{return { 'text-align': 'right', color: 'black', 'background-color': '#fae091'}}
         },
         valueFormatter: this.currencyFormatter
       },
@@ -927,10 +935,8 @@ export class PhysicalComponent implements OnInit {
         width: 110,
         aggFunc: TotalQuarterAggFunc,
         cellRenderer: 'agAnimateShowChangeCellRenderer',
-        cellStyle: {
-          'text-align': 'right',
-          color: 'black',
-          'background-color': '#a2dde5'
+        cellStyle: params => {
+          if(params.node.group) { return { 'text-align': 'right', color: 'black', 'background-color': '#a2dde5', 'font-weight': 'bold' }}else{return { 'text-align': 'right', color: 'black', 'background-color': '#a2dde5'}}
         },
         valueFormatter: this.currencyFormatter
       },

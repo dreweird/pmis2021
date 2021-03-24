@@ -17,6 +17,7 @@ import { Module } from '@ag-grid-community/all-modules';
 import { AllModules } from '@ag-grid-enterprise/all-modules';
 import * as moment from 'moment';
 import * as custom from '../obligation/valueGetter.js';
+import { _MatCheckboxRequiredValidatorModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'anms-bed123',
@@ -486,9 +487,12 @@ export class Bed123Component implements OnInit, OnChanges {
           {
             headerName: 'Grand Total',
             children: [
-              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_ft', valueGetter: custom.total_mooe_ft},
-              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_ft_co', valueGetter: custom.total_co_ft},
-              { headerName: 'TOTAL', type: 'numericColumn', cellClass: ['data', 'total'], colId: 'grandtotal_ft', valueGetter: custom.grandtotal_ft, cellStyle: { color: 'black', 'background-color': '#81f7a6' },width: 110,aggFunc: custom.TotalYearAggFunc,}
+              { headerName: 'MOOE', width: 110,aggFunc: custom.GrandTotalAggFunc, valueFormatter: this.currencyFormatter, columnGroupShow: 'open', cellClass: ['data'], colId: 'total_ft', valueGetter: custom.total_mooe_ft},
+              { headerName: 'CO', width: 110,aggFunc: custom.GrandTotalAggFunc, valueFormatter: this.currencyFormatter, columnGroupShow: 'open', cellClass: ['data'], colId: 'total_ft_co', valueGetter: custom.total_co_ft},
+              { headerName: 'TOTAL', type: 'numericColumn', cellClass: ['data', 'total'], colId: 'grandtotal_ft', valueGetter: custom.grandtotal_ft, 
+              cellStyle: params => {
+                if(params.node.group) { return { color: 'black', 'background-color': '#81f7a6', 'font-weight': 'bold' }}else{return { color: 'black', 'background-color': '#81f7a6'}}
+              },width: 110,aggFunc: custom.TotalYearAggFunc,valueFormatter: this.currencyFormatter}
             ]
           }
         ]
@@ -619,7 +623,9 @@ export class Bed123Component implements OnInit, OnChanges {
             headerName: 'Total',
             colId: 'PT',
             width: 110,
-            cellStyle: { color: 'black', 'background-color': '#81f7a6' },
+            cellStyle: params => {
+              if(params.node.group) { return { color: 'black', 'background-color': '#81f7a6', 'font-weight': 'bold' }}else{return { color: 'black', 'background-color': '#81f7a6'}}
+            },
             aggFunc: custom.TotalYearAggFunc,
             valueGetter: custom.GrandTotal_Physical,
             valueFormatter: this.currencyFormatter,
@@ -768,7 +774,10 @@ export class Bed123Component implements OnInit, OnChanges {
             children: [
               { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_dt', valueGetter: custom.total_mooe_dt},
               { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_dt_co', valueGetter: custom.total_co_dt},
-              { headerName: 'TOTAL', type: 'numericColumn', cellClass: ['data', 'total'], colId: 'grandtotal_dt', valueGetter: custom.grandtotal_dt, cellStyle: { color: 'black', 'background-color': '#81f7a6' },width: 110,aggFunc: custom.TotalYearAggFunc,}
+              { headerName: 'TOTAL', type: 'numericColumn', cellClass: ['data', 'total'], colId: 'grandtotal_dt', valueGetter: custom.grandtotal_dt, 
+              cellStyle: params => {
+                if(params.node.group) { return { color: 'black', 'background-color': '#81f7a6', 'font-weight': 'bold' }}else{return { color: 'black', 'background-color': '#81f7a6'}}
+              },width: 110,aggFunc: custom.TotalYearAggFunc, valueFormatter: this.currencyFormatter}
             ]
           }
         ]
@@ -789,50 +798,35 @@ export class Bed123Component implements OnInit, OnChanges {
         width: 110,
         aggFunc: 'sum',
         valueParser: 'Number(newValue)',
-        cellStyle: { 'text-align': 'right' },
+        cellStyle: custom.customStyleGroup,
         valueFormatter: this.currencyFormatter
       },
       totalColumn: {
         width: 130,
         aggFunc: custom.TotalMonthAggFunc,
         cellRenderer: 'agAnimateShowChangeCellRenderer',
-        cellStyle: {
-          'text-align': 'right',
-          color: 'black', 'background-color': '#F5F5F5'
-        },
+        cellStyle: custom.customStyleGroupTotal,
         valueFormatter: this.currencyFormatter
       },
       PhysicalColumn: {
         width: 110,
         aggFunc: custom.TotalQuarterAggFunc,
         cellRenderer: 'agAnimateShowChangeCellRenderer',
-        cellStyle: {
-          'text-align': 'right',
-          color: 'black',
-          'background-color': 'orange'
-        },
+        cellStyle:custom.customStyleGroupPhysical,
         valueFormatter: this.currencyFormatter
       },
       obligationColumn: {
         width: 110,
         aggFunc: custom.TotalQuarterAggFunc,
         cellRenderer: 'agAnimateShowChangeCellRenderer',
-        cellStyle: {
-          'text-align': 'right',
-          color: 'black',
-          'background-color': '#fae091'
-        },
+        cellStyle: custom.customStyleGroupQaurter2,
         valueFormatter: this.currencyFormatter
       },
       disbursementColumn: {
         width: 110,
         aggFunc: custom.TotalQuarterAggFunc,
         cellRenderer: 'agAnimateShowChangeCellRenderer',
-        cellStyle: {
-          'text-align': 'right',
-          color: 'black',
-          'background-color': '#ffaff8'
-        },
+        cellStyle: custom.customStyleGroupDisburse,
         valueFormatter: this.currencyFormatter
       },
       remarksColumn: { width: 120, maxLength: 500, cols: 40, rows: 5 }
