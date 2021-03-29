@@ -724,6 +724,7 @@ export class PhysicalComponent implements OnInit {
             type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
             cellClass: ['data']
           },
           {
@@ -731,6 +732,7 @@ export class PhysicalComponent implements OnInit {
             field: 'febr',
             type: 'remarksColumn',
             editable: this.canEdit,
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
             cellEditor: 'agLargeTextCellEditor',
             cellClass: ['data']
           },
@@ -739,6 +741,7 @@ export class PhysicalComponent implements OnInit {
             field: 'marr',
             type: 'remarksColumn',
             editable: this.canEdit,
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
             cellEditor: 'agLargeTextCellEditor',
             cellClass: ['data']
           },
@@ -748,6 +751,7 @@ export class PhysicalComponent implements OnInit {
             type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
             cellClass: ['data']
           },
           {
@@ -756,6 +760,7 @@ export class PhysicalComponent implements OnInit {
             type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
             cellClass: ['data']
           },
           {
@@ -764,6 +769,7 @@ export class PhysicalComponent implements OnInit {
             type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
             cellClass: ['data']
           },
           {
@@ -772,6 +778,7 @@ export class PhysicalComponent implements OnInit {
             type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
             cellClass: ['data']
           },
           {
@@ -780,6 +787,7 @@ export class PhysicalComponent implements OnInit {
             type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
             cellClass: ['data']
           },
           {
@@ -788,6 +796,7 @@ export class PhysicalComponent implements OnInit {
             type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
             cellClass: ['data']
           },
           {
@@ -796,6 +805,7 @@ export class PhysicalComponent implements OnInit {
             type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
             cellClass: ['data']
           },
           {
@@ -804,6 +814,7 @@ export class PhysicalComponent implements OnInit {
             type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
             cellClass: ['data']
           },
           {
@@ -812,6 +823,7 @@ export class PhysicalComponent implements OnInit {
             type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
             cellClass: ['data']
           }
         ]
@@ -940,7 +952,7 @@ export class PhysicalComponent implements OnInit {
         },
         valueFormatter: this.currencyFormatter
       },
-      remarksColumn: { width: 120, maxLength: 500, cols: 40, rows: 5 }
+     // remarksColumn: { width: 120, maxLength: 3000, cols: 40, rows: 5 }
     };
 
     this.autoGroupColumnDef = {

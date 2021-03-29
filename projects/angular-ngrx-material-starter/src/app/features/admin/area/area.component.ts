@@ -240,7 +240,8 @@ export class AreaComponent implements OnInit {
             type: 'remarksColumn',
             width: 70,
             editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor'
+            cellEditor: 'agLargeTextCellEditor',
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
           },
           {
             headerName: 'Q2',
@@ -248,7 +249,8 @@ export class AreaComponent implements OnInit {
             type: 'remarksColumn',
             width: 70,
             editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor'
+            cellEditor: 'agLargeTextCellEditor',
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
           },
           {
             headerName: 'Q3',
@@ -256,7 +258,8 @@ export class AreaComponent implements OnInit {
             type: 'remarksColumn',
             width: 70,
             editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor'
+            cellEditor: 'agLargeTextCellEditor',
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
           },
           {
             headerName: 'Q4',
@@ -264,7 +267,8 @@ export class AreaComponent implements OnInit {
             type: 'remarksColumn',
             width: 70,
             editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor'
+            cellEditor: 'agLargeTextCellEditor',
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
           }
         ]
       }
@@ -300,7 +304,7 @@ export class AreaComponent implements OnInit {
         },
         valueFormatter: this.currencyFormatter
       },
-      remarksColumn: { width: 120, maxLength: 500, cols: 40, rows: 5 }
+      remarksColumn: { width: 100 }
     };
   }
 
