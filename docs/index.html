@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+  <base href="/pmis2021/">  <title>PMIS2021</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:title" content="PMIS2021 Project by @asauguis">
+  <meta property="og:description" content="Performance Management Information System">
+
+  <link rel="icon" type="image/png" style="width: 20;" href="./assets/logo.png">
+  <style type="text/css">
+    body, html {
+      height: 100%;
+    }
+    .app-loading {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .app-loading .spinner {
+      height: 200px;
+      width: 200px;
+      animation: rotate 2s linear infinite;
+      transform-origin: center center;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    .app-loading .spinner .path {
+      stroke-dasharray: 1, 200;
+      stroke-dashoffset: 0;
+      animation: dash 1.5s ease-in-out infinite;
+      stroke-linecap: round;
+      stroke: #ddd;
+    }
+
+    @keyframes rotate {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes dash {
+      0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+      }
+      50% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -35px;
+      }
+      100% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -124px;
+      }
+    }
+  </style>
+<link rel="stylesheet" href="styles.863b9bb5b83835b06716.css"></head>
+<body>
+<anms-root>
+  <div class="app-loading">
+    <div class="logo">
+      <svg class="spinner" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+      </svg>
+    </div>
+  </div>
+</anms-root>
+
+<script src="runtime-es2015.f71a5e41f68fdf273137.js" type="module"></script><script src="runtime-es5.f71a5e41f68fdf273137.js" nomodule defer></script><script src="polyfills-es5.22c3db5fde657513ef0b.js" nomodule defer></script><script src="polyfills-es2015.7a422e2b2cd15625bdc7.js" type="module"></script><script src="main-es2015.90e5a7d72895167ca5e5.js" type="module"></script><script src="main-es5.90e5a7d72895167ca5e5.js" nomodule defer></script></body>
+</html>

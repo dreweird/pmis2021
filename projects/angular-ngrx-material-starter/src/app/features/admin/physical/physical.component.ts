@@ -513,8 +513,8 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[0].checked && this.canEdit) return true;
+            editable: (params) => {
+              if (this.locked[0].checked && this.canEdit && !params.data.area) return true;
               else return false;
             }
           },
@@ -524,8 +524,8 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[1].checked && this.canEdit) return true;
+            editable: (params) => {
+              if (this.locked[1].checked && this.canEdit && !params.data.area) return true;
               else return false;
             }
           },
@@ -535,8 +535,8 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[2].checked && this.canEdit) return true;
+            editable: (params) => {
+              if (this.locked[2].checked && this.canEdit && !params.data.area) return true;
               else return false;
             }
           },
@@ -555,8 +555,8 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[3].checked && this.canEdit) return true;
+            editable: (params) => {
+              if (this.locked[3].checked && this.canEdit && !params.data.area) return true;
               else return false;
             }
           },
@@ -566,8 +566,8 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[4].checked && this.canEdit) return true;
+            editable: (params) => {
+              if (this.locked[4].checked && this.canEdit && !params.data.area) return true;
               else return false;
             }
           },
@@ -577,8 +577,8 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[5].checked && this.canEdit) return true;
+            editable: (params) => {
+              if (this.locked[5].checked && this.canEdit && !params.data.area) return true;
               else return false;
             }
           },
@@ -597,8 +597,8 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[6].checked && this.canEdit) return true;
+            editable: (params) => {
+              if (this.locked[6].checked && this.canEdit && !params.data.area) return true;
               else return false;
             }
           },
@@ -608,8 +608,8 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[7].checked && this.canEdit) return true;
+            editable: (params) => {
+              if (this.locked[7].checked && this.canEdit && !params.data.area) return true;
               else return false;
             }
           },
@@ -619,8 +619,8 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[8].checked && this.canEdit) return true;
+            editable: (params) => {
+              if (this.locked[8].checked && this.canEdit && !params.data.area) return true;
               else return false;
             }
           },
@@ -639,8 +639,8 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[9].checked && this.canEdit) return true;
+            editable: (params) => {
+              if (this.locked[9].checked && this.canEdit && !params.data.area) return true;
               else return false;
             }
           },
@@ -650,8 +650,8 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[10].checked && this.canEdit) return true;
+            editable: (params) => {
+              if (this.locked[10].checked && this.canEdit && !params.data.area) return true;
               else return false;
             }
           },
@@ -661,8 +661,8 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: () => {
-              if (this.locked[11].checked && this.canEdit) return true;
+            editable: (params) => {
+              if (this.locked[11].checked && this.canEdit && !params.data.area) return true;
               else return false;
             }
           },
@@ -721,7 +721,7 @@ export class PhysicalComponent implements OnInit {
           {
             headerName: 'Jan',
             field: 'janr',
-            type: 'remarksColumn',
+          //  type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
             cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
@@ -730,7 +730,7 @@ export class PhysicalComponent implements OnInit {
           {
             headerName: 'Feb',
             field: 'febr',
-            type: 'remarksColumn',
+         //   type: 'remarksColumn',
             editable: this.canEdit,
             cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
             cellEditor: 'agLargeTextCellEditor',
@@ -739,7 +739,7 @@ export class PhysicalComponent implements OnInit {
           {
             headerName: 'Mar',
             field: 'marr',
-            type: 'remarksColumn',
+          //  type: 'remarksColumn',
             editable: this.canEdit,
             cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
             cellEditor: 'agLargeTextCellEditor',
@@ -748,7 +748,7 @@ export class PhysicalComponent implements OnInit {
           {
             headerName: 'Apr',
             field: 'aprr',
-            type: 'remarksColumn',
+          //  type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
             cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
@@ -757,7 +757,7 @@ export class PhysicalComponent implements OnInit {
           {
             headerName: 'May',
             field: 'mayr',
-            type: 'remarksColumn',
+          //  type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
             cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
@@ -766,7 +766,7 @@ export class PhysicalComponent implements OnInit {
           {
             headerName: 'Jun',
             field: 'junr',
-            type: 'remarksColumn',
+         //   type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
             cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
@@ -775,7 +775,7 @@ export class PhysicalComponent implements OnInit {
           {
             headerName: 'Jul',
             field: 'julr',
-            type: 'remarksColumn',
+          //  type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
             cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
@@ -784,7 +784,7 @@ export class PhysicalComponent implements OnInit {
           {
             headerName: 'Aug',
             field: 'augr',
-            type: 'remarksColumn',
+          //  type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
             cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
@@ -793,7 +793,7 @@ export class PhysicalComponent implements OnInit {
           {
             headerName: 'Sep',
             field: 'sepr',
-            type: 'remarksColumn',
+          //  type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
             cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
@@ -802,7 +802,7 @@ export class PhysicalComponent implements OnInit {
           {
             headerName: 'Oct',
             field: 'octr',
-            type: 'remarksColumn',
+         //   type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
             cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
@@ -811,7 +811,7 @@ export class PhysicalComponent implements OnInit {
           {
             headerName: 'Nov',
             field: 'novr',
-            type: 'remarksColumn',
+         //   type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
             cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
@@ -820,7 +820,7 @@ export class PhysicalComponent implements OnInit {
           {
             headerName: 'Dec',
             field: 'decr',
-            type: 'remarksColumn',
+           // type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
             cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},

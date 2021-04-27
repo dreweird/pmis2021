@@ -5,7 +5,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PmisService {
-     apiRoot: string = 'http://172.16.128.37:3117';
+    // apiRoot: string = 'http://172.16.128.37:3117';
+     apiRoot: string = 'http://210.5.100.45:3117';
     // apiRoot: string = 'http://localhost:3117';
 
   constructor(private http: HttpClient) {}

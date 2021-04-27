@@ -133,7 +133,11 @@ export class AreaComponent implements OnInit {
             type: 'valueColumn',
             width: 70,
             aggFunc: 'sum',
-            enableValue: true
+            enableValue: true,
+            editable: () => {
+              if (this.locked[3].checked && this.canEdit) return true;
+              else return false;
+            }
           },
           {
             headerName: 'May',
@@ -141,7 +145,11 @@ export class AreaComponent implements OnInit {
             type: 'valueColumn',
             width: 70,
             aggFunc: 'sum',
-            enableValue: true
+            enableValue: true,
+            editable: () => {
+              if (this.locked[4].checked && this.canEdit) return true;
+              else return false;
+            }
           },
           {
             headerName: 'Jun',
@@ -149,7 +157,11 @@ export class AreaComponent implements OnInit {
             type: 'valueColumn',
             width: 70,
             aggFunc: 'sum',
-            enableValue: true
+            enableValue: true,
+            editable: () => {
+              if (this.locked[5].checked && this.canEdit) return true;
+              else return false;
+            }
           },
           {
             headerName: 'Q2',
@@ -164,7 +176,11 @@ export class AreaComponent implements OnInit {
             type: 'valueColumn',
             width: 70,
             aggFunc: 'sum',
-            enableValue: true
+            enableValue: true,
+            editable: () => {
+              if (this.locked[6].checked && this.canEdit) return true;
+              else return false;
+            }
           },
           {
             headerName: 'Aug',
@@ -172,7 +188,11 @@ export class AreaComponent implements OnInit {
             type: 'valueColumn',
             width: 70,
             aggFunc: 'sum',
-            enableValue: true
+            enableValue: true,
+            editable: () => {
+              if (this.locked[7].checked && this.canEdit) return true;
+              else return false;
+            }
           },
           {
             headerName: 'Sep',
@@ -180,7 +200,11 @@ export class AreaComponent implements OnInit {
             type: 'valueColumn',
             width: 70,
             aggFunc: 'sum',
-            enableValue: true
+            enableValue: true,
+            editable: () => {
+              if (this.locked[8].checked && this.canEdit) return true;
+              else return false;
+            }
           },
           {
             headerName: 'Q3',
@@ -195,7 +219,11 @@ export class AreaComponent implements OnInit {
             type: 'valueColumn',
             width: 70,
             aggFunc: 'sum',
-            enableValue: true
+            enableValue: true,
+            editable: () => {
+              if (this.locked[9].checked && this.canEdit) return true;
+              else return false;
+            }
           },
           {
             headerName: 'Nov',
@@ -203,7 +231,11 @@ export class AreaComponent implements OnInit {
             type: 'valueColumn',
             width: 70,
             aggFunc: 'sum',
-            enableValue: true
+            enableValue: true,
+            editable: () => {
+              if (this.locked[10].checked && this.canEdit) return true;
+              else return false;
+            }
           },
           {
             headerName: 'Dec',
@@ -211,7 +243,11 @@ export class AreaComponent implements OnInit {
             type: 'valueColumn',
             width: 70,
             aggFunc: 'sum',
-            enableValue: true
+            enableValue: true,
+            editable: () => {
+              if (this.locked[11].checked && this.canEdit) return true;
+              else return false;
+            }
           },
           {
             headerName: 'Q4',
