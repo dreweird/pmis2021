@@ -69,6 +69,7 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.26.0",
     "mysql": "^2.18.1",
+    "ng-circle-progress": "^1.6.0",
     "ng2-charts": "^2.4.2",
     "ng2-file-upload": "^1.4.0",
     "ng2-image-viewer": "^3.0.5",

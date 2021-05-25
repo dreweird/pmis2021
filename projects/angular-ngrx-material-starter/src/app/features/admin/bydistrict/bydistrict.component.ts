@@ -300,6 +300,13 @@ export class BydistrictComponent implements OnInit {
               return loc;
             }
           }
+        },
+        {
+          headerName: 'Remarks',
+          width: 300,
+          cellClass: ['data'],
+          field: 'q1',
+          cellStyle: { color: 'black', 'background-color': '#D3D3D3' }
         }
       ]
     },
@@ -339,6 +346,13 @@ export class BydistrictComponent implements OnInit {
               return loc;
             }
           }
+        },
+        {
+          headerName: 'Remarks',
+          width: 300,
+          cellClass: ['data'],
+          field: 'q2',
+          cellStyle: { color: 'black', 'background-color': '#D3D3D3' }
         }
       ]
     },
@@ -378,6 +392,13 @@ export class BydistrictComponent implements OnInit {
               return loc;
             }
           }
+        },
+        {
+          headerName: 'Remarks',
+          width: 300,
+          cellClass: ['data'],
+          field: 'q3',
+          cellStyle: { color: 'black', 'background-color': '#D3D3D3' }
         }
       ]
     },
@@ -417,6 +438,13 @@ export class BydistrictComponent implements OnInit {
               return loc;
             }
           }
+        },
+        {
+          headerName: 'Remarks',
+          width: 300,
+          cellClass: ['data'],
+          field: 'q4',
+          cellStyle: { color: 'black', 'background-color': '#D3D3D3' }
         }
       ]
     },
@@ -504,22 +532,22 @@ export class BydistrictComponent implements OnInit {
           {
             styleId: 'p2',
             data: { type: 'String', value: 'Physical Accomplishment - Q1' },
-            mergeAcross: 1
+            mergeAcross: 2
           },
           {
             styleId: 'p3',
             data: { type: 'String', value: 'Physical Accomplishment - Q2' },
-            mergeAcross: 1
+            mergeAcross: 2
           },
           {
             styleId: 'p4',
             data: { type: 'String', value: 'Physical Accomplishment - Q3' },
-            mergeAcross: 1
+            mergeAcross: 2
           },
           {
             styleId: 'p5',
             data: { type: 'String', value: 'Physical Accomplishment - Q4' },
-            mergeAcross: 1
+            mergeAcross: 2
           },
           {
             styleId: 'p6',

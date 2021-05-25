@@ -6,8 +6,8 @@
 }
 
 mat-card {
-  margin-bottom: 20px;
-  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .center {
@@ -15,6 +15,9 @@ mat-card {
 
   font-size: 1.5vw;
 }
+
+
+
 
 
 
@@ -34,14 +37,66 @@ mat-card {
 
 
 /* Just common table stuff. Really. */
-table  { border-collapse: collapse; width: 100%; }
+table  {  width: 100%; }
 th, td { padding: 8px 16px; }
-th     { background:#eee; }
-h1 {
-  border-radius: 25px;
-  border: 3px solid #73AD21;
-  padding: 10px; 
+
+thead, tbody { display: block; }
+
+tbody {
+    height: 380px;       /* Just for the demo          */
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+    font-size: small;
+}
+
+#obligation th {
   text-align: center;
+  background-color: 	#6A5ACD;
+  color: whitesmoke;
+  font-size: 1.8vw;
+}
+
+#physical th {
+  text-align: center;
+  background-color: 	#FF8C00;
+  color: whitesmoke;
+  font-size: 1.8vw;
+}
+
+.gradient-text {
+  /* Fallback: Set a background color. */
+  background-color: red;
+  
+  /* Create the gradient. */
+  background-image: linear-gradient(45deg, #f3ec78, #af4261);
+  
+  /* Set the background size and repeat properties. */
+  background-size: 100%;
+  background-repeat: repeat;
+
+  /* Use the text as a mask for the background. */
+  /* This will show the gradient as a text color rather than element bg. */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+h1 {
+  font-family: "Archivo Black", sans-serif;
+  font-weight: bold;
+  font-size: 5em;
+  text-align: center;
+  margin-bottom: 0;
+  margin-bottom: -0.25em;
 
 }
 
+.header {
+  background-color: #181123;
+  height: 100px;
+}
+
+.bold {
+  font-weight: bold;
+}

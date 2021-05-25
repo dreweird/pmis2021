@@ -7,7 +7,7 @@
         <span>PMIS</span></div>
       <mat-nav-list>
       <span *ngFor="let item of navigation">
-        <a mat-list-item *ngIf="(isAuthenticated$ | async)" (click)="sidenav.close()" [routerLink]="[item.link]"
+        <a mat-list-item *ngIf="(item.disable | async)" (click)="sidenav.close()" [routerLink]="[item.link]"
         routerLinkActive="active">
         {{item.label | translate}}
       </a>

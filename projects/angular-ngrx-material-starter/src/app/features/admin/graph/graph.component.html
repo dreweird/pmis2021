@@ -1,108 +1,206 @@
+<div class="row header" *ngIf="pid">
+  <div class="col-md-12" [ngClass]="routeAnimationsElements">
+    <h1 class="gradient-text"> {{ name }} Analytics Dashboard </h1>
+  </div>
+</div> 
+
 <div class="container" rtl>
-    <div class="row title" [ngClass]="routeAnimationsElements">
-        <div class="col-md-12" >
-            <h2 >Mid-Year Summary</h2>
-            <h2><i>{{name}}</i></h2>
-        </div>
-        <div class="col-md-12" >
-            <mat-card>
-                <table class="table table-bordered midyear">
-                    <thead>
-                      <tr>
-                        <th scope="col">Actual Physical Accomplishment vs. BED2 Target</th>
-                        <th scope="col">Actual Obligation Accomplishment vs. BED1 Target</th>
-                        <th scope="col">Actual Disbursement Accomplishment vs. BED3 Target</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td> {{pp_midyear | percent: '1.2-2'}} </td>
-                        <td> {{op_midyear | percent: '1.2-2'}} </td>
-                        <td> {{dp_midyear | percent: '1.2-2'}} </td>
-                    </tr>  
-                    </tbody>
-                  </table> 
-            </mat-card>
- 
-        </div>
-    </div>
-    <div class="title">
-        <div class="row">
-            <div class="col-md-12" [ngClass]="routeAnimationsElements">
-                <mat-card>
-                    <div id="chartPhysicalMidyear" style="height: 370px; width: 100%;"></div>
-                </mat-card>
-            
-    
-            </div>    
-        </div>
-    
-        <div class="row">
-            <div class="col-md-6" [ngClass]="routeAnimationsElements">
-                <mat-card>
-                    <div id="chartObligationMidyear" style="height: 370px; width: 100%;"></div>
-                </mat-card>
-            </div>
-            <div class="col-md-6" [ngClass]="routeAnimationsElements">
-                <mat-card>
-                    <div id="chartDisbursementMidyear" style="height: 370px; width: 100%;"></div>
-                </mat-card>
-            </div>      
-        </div>
-    </div>  
-
-
-
-    <div class="row title2" [ngClass]="routeAnimationsElements">
-        <div class="col-md-12" >
-            <h2 >YearEnd Summary</h2>
-            <h2><i>{{name}}</i></h2>
-        </div>
-        <div class="col-md-12" >
-            <mat-card>
-                <table class="table table-bordered yearend">
-                    <thead>
-                      <tr>
-                        <th scope="col">Actual Physical Accomplishment vs. BED2 Target</th>
-                        <th scope="col">Actual Obligation Accomplishment vs. BED1 Target</th>
-                        <th scope="col">Actual Disbursement Accomplishment vs. BED3 Target</th>
-                   </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td> {{pp_yearend | percent: '1.2-2'}} </td>
-                        <td> {{op_yearend | percent: '1.2-2'}} </td>
-                        <td> {{dp_yearend | percent: '1.2-2'}} </td>
-                    </tr>  
-                    </tbody>
-                  </table> 
-            </mat-card>
- 
-        </div>
-    </div>
-<div class="title2">
-    <div class="row">
-        <div class="col-md-12" [ngClass]="routeAnimationsElements">
-            <mat-card>
-                <div id="chartPhysicalYearEnd" style="height: 370px; width: 100%;"></div>
-            </mat-card>
+    <div class="row" [ngClass]="routeAnimationsElements">
+        <div class="col-12 col-md-4">
+          <mat-card>
+            <table id="obligation">
+              <tr><th colspan="2">Obligation</th></tr>
+              <tr class="center"><td>MidYear</td><td>YearEnd</td></tr>
+              <tr><td> 
+                <circle-progress
+                  [percent]="op_midyear"
+                  [radius]="50"
+                  [outerStrokeWidth]="8"
+                  [innerStrokeWidth]="4"
+                  [outerStrokeColor]="'#78C000'"
+                  [innerStrokeColor]="'#C7E596'"
+                  [animation]="false"
+                ></circle-progress>
+              </td><td>
+                <circle-progress
+                [percent]="op_yearend"
+                [radius]="50"
+                [outerStrokeWidth]="8"
+                [innerStrokeWidth]="4"
+                [outerStrokeColor]="'#DDA0DD'"
+                [innerStrokeColor]="'#DA70D6'"
+                [animation]="false"
+              ></circle-progress>
+              </td></tr>
+            </table>
+          </mat-card>
+     
         
-
-        </div>    
-    </div>
-    <div class="row">
-        <div class="col-md-6" [ngClass]="routeAnimationsElements">
-            <mat-card>
-                <div id="chartObligationYearEnd" style="height: 370px; width: 100%;"></div>
-            </mat-card>
         </div>
-        <div class="col-md-6" [ngClass]="routeAnimationsElements">
-            <mat-card>
-                <div id="chartDisbursementYearEnd" style="height: 370px; width: 100%;"></div>
-            </mat-card>
-        </div>      
-    </div>
-</div>
+        <div class="col-12 col-md-4">
+          <mat-card>
+            <table id="obligation">
+              <tr><th colspan="2">Disbursement</th></tr>
+              <tr class="center"><td>MidYear</td><td>YearEnd</td></tr>
+              <tr><td>
+                <circle-progress
+                  [percent]="dp_midyear"
+                  [radius]="50"
+                  [outerStrokeWidth]="8"
+                  [innerStrokeWidth]="4"
+                  [outerStrokeColor]="'#78C000'"
+                  [innerStrokeColor]="'#C7E596'"
+                  [animation]="false"
+                ></circle-progress>
+              </td><td>
+                <circle-progress
+                [percent]="dp_yearend"
+                [radius]="50"
+                [outerStrokeWidth]="8"
+                [innerStrokeWidth]="4"
+                [outerStrokeColor]="'#DDA0DD'"
+                [innerStrokeColor]="'#DA70D6'"
+                [animation]="false"
+              ></circle-progress>
+              </td></tr>
+            </table>
+          </mat-card>
+        </div>
+        <div class="col-12 col-md-4">
+          <mat-card>
+            <table id="physical">
+              <tr><th colspan="2">Physical Average</th></tr>
+              <tr class="center"><td>MidYear</td><td>YearEnd</td></tr>
+              <tr><td>
+                <circle-progress
+                  [percent]="pp_midyear"
+                  [radius]="50"
+                  [outerStrokeWidth]="8"
+                  [innerStrokeWidth]="4"
+                  [outerStrokeColor]="'#78C000'"
+                  [innerStrokeColor]="'#C7E596'"
+                  [animation]="false"
+                ></circle-progress>
+              </td><td>
+                <circle-progress
+                [percent]="pp_yearend"
+                [radius]="50"
+                [outerStrokeWidth]="8"
+                [innerStrokeWidth]="4"
+                [outerStrokeColor]="'#DDA0DD'"
+                [innerStrokeColor]="'#DA70D6'"
+                [animation]="false"
+              ></circle-progress>
+              </td></tr>
+            </table>
+          </mat-card>
+    
+        </div>
+      </div>
+
+      <div class="row" [ngClass]="routeAnimationsElements">
+        <div class="col-12 col-md-8">
+          <mat-card>
+            <table id="obligation">
+              <tr><th>Obligation (Actual vs. Plan)</th></tr>
+              <tr><td>  <div id="chartObligation" style="height: 320px; width: 100%;"></div></td></tr>
+            </table>
+
+            <div class="comments">
+              <p>For obligation, the month of <b> {{max_month_ob}} </b>has the largest share of targets as planned, while the
+                month of <b> {{max_month_obspike?.label}} </b>  has the largest spiked of accomplishment with a percentage of <b> {{max_month_obspike?.y | number:'2.0' }} </b>  as of today.
+              </p>
+            </div>
+          
+          </mat-card>
+      
+        </div>
+        <div class="col-12 col-md-4">
+          <mat-card>
+            <table id="obligation">
+              <tr><th>Obligation - Consolidated Quarterly</th></tr>
+              <tr><td>  <div id="chartObligationQuarter" style="height: 300px; width: 100%;"></div></td></tr>
+            </table>
+            <div class="comments">
+              <p>The quarter <b> {{max_quarter_ob}} </b> has the largest proportion of obligation targets as planned with a percentage of <b> {{max_quarter_obper | percent}} </b>, while 
+                the actual obligation ends at Php <b> {{actual_ob | number:'2.0' }} </b>, leading to a percentage of <b> {{op_yearend | number:'2.0' }} </b> .
+              </p>
+            </div>
+          </mat-card>
+         
+   
+        </div>
+    
+      </div>
+      
+      <div class="row" [ngClass]="routeAnimationsElements">
+        <div class="col-12 col-md-8">
+          <mat-card>
+            <table id="obligation">
+              <tr><th>Disbursement (Actual vs. Plan)</th></tr>
+              <tr><td>  <div id="chartDisbursement" style="height: 320px; width: 100%;"></div></td></tr>
+            </table>
+            <div class="comments">
+              <p>For disbusrsement, the month of <b> {{max_month_dis}} </b>has the largest share of targets as planned, while the
+                month of <b> {{max_month_disspike?.label}} </b>  has the largest spiked of accomplishment with a percentage of <b> {{max_month_disspike?.y  | number:'2.0' }} </b>  as of today.
+              </p>
+            </div>
+          </mat-card>
+      
+        </div>
+        <div class="col-12 col-md-4">
+          <mat-card>
+            <table id="obligation">
+              <tr><th>Disbursement - Consolidated Quarterly</th></tr>
+              <tr><td>  <div id="chartDisbursementQuarter" style="height: 300px; width: 100%;"></div></td></tr>
+            </table>
+            <div class="comments">
+              <p>The quarter <b> {{max_quarter_dis}} </b> has the largest proportion of disbursement targets as planned with a percentage of <b> {{max_quarter_disper | percent}} </b>, while 
+                the actual disbursement ends at Php <b> {{actual_dis | number:'2.0' }} </b>, leading to a percentage of <b> {{dp_yearend | number:'2.0' }} </b> .
+              </p>
+            </div>
+          </mat-card>
+   
+        </div>
+    
+      </div> 
+
+      <div class="row" [ngClass]="routeAnimationsElements">
+        <div class="col-12 col-md-8">
+          <mat-card>
+            <table id="physical">
+              <tr><th>Physical (Actual vs. Plan)</th></tr>
+              <tr><td>  <div id="chartPhysical" style="height: 320px; width: 100%;"></div></td></tr>
+            </table>
+
+            <div class="comments_physical">
+              <p>For physical, the month of <b> {{max_month_p}} </b>has the largest share of targets as planned, while the
+                month of <b> {{max_month_pspike?.label}} </b>  has the largest spiked of accomplishment with a percentage of <b> {{max_month_pspike?.y  | number:'2.0' }} </b>  as of today.
+              </p>
+            </div>
+          
+          </mat-card>
+      
+        </div>
+        <div class="col-12 col-md-4">
+          <mat-card>
+            <table id="physical">
+              <tr><th>Physical - Consolidated Quarterly</th></tr>
+              <tr><td>  <div id="chartPhysicalQuarter" style="height: 300px; width: 100%;"></div></td></tr>
+            </table>
+
+            <div class="comments_physical">
+              <p>The quarter <b> {{max_quarter_p}} </b> has the largest proportion of physical targets as planned with a percentage of <b> {{max_quarter_pper | percent}} </b>, while 
+                the actual physical ends at  <b> {{actual_p | number:'2.0' }} </b>, leading to a percentage of <b> {{pp_yearend | number:'2.0' }} </b> .
+              </p>
+            </div>
+          
+          </mat-card>
+   
+        </div>
+    
+      </div> 
+
 
 </div>
     

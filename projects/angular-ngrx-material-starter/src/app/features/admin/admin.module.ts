@@ -20,6 +20,7 @@ import { LogsComponent } from './logs/logs.component';
 import { AreaComponent } from './area/area.component';
 import { Bed123Component } from './bed123/bed123.component';
 import { GraphComponent } from './graph/graph.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,17 @@ import { GraphComponent } from './graph/graph.component';
     AdminRoutingModule,
     NgxMatSelectSearchModule,
     MomentModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    NgCircleProgressModule.forRoot({
+      // set defaults here
+      radius: 100,
+      outerStrokeWidth: 16,
+      innerStrokeWidth: 8,
+      outerStrokeColor: "#78C000",
+      innerStrokeColor: "#C7E596",
+      animationDuration: 300,
+    
+    })
   ],
   exports: [GraphComponent]
 })
