@@ -45,6 +45,7 @@ export class Bed123Component implements OnInit, OnChanges {
   autoGroupColumnDef: any;
   components: any;
   aggFuncs: any;
+  
   user: any;
   canEdit: any;
   locked: any;

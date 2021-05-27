@@ -43,8 +43,6 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(authLoginSuccess),
         tap((user: any) => {
-          this.router.navigate(['admin']);
-          console.log(user);
           this.localStorageService.setItem(AUTH_KEY, {
             isAuthenticated: true,
             username: user.user.username,
@@ -53,6 +51,12 @@ export class AuthEffects {
             pid: user.user.pid,
             b: user.user.b
           });
+
+          if(user.user.pid === 102){ this.router.navigate(['bayanihan']);}else{
+            this.router.navigate(['admin']);
+          }
+         
+       
         })
       ),
     { dispatch: false }

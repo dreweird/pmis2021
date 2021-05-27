@@ -5,11 +5,24 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PmisService {
-   //  apiRoot: string = 'http://172.16.128.37:3117';
-     apiRoot: string = 'http://210.5.100.45:3118';
+     apiRoot: string = 'http://172.16.128.37:3117';
+   //  apiRoot: string = 'http://210.5.100.45:3118';
     // apiRoot: string = 'http://localhost:3117';
 
   constructor(private http: HttpClient) {}
+
+  upBayanihan(col, value, id) {
+    const url = `${this.apiRoot}/upBayanihan`;
+    let entries = { col: col, value: value, mfo_id: id };
+    console.log(entries);
+    return this.http.put(url, { entries });
+  }
+
+
+  getBayanihanSummary(pid) {
+    const url = `${this.apiRoot}/getBayanihanSummary/` + pid;
+    return this.http.get(url);
+  }
 
   getChart(pid) {
     const url = `${this.apiRoot}/chart/${pid}`;

@@ -202,7 +202,7 @@ export class GraphComponent implements OnInit, OnChanges {
       let result3 = this.array_obquarter.sort((a,b) => b.y - a.y );
 
       this.max_month_ob = result[0].label;
-      this.max_month_obspike = result2[0];
+      this.max_month_obspike = isFinite(result2[0].y) ? result2[0] : result2[1];
       this.max_quarter_ob = result3[0].label;
       this.max_quarter_obper = result3[0].y / data.ft;
       this.actual_ob = data.fa;
@@ -211,12 +211,13 @@ export class GraphComponent implements OnInit, OnChanges {
       let result5 = this.array_disspike.sort((a,b) => b.y - a.y );
       let result6 = this.array_disquarter.sort((a,b) => b.y - a.y );
 
-
       this.max_month_dis = result4[0].label;
-      this.max_month_disspike = result5[0];
+      this.max_month_disspike = isFinite(result5[0].y) ? result5[0] : result5[1];
       this.max_quarter_dis = result6[0].label;
       this.max_quarter_disper = result6[0].y / data.dt;
       this.actual_dis = data.da;
+
+  
 
       let result7 = this.array_ptarget.sort((a,b) => b.y - a.y );
       let result8 = this.array_pspike.sort((a,b) => b.y - a.y );
@@ -224,7 +225,7 @@ export class GraphComponent implements OnInit, OnChanges {
 
 
       this.max_month_p = result7[0].label;
-      this.max_month_pspike = result8[0];
+      this.max_month_pspike = isFinite(result8[0].y) ? result8[0] : result8[1];
       this.max_quarter_p = result9[0].label;
       this.max_quarter_pper = result9[0].y / data.pt;
       this.actual_p = data.pa;

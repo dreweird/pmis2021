@@ -34,6 +34,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./features/admin/admin.module').then(m => m.AdminModule)
   },
+  {
+    path: 'bayanihan',
+    loadChildren: () =>
+      import('./features/bayanihan/bayanihan.module').then(m => m.BayanihanModule)
+  },
   // {
   //   path: 'view/:id/details',
   //   loadChildren: () =>
