@@ -17,12 +17,12 @@ import { AllModules } from '@ag-grid-enterprise/all-modules';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'anms-physical',
-  templateUrl: './physical.component.html',
-  styleUrls: ['./physical.component.scss'],
+  selector: 'anms-midyear',
+  templateUrl: './midyear.component.html',
+  styleUrls: ['./midyear.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PhysicalComponent implements OnInit {
+export class MidyearComponent implements OnInit {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
 
   public modules: Module[] = AllModules;
@@ -54,7 +54,39 @@ export class PhysicalComponent implements OnInit {
     this.lastUpdated(this.pid);
   }
 
+  sumAccomp_capped = 0;
+
   getRow(pid) {
+    // this.apmisService.getPhysical(pid).subscribe((data: any) => {
+    //   console.log(data)
+    //   for(var i in data) {
+    //     if(data[i].jana > data[i].jant) { data[i].jana = data[i].jant }
+    //     if(data[i].feba > data[i].febt) { data[i].feba = data[i].febt }
+    //     if(data[i].mara > data[i].mart) { data[i].mara = data[i].mart }
+    //     if(data[i].apra > data[i].aprt) { data[i].apra = data[i].aprt }
+    //     if(data[i].maya > data[i].mayt) { data[i].maya = data[i].mayt }
+    //     if(data[i].juna > data[i].junt) { data[i].juna = data[i].junt }
+    //     if(data[i].jula > data[i].jult) { data[i].jula = data[i].jult }
+    //     if(data[i].auga > data[i].augt) { data[i].auga = data[i].augt }
+    //     if(data[i].sepa > data[i].sept) { data[i].sepa = data[i].sept }
+    //     if(data[i].octa > data[i].octt) { data[i].octa = data[i].octt }
+    //     if(data[i].nova > data[i].novt) { data[i].nova = data[i].novt }
+    //     if(data[i].deca > data[i].dect) { data[i].deca = data[i].dect }
+ 
+    //   }
+
+    //   for(var x in data) {
+    //     this.sumAccomp_capped += data[x].jana + data[x].feba + data[x].mara +
+    //     data[x].apra + data[x].maya + data[x].juna +
+    //     data[x].jula + data[x].auga + data[x].sepa +
+    //     data[x].octa + data[x].nova + data[x].deca;
+
+    //   }
+
+    //   console.log(this.sumAccomp_capped);
+     
+    // })
+
     this.apmisService.getPhysical(pid).subscribe(data => {
       this.rowData = data;
       this.cd.markForCheck();
@@ -119,8 +151,8 @@ export class PhysicalComponent implements OnInit {
       return null;
     }
     return number.toLocaleString('en-us', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
     });
   }
 
@@ -135,6 +167,17 @@ export class PhysicalComponent implements OnInit {
     });
 
     return params.value < 0 ? '(' + returnString + ')' : returnString;
+  }
+
+  currencyFormatter2(params) {
+    const number = parseFloat(params.value);
+    if (params.value === undefined || params.value === null) {
+      return null;
+    }
+    return number.toLocaleString('en-us', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }) + ' %';
   }
 
   onCellClicked(event) {
@@ -378,7 +421,8 @@ export class PhysicalComponent implements OnInit {
         headerName: 'Unit Measure',
         field: 'unitmeasure',
         width: 100,
-        cellClass: ['data']
+        cellClass: ['data'],
+        hide: true
       },
       {
         headerName: 'Physical Target',
@@ -443,65 +487,7 @@ export class PhysicalComponent implements OnInit {
             cellClass: ['data', 't']
           },
 
-          {
-            headerName: 'Jul',
-            field: 'jult',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Aug',
-            field: 'augt',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Sep',
-            field: 'sept',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
-          },
-
-          {
-            headerName: 'Q3',
-            colId: 'Q3',
-            type: 'quarterColumn',
-            valueGetter: TotalQ3ValueGetter,
-            cellClass: ['data', 't']
-          },
-
-          {
-            headerName: 'Oct',
-            field: 'octt',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Nov',
-            field: 'novt',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Dec',
-            field: 'dect',
-            type: 'valueColumn',
-            columnGroupShow: 'open',
-            cellClass: ['data']
-          },
-
-          {
-            headerName: 'Q4',
-            colId: 'Q4',
-            type: 'quarterColumn',
-            valueGetter: TotalQ4ValueGetter,
-            cellClass: ['data', 't']
-          },
+         
           {
             headerName: 'Total',
             colId: 'TT',
@@ -605,89 +591,6 @@ export class PhysicalComponent implements OnInit {
           },
 
           {
-            headerName: 'Jul',
-            field: 'jula',
-            type: 'valueColumn',
-            cellClass: ['data'],
-            columnGroupShow: 'open',
-            editable: (params) => {
-              if (this.locked[6].checked && this.canEdit && !params.data.area) return true;
-              else return false;
-            }
-          },
-          {
-            headerName: 'Aug',
-            field: 'auga',
-            type: 'valueColumn',
-            cellClass: ['data'],
-            columnGroupShow: 'open',
-            editable: (params) => {
-              if (this.locked[7].checked && this.canEdit && !params.data.area) return true;
-              else return false;
-            }
-          },
-          {
-            headerName: 'Sep',
-            field: 'sepa',
-            type: 'valueColumn',
-            cellClass: ['data'],
-            columnGroupShow: 'open',
-            editable: (params) => {
-              if (this.locked[8].checked && this.canEdit && !params.data.area) return true;
-              else return false;
-            }
-          },
-
-          {
-            headerName: 'Q3',
-            colId: 'Q3A',
-            type: 'quarterColumn2',
-            valueGetter: TotalQ3ValueGetter2,
-            cellClass: ['data', 'a']
-          },
-
-          {
-            headerName: 'Oct',
-            field: 'octa',
-            type: 'valueColumn',
-            cellClass: ['data'],
-            columnGroupShow: 'open',
-            editable: (params) => {
-              if (this.locked[9].checked && this.canEdit && !params.data.area) return true;
-              else return false;
-            }
-          },
-          {
-            headerName: 'Nov',
-            field: 'nova',
-            type: 'valueColumn',
-            cellClass: ['data'],
-            columnGroupShow: 'open',
-            editable: (params) => {
-              if (this.locked[10].checked && this.canEdit && !params.data.area) return true;
-              else return false;
-            }
-          },
-          {
-            headerName: 'Dec',
-            field: 'deca',
-            type: 'valueColumn',
-            cellClass: ['data'],
-            columnGroupShow: 'open',
-            editable: (params) => {
-              if (this.locked[11].checked && this.canEdit && !params.data.area) return true;
-              else return false;
-            }
-          },
-
-          {
-            headerName: 'Q4',
-            colId: 'Q4A',
-            type: 'quarterColumn2',
-            valueGetter: TotalQ4ValueGetter2,
-            cellClass: ['data', 'a']
-          },
-          {
             headerName: 'Total',
             colId: 'TA',
             width: 110,
@@ -724,7 +627,7 @@ export class PhysicalComponent implements OnInit {
         },
         aggFunc: TotalPercentageAggFunc,
         valueGetter: TotalPercentageValueGetter,
-        valueFormatter: this.currencyFormatter,
+        valueFormatter: this.currencyFormatter2,
         type: 'numericColumn',
         cellClass: ['data', 'p']
       },
@@ -780,60 +683,6 @@ export class PhysicalComponent implements OnInit {
             headerName: 'Jun',
             field: 'junr',
          //   type: 'remarksColumn',
-            editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor',
-            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Jul',
-            field: 'julr',
-          //  type: 'remarksColumn',
-            editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor',
-            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Aug',
-            field: 'augr',
-          //  type: 'remarksColumn',
-            editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor',
-            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Sep',
-            field: 'sepr',
-          //  type: 'remarksColumn',
-            editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor',
-            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Oct',
-            field: 'octr',
-         //   type: 'remarksColumn',
-            editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor',
-            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Nov',
-            field: 'novr',
-         //   type: 'remarksColumn',
-            editable: this.canEdit,
-            cellEditor: 'agLargeTextCellEditor',
-            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
-            cellClass: ['data']
-          },
-          {
-            headerName: 'Dec',
-            field: 'decr',
-           // type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
             cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
@@ -976,7 +825,8 @@ export class PhysicalComponent implements OnInit {
       field: 'mfo_name',
       cellRendererParams: {
         suppressCount: true, // turn off the row count
-        innerRenderer: 'simpleCellRenderer'
+        innerRenderer: 'simpleCellRenderer',
+        suppressPadding: true
       }
     };
   }
@@ -1001,7 +851,7 @@ function getSimpleCellRenderer() {
         '<span style="font-weight: bold">' + params.value + '</span>';
     } else if (params.data.area == 1) {
       tempDiv.innerHTML =
-        '<span style="background-color: #FFFF00">' + params.value + '</span>';
+        '<span style="font-style: italic">' + params.value + '</span>';
     } else if (params.data.maintenance == 1) {
       tempDiv.innerHTML =
         '<span style="background-color: #7FFFD4">' + params.value + '</span>';
@@ -1092,18 +942,12 @@ function TotalPhysicalTargetValueGetter(params) {
       params.data.mart,
       params.data.aprt,
       params.data.mayt,
-      params.data.junt,
-      params.data.jult,
-      params.data.augt,
-      params.data.sept,
-      params.data.octt,
-      params.data.novt,
-      params.data.dect
+      params.data.junt
     );
   }
 }
 
-function createTotalPhysicalTarget(a, b, c, d, e, f, g, h, i, j, k, l) {
+function createTotalPhysicalTarget(a, b, c, d, e, f) {
   return {
     a: a,
     b: b,
@@ -1111,14 +955,8 @@ function createTotalPhysicalTarget(a, b, c, d, e, f, g, h, i, j, k, l) {
     d: d,
     e: e,
     f: f,
-    g: g,
-    h: h,
-    i: i,
-    j: j,
-    k: k,
-    l: l,
     toString: function() {
-      return a + b + c + d + e + f + g + h + i + j + k + l;
+      return a + b + c + d + e + f;
     }
   };
 }
@@ -1156,26 +994,9 @@ function TotalPhysicalTargetAggFunc(values) {
     if (value && value.f) {
       f += value.f;
     }
-    if (value && value.g) {
-      g += value.g;
-    }
-    if (value && value.h) {
-      h += value.h;
-    }
-    if (value && value.i) {
-      i += value.i;
-    }
-    if (value && value.j) {
-      j += value.j;
-    }
-    if (value && value.k) {
-      k += value.k;
-    }
-    if (value && value.l) {
-      l += value.l;
-    }
+
   });
-  return createTotalPhysicalTarget(a, b, c, d, e, f, g, h, i, j, k, l);
+  return createTotalPhysicalTarget(a, b, c, d, e, f);
 }
 function TotalQ1ValueGetter2(params) {
   if (!params.node.group) {
@@ -1225,12 +1046,6 @@ function TotalPhysicalAccomplishmentValueGetter(params) {
       params.data.apra,
       params.data.maya,
       params.data.juna,
-      params.data.jula,
-      params.data.auga,
-      params.data.sepa,
-      params.data.octa,
-      params.data.nova,
-      params.data.deca
     );
   }
 }
@@ -1243,26 +1058,14 @@ function TotalUnObligationValueGetter(params) {
       params.data.mara +
       params.data.apra +
       params.data.maya +
-      params.data.juna +
-      params.data.jula +
-      params.data.auga +
-      params.data.sepa +
-      params.data.octa +
-      params.data.nova +
-      params.data.deca;
+      params.data.juna;
     var totalTarget =
       params.data.jant +
       params.data.febt +
       params.data.mart +
       params.data.aprt +
       params.data.mayt +
-      params.data.junt +
-      params.data.jult +
-      params.data.augt +
-      params.data.sept +
-      params.data.octt +
-      params.data.novt +
-      params.data.dect;
+      params.data.junt;
 
     return createTotalVarianceValueObject(totalAccomplishment, totalTarget);
   }
@@ -1322,26 +1125,14 @@ function TotalPercentageValueGetter(params) {
       params.data.mara +
       params.data.apra +
       params.data.maya +
-      params.data.juna +
-      params.data.jula +
-      params.data.auga +
-      params.data.sepa +
-      params.data.octa +
-      params.data.nova +
-      params.data.deca;
+      params.data.juna;
     var totalTarget =
       params.data.jant +
       params.data.febt +
       params.data.mart +
       params.data.aprt +
       params.data.mayt +
-      params.data.junt +
-      params.data.jult +
-      params.data.augt +
-      params.data.sept +
-      params.data.octt +
-      params.data.novt +
-      params.data.dect;
+      params.data.junt;
 
     return createTotalPercentageValueObject(totalAccomplishment, totalTarget);
   }

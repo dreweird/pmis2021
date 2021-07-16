@@ -32,25 +32,25 @@ thead, tbody { display: block; }
 
   div {
     .comments {
-      background-color: lightgrey;
+   
       width: 100%;
       border: 3px solid #6A5ACD;
       padding: 5px;
       margin: 2px;
       p {
-        font-size: 12px;
+        font-size: 20px;
         text-align: center;
       }
 
     }
     .comments_physical {
-      background-color: lightgrey;
+   
       width: 100%;
       border: 3px solid orange;
       padding: 5px;
       margin: 2px;
       p {
-        font-size: 12px;
+        font-size: 20px;
         text-align: center;
       }
     }

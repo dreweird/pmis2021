@@ -15,6 +15,8 @@ import { BymunComponent } from './bymun/bymun.component';
 import { Bed123Component } from './bed123/bed123.component';
 import { GraphComponent } from './graph/graph.component';
 import { PdzComponent } from './pdz/pdz.component';
+import { MidyearComponent } from './midyear/midyear.component';
+import { MidyearAllComponent } from './midyear-all/midyear-all.component';
 
 const routes: Routes = [
   {
@@ -25,6 +27,18 @@ const routes: Routes = [
         path: 'pdz',
         component: PdzComponent,
         data: { title: 'PDZ' },
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'midyear_all',
+        component: MidyearAllComponent,
+        data: { title: 'Mid Year' },
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'midyear',
+        component: MidyearComponent,
+        data: { title: 'Mid Year' },
         canActivate: [AuthGuardService]
       },
       {

@@ -4,7 +4,7 @@
   </div>
 </div> 
 
-<div class="container" rtl>
+<div class="container-fluid" rtl>
     <div class="row" [ngClass]="routeAnimationsElements">
         <div class="col-12 col-md-4">
           <mat-card>
@@ -99,15 +99,15 @@
       </div>
 
       <div class="row" [ngClass]="routeAnimationsElements">
-        <div class="col-12 col-md-8">
+        <div class="col-12 col-md-12">
           <mat-card>
             <table id="obligation">
-              <tr><th>Obligation (Actual vs. Plan)</th></tr>
-              <tr><td>  <div id="chartObligation" style="height: 320px; width: 100%;"></div></td></tr>
+              <tr><th>Obligation by Month</th></tr>
+              <tr><td>  <div id="chartObligation" style="height: 500px; width: 100%;"></div></td></tr>
             </table>
 
             <div class="comments">
-              <p>For obligation, the month of <b> {{max_month_ob}} </b>has the largest share of targets as planned, while the
+              <p>For obligation, the month of <b> {{max_month_ob}} </b>has the largest share of targets as planned with a percentage of <b> {{month_ob_per | number:'2.0' }} </b>  , while the
                 month of <b> {{max_month_obspike?.label}} </b>  has the largest spiked of accomplishment with a percentage of <b> {{max_month_obspike?.y | number:'2.0' }} </b>  as of today.
               </p>
             </div>
@@ -115,66 +115,39 @@
           </mat-card>
       
         </div>
-        <div class="col-12 col-md-4">
-          <mat-card>
-            <table id="obligation">
-              <tr><th>Obligation - Consolidated Quarterly</th></tr>
-              <tr><td>  <div id="chartObligationQuarter" style="height: 300px; width: 100%;"></div></td></tr>
-            </table>
-            <div class="comments">
-              <p>The quarter <b> {{max_quarter_ob}} </b> has the largest proportion of obligation targets as planned with a percentage of <b> {{max_quarter_obper | percent}} </b>, while 
-                the actual obligation ends at Php <b> {{actual_ob | number:'2.0' }} </b>, leading to a percentage of <b> {{op_yearend | number:'2.0' }} </b> .
-              </p>
-            </div>
-          </mat-card>
-         
-   
-        </div>
+     
     
       </div>
       
       <div class="row" [ngClass]="routeAnimationsElements">
-        <div class="col-12 col-md-8">
+        <div class="col-12 col-md-12">
           <mat-card>
             <table id="obligation">
-              <tr><th>Disbursement (Actual vs. Plan)</th></tr>
-              <tr><td>  <div id="chartDisbursement" style="height: 320px; width: 100%;"></div></td></tr>
+              <tr><th>Disbursement by Month</th></tr>
+              <tr><td>  <div id="chartDisbursement" style="height: 500px; width: 100%;"></div></td></tr>
             </table>
             <div class="comments">
-              <p>For disbusrsement, the month of <b> {{max_month_dis}} </b>has the largest share of targets as planned, while the
+              <p>For disbursement, the month of <b> {{max_month_dis}} </b>has the largest share of targets as planned with a percentage of <b> {{month_dis_per | number:'2.0' }} </b>, while the
                 month of <b> {{max_month_disspike?.label}} </b>  has the largest spiked of accomplishment with a percentage of <b> {{max_month_disspike?.y  | number:'2.0' }} </b>  as of today.
               </p>
             </div>
           </mat-card>
       
         </div>
-        <div class="col-12 col-md-4">
-          <mat-card>
-            <table id="obligation">
-              <tr><th>Disbursement - Consolidated Quarterly</th></tr>
-              <tr><td>  <div id="chartDisbursementQuarter" style="height: 300px; width: 100%;"></div></td></tr>
-            </table>
-            <div class="comments">
-              <p>The quarter <b> {{max_quarter_dis}} </b> has the largest proportion of disbursement targets as planned with a percentage of <b> {{max_quarter_disper | percent}} </b>, while 
-                the actual disbursement ends at Php <b> {{actual_dis | number:'2.0' }} </b>, leading to a percentage of <b> {{dp_yearend | number:'2.0' }} </b> .
-              </p>
-            </div>
-          </mat-card>
-   
-        </div>
+    
     
       </div> 
 
       <div class="row" [ngClass]="routeAnimationsElements">
-        <div class="col-12 col-md-8">
+        <div class="col-12 col-md-12">
           <mat-card>
             <table id="physical">
-              <tr><th>Physical (Actual vs. Plan)</th></tr>
-              <tr><td>  <div id="chartPhysical" style="height: 320px; width: 100%;"></div></td></tr>
+              <tr><th>Physical by Month</th></tr>
+              <tr><td>  <div id="chartPhysical" style="height: 500px; width: 100%;"></div></td></tr>
             </table>
 
             <div class="comments_physical">
-              <p>For physical, the month of <b> {{max_month_p}} </b>has the largest share of targets as planned, while the
+              <p>For physical, the month of <b> {{max_month_p}} </b>has the largest share of targets as planned with a percentage of <b> {{month_p_per | number:'2.0' }} </b>, while the
                 month of <b> {{max_month_pspike?.label}} </b>  has the largest spiked of accomplishment with a percentage of <b> {{max_month_pspike?.y  | number:'2.0' }} </b>  as of today.
               </p>
             </div>
@@ -182,24 +155,57 @@
           </mat-card>
       
         </div>
-        <div class="col-12 col-md-4">
-          <mat-card>
-            <table id="physical">
-              <tr><th>Physical - Consolidated Quarterly</th></tr>
-              <tr><td>  <div id="chartPhysicalQuarter" style="height: 300px; width: 100%;"></div></td></tr>
-            </table>
-
-            <div class="comments_physical">
-              <p>The quarter <b> {{max_quarter_p}} </b> has the largest proportion of physical targets as planned with a percentage of <b> {{max_quarter_pper | percent}} </b>, while 
-                the actual physical ends at  <b> {{actual_p | number:'2.0' }} </b>, leading to a percentage of <b> {{pp_yearend | number:'2.0' }} </b> .
-              </p>
-            </div>
-          
-          </mat-card>
    
-        </div>
     
       </div> 
+      <div class="row" [ngClass]="routeAnimationsElements">
+      <div class="col-12 col-md-4">
+        <mat-card>
+          <table id="obligation">
+            <tr><th>Obligation by Quarter</th></tr>
+            <tr><td>  <div id="chartObligationQuarter" style="height: 500px; width: 100%;"></div></td></tr>
+          </table>
+          <div class="comments">
+            <p>The quarter <b> {{max_quarter_ob}} </b> has the largest proportion of obligation targets as planned with a percentage of <b> {{max_quarter_obper | percent}} </b>, while 
+              the actual obligation ends at Php <b> {{actual_ob | number:'2.0' }} </b>, leading to a percentage of <b> {{op_yearend | number:'2.0' }} </b> .
+            </p>
+          </div>
+        </mat-card>
+       
+ 
+      </div>
+      <div class="col-12 col-md-4">
+        <mat-card>
+          <table id="obligation">
+            <tr><th>Disbursement by Quarter</th></tr>
+            <tr><td>  <div id="chartDisbursementQuarter" style="height: 500px; width: 100%;"></div></td></tr>
+          </table>
+          <div class="comments">
+            <p>The quarter <b> {{max_quarter_dis}} </b> has the largest proportion of disbursement targets as planned with a percentage of <b> {{max_quarter_disper | percent}} </b>, while 
+              the actual disbursement ends at Php <b> {{actual_dis | number:'2.0' }} </b>, leading to a percentage of <b> {{dp_yearend | number:'2.0' }} </b> .
+            </p>
+          </div>
+        </mat-card>
+ 
+      </div>
+
+      <div class="col-12 col-md-4">
+        <mat-card>
+          <table id="physical">
+            <tr><th>Physical by Quarter</th></tr>
+            <tr><td>  <div id="chartPhysicalQuarter" style="height: 500px; width: 100%;"></div></td></tr>
+          </table>
+
+          <div class="comments_physical">
+            <p>The quarter <b> {{max_quarter_p}} </b> has the largest proportion of physical targets as planned with a percentage of <b> {{max_quarter_pper | percent}} </b>, while 
+              the actual physical ends at  <b> {{actual_p | number:'2.0' }} </b>, leading to a percentage of <b> {{pp_yearend | number:'2.0' }} </b> .
+            </p>
+          </div>
+        
+        </mat-card>
+ 
+      </div>
+      </div>
 
 
 </div>

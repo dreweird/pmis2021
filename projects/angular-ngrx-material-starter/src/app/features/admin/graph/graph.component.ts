@@ -26,18 +26,21 @@ export class GraphComponent implements OnInit, OnChanges {
   dp_yearend: any;
 
   max_month_ob: any;
+  month_ob_per: any;
   max_month_obspike: any;
   max_quarter_ob : any;
   max_quarter_obper: any;
   actual_ob : any;
 
   max_month_dis: any;
+  month_dis_per: any;
   max_month_disspike: any;
   max_quarter_dis : any;
   max_quarter_disper: any;
   actual_dis : any;
 
   max_month_p: any;
+  month_p_per: any;
   max_month_pspike: any;
   max_quarter_p : any;
   max_quarter_pper: any;
@@ -63,15 +66,49 @@ export class GraphComponent implements OnInit, OnChanges {
     console.log("ngonchanges");
   
   }
+
+  total_mid_capped = 0;
+  total_mid_target = 0;
+  total_ye_capped = 0;
+  total_ye_target = 0;
+
   getChart(pid){
     console.log(pid);
 
+    this.pmisService.getPhysical(pid).subscribe((data: any) => {
+      console.log(data);
+      // CAPPED at 100%
+      for (var key in data) {
+        var sumTarget = data[key].jant + data[key].febt + data[key].mart  + data[key].aprt + data[key].mayt + data[key].junt;
+        var sumAccomp = data[key].jana + data[key].feba + data[key].mara  + data[key].apra + data[key].maya + data[key].juna;
+        var sumTarget2 = sumTarget + data[key].jult + data[key].augt + data[key].sept  + data[key].octt + data[key].novt + data[key].dect;
+        var sumAccomp2 = sumAccomp + data[key].jula + data[key].auga + data[key].sepa  + data[key].octa + data[key].nova + data[key].deca;
+        this.total_mid_target += sumTarget;
+        this.total_ye_target += sumTarget2;
+        if( sumTarget < sumAccomp) {
+          this.total_mid_capped += sumTarget;
+        }else{
+          this.total_mid_capped += sumAccomp;
+        }
+        if( sumTarget2 < sumAccomp2) {
+          this.total_ye_capped += sumTarget2;
+        }else{
+          this.total_ye_capped += sumAccomp2;
+        }
+    }
+
+ this.pp_midyear = (this.total_mid_capped / this.total_mid_target) * 100;
+ this.pp_yearend = (this.total_ye_capped / this.total_ye_target) * 100;
+
+    })
+
+
     this.pmisService.getChart(pid).subscribe((data: any) => {
  
-      this.pp_midyear = (data.pa_mid / data.pt_mid) * 100;
+      
       this.op_midyear = (data.fa_mid / data.ft_mid) * 100;
       this.dp_midyear = (data.da_mid / data.dt_mid) * 100;
-      this.pp_yearend = (data.pa / data.pt) * 100;
+      //this.pp_yearend = (data.pa / data.pt) * 100;
       this.op_yearend = (data.fa / data.ft) * 100;
       this.dp_yearend = (data.da / data.dt) * 100;
       this.data = data;
@@ -92,19 +129,19 @@ export class GraphComponent implements OnInit, OnChanges {
 
       
       this.array_obspike = [
-        { y: ((data.janfa / data.janft) * 100), label: "Jan"}, 
-        { y: ((data.febfa / data.febft) * 100), label: "Feb"}, 
-        { y: ((data.marfa / data.marft) * 100), label: "Mar"},
-        { y: ((data.aprfa / data.aprft) * 100), label: "Apr"}, 
-        { y: ((data.mayfa / data.mayft) * 100), label: "May"}, 
-        { y: ((data.junfa / data.junft) * 100), label: "Jun"},
-
-        { y: ((data.julfa / data.julft) * 100), label: "Jul"},
-        { y: ((data.augfa / data.augft) * 100), label: "Aug"}, 
-        { y: ((data.sepfa / data.sepft) * 100), label: "Sep"},
-        { y: ((data.octfa / data.octft) * 100), label: "Oct"},
-        { y: ((data.novfa / data.novft) * 100), label: "Nov"},
-        { y: ((data.decfa / data.decft) * 100), label: "Dec"}];
+        { y: isFinite(( this.data.janfa / this.data.janft) * 100) ? (this.data.janfa / this.data.janft) * 100  : 0, label: 'Jan' },
+        { y: isFinite(( this.data.febfa / this.data.febft) * 100) ? ( this.data.febfa / this.data.febft) * 100 : 0, label: 'Feb' },
+        { y: isFinite(( this.data.marfa / this.data.marft) * 100) ? ( this.data.marfa / this.data.marft) * 100 : 0, label: 'Mar' },
+        { y: isFinite(( this.data.aprfa / this.data.aprft) * 100) ? ( this.data.aprfa / this.data.aprft) * 100 : 0, label: 'Apr' },
+        { y: isFinite(( this.data.mayfa / this.data.mayft) * 100) ? ( this.data.mayfa / this.data.mayft) * 100 : 0, label: 'May' },
+        { y: isFinite(( this.data.junfa / this.data.junft) * 100) ? ( this.data.junfa / this.data.junft) * 100 : 0, label: 'Jun' },
+        { y: isFinite(( this.data.julfa / this.data.julft) * 100) ? ( this.data.julfa / this.data.julft) * 100 : 0, label: 'Jul' },
+        { y: isFinite(( this.data.augfa / this.data.augft) * 100) ? ( this.data.augfa / this.data.augft) * 100 : 0, label: 'Aug' },
+        { y: isFinite(( this.data.sepfa / this.data.sepft) * 100) ? ( this.data.sepfa / this.data.sepft) * 100 : 0, label: 'Sep' },
+        { y: isFinite(( this.data.octfa / this.data.octft) * 100) ? ( this.data.octfa / this.data.octft) * 100 : 0, label: 'Oct' },
+        { y: isFinite(( this.data.novfa / this.data.novft) * 100) ? ( this.data.novfa / this.data.novft) * 100 : 0, label: 'Nov' },
+        { y: isFinite(( this.data.decfa / this.data.decft) * 100) ? ( this.data.decfa / this.data.decft) * 100 : 0, label: 'Dec' },
+];
 
       this.array_obquarter = [
         { y: data.janft + data.febft + data.marft, label: "1"}, 
@@ -197,35 +234,109 @@ export class GraphComponent implements OnInit, OnChanges {
       this.chartPhysical();
       this.chartPhysicalQuarter();
 
-      let result = this.array_obtarget.sort((a,b) => b.y - a.y );
-      let result2 = this.array_obspike.sort((a,b) => b.y - a.y );
-      let result3 = this.array_obquarter.sort((a,b) => b.y - a.y );
+
+      let result = this.array_obtarget.sort(function(a: any,b: any){
+        if(isFinite(b.y-a.y)) {
+          return b.y-a.y; 
+        } else {
+          return isFinite(a.y) ? -1 : 1;
+        }
+      });
+
+      let result2 = this.array_obspike.sort(function(a: any,b: any){
+        if(isFinite(b.y-a.y)) {
+          return b.y-a.y; 
+        } else {
+          return isFinite(a.y) ? -1 : 1;
+        }
+      });
+
+      let result3 = this.array_obquarter.sort(function(a: any,b: any){
+        if(isFinite(b.y-a.y)) {
+          return b.y-a.y; 
+        } else {
+          return isFinite(a.y) ? -1 : 1;
+        }
+      });
+
+      console.log(result);
 
       this.max_month_ob = result[0].label;
-      this.max_month_obspike = isFinite(result2[0].y) ? result2[0] : result2[1];
+      this.month_ob_per =  (result[0].y / data.ft) * 100;
+      this.max_month_obspike = result2[0];
+
+
       this.max_quarter_ob = result3[0].label;
       this.max_quarter_obper = result3[0].y / data.ft;
       this.actual_ob = data.fa;
 
-      let result4 = this.array_distarget.sort((a,b) => b.y - a.y );
-      let result5 = this.array_disspike.sort((a,b) => b.y - a.y );
-      let result6 = this.array_disquarter.sort((a,b) => b.y - a.y );
+   
+ 
+
+ 
+      let result4 = this.array_distarget.sort(function(a: any,b: any){
+        if(isFinite(b.y-a.y)) {
+          return b.y-a.y; 
+        } else {
+          return isFinite(a.y) ? -1 : 1;
+        }
+      });
+
+      let result5 = this.array_disspike.sort(function(a: any,b: any){
+        if(isFinite(b.y-a.y)) {
+          return b.y-a.y; 
+        } else {
+          return isFinite(a.y) ? -1 : 1;
+        }
+      });
+
+      let result6 = this.array_disquarter.sort(function(a: any,b: any){
+        if(isFinite(b.y-a.y)) {
+          return b.y-a.y; 
+        } else {
+          return isFinite(a.y) ? -1 : 1;
+        }
+      });
 
       this.max_month_dis = result4[0].label;
-      this.max_month_disspike = isFinite(result5[0].y) ? result5[0] : result5[1];
+      this.month_dis_per =  (result4[0].y / data.dt) * 100;
+      this.max_month_disspike = result5[0];
+
+ 
       this.max_quarter_dis = result6[0].label;
       this.max_quarter_disper = result6[0].y / data.dt;
       this.actual_dis = data.da;
 
-  
+      let result7 = this.array_ptarget.sort(function(a: any,b: any){
+        if(isFinite(b.y-a.y)) {
+          return b.y-a.y; 
+        } else {
+          return isFinite(a.y) ? -1 : 1;
+        }
+      });
 
-      let result7 = this.array_ptarget.sort((a,b) => b.y - a.y );
-      let result8 = this.array_pspike.sort((a,b) => b.y - a.y );
-      let result9 = this.array_pquarter.sort((a,b) => b.y - a.y );
+      let result8 = this.array_pspike.sort(function(a: any,b: any){
+        if(isFinite(b.y-a.y)) {
+          return b.y-a.y; 
+        } else {
+          return isFinite(a.y) ? -1 : 1;
+        }
+      });
+
+      let result9 = this.array_pquarter.sort(function(a: any,b: any){
+        if(isFinite(b.y-a.y)) {
+          return b.y-a.y; 
+        } else {
+          return isFinite(a.y) ? -1 : 1;
+        }
+      });
 
 
       this.max_month_p = result7[0].label;
-      this.max_month_pspike = isFinite(result8[0].y) ? result8[0] : result8[1];
+      this.month_p_per =  (result7[0].y / data.pt) * 100;
+      this.max_month_pspike = result8[0];
+  
+  
       this.max_quarter_p = result9[0].label;
       this.max_quarter_pper = result9[0].y / data.pt;
       this.actual_p = data.pa;
@@ -268,6 +379,12 @@ export class GraphComponent implements OnInit, OnChanges {
         shared: true
       },
       data: [
+        {
+          type: 'column',
+          showInLegend: true,
+          name: 'Plan',
+          dataPoints:this.array_obtarget
+        },
           {
             type: 'column',
             showInLegend: true,
@@ -287,12 +404,7 @@ export class GraphComponent implements OnInit, OnChanges {
               { y: this.data.decfa, label: 'Dec' },
             ]
           },
-          {
-            type: 'column',
-            showInLegend: true,
-            name: 'Plan',
-            dataPoints:this.array_obtarget
-          },
+     
           {
             type: 'line',
             showInLegend: true,
@@ -315,31 +427,31 @@ export class GraphComponent implements OnInit, OnChanges {
       data: [{
         type: "stackedColumn",
         showInLegend: true,
-        color: "#696661",
         name: "Q1",
         dataPoints: [
+          { y: (this.data.janft + this.data.febft + this.data.marft), label: "Plan" },
           { y: (this.data.janfa + this.data.febfa + this.data.marfa), label: "Actual" },
-          { y: (this.data.janft + this.data.febft + this.data.marft), label: "Plan" }
+         
         ]
         },
         {        
           type: "stackedColumn",
           showInLegend: true,
           name: "Q2",
-          color: "#EDCA93",
           dataPoints: [
+            { y: (this.data.aprft + this.data.mayft + this.data.junft), label: "Plan" },
             { y: (this.data.aprfa + this.data.mayfa + this.data.junfa), label: "Actual" },
-            { y: (this.data.aprft + this.data.mayft + this.data.junft), label: "Plan" }
+           
           ]
         },
         {        
           type: "stackedColumn",
           showInLegend: true,
           name: "Q3",
-          color: "#695A42",
           dataPoints: [
+            { y: (this.data.julft + this.data.augft + this.data.sepft), label: "Plan" },
             { y: (this.data.julfa + this.data.augfa + this.data.sepfa), label: "Actual" },
-            { y: (this.data.julft + this.data.augft + this.data.sepft), label: "Plan" }
+          
     
           ]
         },
@@ -347,10 +459,10 @@ export class GraphComponent implements OnInit, OnChanges {
           type: "stackedColumn",
           showInLegend: true,
           name: "Q4",
-          color: "#B6B1A8",
           dataPoints: [
+            { y: (this.data.octft + this.data.novft + this.data.decft), label: "Plan" },
             { y: (this.data.octfa + this.data.novfa + this.data.decfa), label: "Actual" },
-            { y: (this.data.octft + this.data.novft + this.data.decft), label: "Plan" }
+    
           ]
       }]
     });
@@ -382,6 +494,25 @@ export class GraphComponent implements OnInit, OnChanges {
         shared: true
       },
       data: [
+        {
+          type: 'column',
+          showInLegend: true,
+          name: 'Plan',
+          dataPoints: [
+            { y: this.data.jandt, label: 'Jan' },
+            { y: this.data.febdt, label: 'Feb' },
+            { y: this.data.mardt, label: 'Mar' },
+            { y: this.data.aprdt, label: 'Apr' },
+            { y: this.data.maydt, label: 'May' },
+            { y: this.data.jundt, label: 'Jun' },
+            { y: this.data.juldt, label: 'Jul' },
+            { y: this.data.augdt, label: 'Aug' },
+            { y: this.data.sepdt, label: 'Sep' },
+            { y: this.data.octdt, label: 'Oct' },
+            { y: this.data.novdt, label: 'Nov' },
+            { y: this.data.decdt, label: 'Dec' },
+          ]
+        },
           {
             type: 'column',
             showInLegend: true,
@@ -401,43 +532,25 @@ export class GraphComponent implements OnInit, OnChanges {
               { y: this.data.decda, label: 'Dec' },
             ]
           },
-          {
-            type: 'column',
-            showInLegend: true,
-            name: 'Plan',
-            dataPoints: [
-              { y: this.data.jandt, label: 'Jan' },
-              { y: this.data.febdt, label: 'Feb' },
-              { y: this.data.mardt, label: 'Mar' },
-              { y: this.data.aprdt, label: 'Apr' },
-              { y: this.data.maydt, label: 'May' },
-              { y: this.data.jundt, label: 'Jun' },
-              { y: this.data.juldt, label: 'Jul' },
-              { y: this.data.augdt, label: 'Aug' },
-              { y: this.data.sepdt, label: 'Sep' },
-              { y: this.data.octdt, label: 'Oct' },
-              { y: this.data.novdt, label: 'Nov' },
-              { y: this.data.decdt, label: 'Dec' },
-            ]
-          },
+  
           {
             type: 'line',
             showInLegend: true,
             axisYType: "secondary",
             name: 'Percentage',
             dataPoints: [
-              { y: ( this.data.janda / this.data.jandt) * 100, label: 'Jan' },
-              { y: ( this.data.febda / this.data.febdt) * 100, label: 'Feb' },
-              { y: ( this.data.marda / this.data.mardt) * 100, label: 'Mar' },
-              { y: ( this.data.aprda / this.data.aprdt) * 100, label: 'Apr' },
-              { y: ( this.data.mayda / this.data.maydt) * 100, label: 'May' },
-              { y: ( this.data.junda / this.data.jundt) * 100, label: 'Jun' },
-              { y: ( this.data.julda / this.data.juldt) * 100, label: 'Jul' },
-              { y: ( this.data.augda / this.data.augdt) * 100, label: 'Aug' },
-              { y: ( this.data.sepda / this.data.sepdt) * 100, label: 'Sep' },
-              { y: ( this.data.octda / this.data.octdt) * 100, label: 'Oct' },
-              { y: ( this.data.novda / this.data.novdt) * 100, label: 'Nov' },
-              { y: ( this.data.decda / this.data.decdt) * 100, label: 'Dec' },
+              { y: isFinite(( this.data.janda / this.data.jandt) * 100) ? (this.data.janda / this.data.jandt) * 100  : 0, label: 'Jan' },
+              { y: isFinite(( this.data.febda / this.data.febdt) * 100) ? ( this.data.febda / this.data.febdt) * 100 : 0, label: 'Feb' },
+              { y: isFinite(( this.data.marda / this.data.mardt) * 100) ? ( this.data.marda / this.data.mardt) * 100 : 0, label: 'Mar' },
+              { y: isFinite(( this.data.aprda / this.data.aprdt) * 100) ? ( this.data.aprda / this.data.aprdt) * 100 : 0, label: 'Apr' },
+              { y: isFinite(( this.data.mayda / this.data.maydt) * 100) ? ( this.data.mayda / this.data.maydt) * 100 : 0, label: 'May' },
+              { y: isFinite(( this.data.junda / this.data.jundt) * 100) ? ( this.data.junda / this.data.jundt) * 100 : 0, label: 'Jun' },
+              { y: isFinite(( this.data.julda / this.data.juldt) * 100) ? ( this.data.julda / this.data.juldt) * 100 : 0, label: 'Jul' },
+              { y: isFinite(( this.data.augda / this.data.augdt) * 100) ? ( this.data.augda / this.data.augdt) * 100 : 0, label: 'Aug' },
+              { y: isFinite(( this.data.sepda / this.data.sepdt) * 100) ? ( this.data.sepda / this.data.sepdt) * 100 : 0, label: 'Sep' },
+              { y: isFinite(( this.data.octda / this.data.octdt) * 100) ? ( this.data.octda / this.data.octdt) * 100 : 0, label: 'Oct' },
+              { y: isFinite(( this.data.novda / this.data.novdt) * 100) ? ( this.data.novda / this.data.novdt) * 100 : 0, label: 'Nov' },
+              { y: isFinite(( this.data.decda / this.data.decdt) * 100) ? ( this.data.decda / this.data.decdt) * 100 : 0, label: 'Dec' },
             ]
           },
         ]
@@ -456,31 +569,31 @@ export class GraphComponent implements OnInit, OnChanges {
       data: [{
         type: "stackedColumn",
         showInLegend: true,
-        color: "#696661",
         name: "Q1",
         dataPoints: [
+          { y: (this.data.jandt + this.data.febdt + this.data.mardt), label: "Plan" },
           { y: (this.data.janda + this.data.febda + this.data.marda), label: "Actual" },
-          { y: (this.data.jandt + this.data.febdt + this.data.mardt), label: "Plan" }
+     
         ]
         },
         {        
           type: "stackedColumn",
           showInLegend: true,
           name: "Q2",
-          color: "#EDCA93",
           dataPoints: [
+            { y: (this.data.aprdt + this.data.maydt + this.data.jundt), label: "Plan" },
             { y: (this.data.aprda + this.data.mayda + this.data.junda), label: "Actual" },
-            { y: (this.data.aprdt + this.data.maydt + this.data.jundt), label: "Plan" }
+      
           ]
         },
         {        
           type: "stackedColumn",
           showInLegend: true,
           name: "Q3",
-          color: "#695A42",
           dataPoints: [
+            { y: (this.data.juldt + this.data.augdt + this.data.sepdt), label: "Plan" },
             { y: (this.data.julda + this.data.augda + this.data.sepda), label: "Actual" },
-            { y: (this.data.juldt + this.data.augdt + this.data.sepdt), label: "Plan" }
+       
     
           ]
         },
@@ -488,10 +601,10 @@ export class GraphComponent implements OnInit, OnChanges {
           type: "stackedColumn",
           showInLegend: true,
           name: "Q4",
-          color: "#B6B1A8",
           dataPoints: [
+            { y: (this.data.octdt + this.data.novdt + this.data.decdt), label: "Plan" },
             { y: (this.data.octda + this.data.novda + this.data.decda), label: "Actual" },
-            { y: (this.data.octdt + this.data.novdt + this.data.decdt), label: "Plan" }
+         
           ]
       }]
     });
@@ -523,6 +636,25 @@ export class GraphComponent implements OnInit, OnChanges {
         shared: true
       },
       data: [
+        {
+          type: 'column',
+          showInLegend: true,
+          name: 'Plan',
+          dataPoints: [
+            { y: this.data.jant, label: 'Jan' },
+            { y: this.data.febt, label: 'Feb' },
+            { y: this.data.mart, label: 'Mar' },
+            { y: this.data.aprt, label: 'Apr' },
+            { y: this.data.mayt, label: 'May' },
+            { y: this.data.junt, label: 'Jun' },
+            { y: this.data.jult, label: 'Jul' },
+            { y: this.data.augt, label: 'Aug' },
+            { y: this.data.sept, label: 'Sep' },
+            { y: this.data.octt, label: 'Oct' },
+            { y: this.data.novt, label: 'Nov' },
+            { y: this.data.dect, label: 'Dec' },
+          ]
+        },
           {
             type: 'column',
             showInLegend: true,
@@ -542,43 +674,25 @@ export class GraphComponent implements OnInit, OnChanges {
               { y: this.data.deca, label: 'Dec' },
             ]
           },
-          {
-            type: 'column',
-            showInLegend: true,
-            name: 'Plan',
-            dataPoints: [
-              { y: this.data.jant, label: 'Jan' },
-              { y: this.data.febt, label: 'Feb' },
-              { y: this.data.mart, label: 'Mar' },
-              { y: this.data.aprt, label: 'Apr' },
-              { y: this.data.mayt, label: 'May' },
-              { y: this.data.junt, label: 'Jun' },
-              { y: this.data.jult, label: 'Jul' },
-              { y: this.data.augt, label: 'Aug' },
-              { y: this.data.sept, label: 'Sep' },
-              { y: this.data.octt, label: 'Oct' },
-              { y: this.data.novt, label: 'Nov' },
-              { y: this.data.dect, label: 'Dec' },
-            ]
-          },
+    
           {
             type: 'line',
             showInLegend: true,
             axisYType: "secondary",
             name: 'Percentage',
             dataPoints: [
-              { y: ( this.data.jana / this.data.jant) * 100, label: 'Jan' },
-              { y: ( this.data.feba / this.data.febt) * 100, label: 'Feb' },
-              { y: ( this.data.mara / this.data.mart) * 100, label: 'Mar' },
-              { y: ( this.data.apra / this.data.aprt) * 100, label: 'Apr' },
-              { y: ( this.data.maya / this.data.mayt) * 100, label: 'May' },
-              { y: ( this.data.juna / this.data.junt) * 100, label: 'Jun' },
-              { y: ( this.data.jula / this.data.jult) * 100, label: 'Jul' },
-              { y: ( this.data.auga / this.data.augt) * 100, label: 'Aug' },
-              { y: ( this.data.sepa / this.data.sept) * 100, label: 'Sep' },
-              { y: ( this.data.octa / this.data.octt) * 100, label: 'Oct' },
-              { y: ( this.data.nova / this.data.novt) * 100, label: 'Nov' },
-              { y: ( this.data.deca / this.data.dect) * 100, label: 'Dec' },
+              { y: isFinite(( this.data.jana / this.data.jant) * 100) ? (this.data.jana / this.data.jant) * 100  : 0, label: 'Jan' },
+              { y: isFinite(( this.data.feba / this.data.febt) * 100) ? ( this.data.feba / this.data.febt) * 100 : 0, label: 'Feb' },
+              { y: isFinite(( this.data.mara / this.data.mart) * 100) ? ( this.data.mara / this.data.mart) * 100 : 0, label: 'Mar' },
+              { y: isFinite(( this.data.apra / this.data.aprt) * 100) ? ( this.data.apra / this.data.aprt) * 100 : 0, label: 'Apr' },
+              { y: isFinite(( this.data.maya / this.data.mayt) * 100) ? ( this.data.maya / this.data.mayt) * 100 : 0, label: 'May' },
+              { y: isFinite(( this.data.juna / this.data.junt) * 100) ? ( this.data.juna / this.data.junt) * 100 : 0, label: 'Jun' },
+              { y: isFinite(( this.data.jula / this.data.jult) * 100) ? ( this.data.jula / this.data.jult) * 100 : 0, label: 'Jul' },
+              { y: isFinite(( this.data.auga / this.data.augt) * 100) ? ( this.data.auga / this.data.augt) * 100 : 0, label: 'Aug' },
+              { y: isFinite(( this.data.sepa / this.data.sept) * 100) ? ( this.data.sepa / this.data.sept) * 100 : 0, label: 'Sep' },
+              { y: isFinite(( this.data.octa / this.data.octt) * 100) ? ( this.data.octa / this.data.octt) * 100 : 0, label: 'Oct' },
+              { y: isFinite(( this.data.nova / this.data.novt) * 100) ? ( this.data.nova / this.data.novt) * 100 : 0, label: 'Nov' },
+              { y: isFinite(( this.data.deca / this.data.dect) * 100) ? ( this.data.deca / this.data.dect) * 100 : 0, label: 'Dec' },
             ]
           },
         ]
@@ -597,31 +711,31 @@ export class GraphComponent implements OnInit, OnChanges {
       data: [{
         type: "stackedColumn",
         showInLegend: true,
-        color: "#696661",
         name: "Q1",
         dataPoints: [
-          { y: (this.data.jana + this.data.feba + this.data.mara), label: "Actual" },
-          { y: (this.data.jant + this.data.febt + this.data.mart), label: "Plan" }
+          { y: (this.data.jant + this.data.febt + this.data.mart), label: "Plan" },
+          { y: (this.data.jana + this.data.feba + this.data.mara), label: "Actual" }
+        
         ]
         },
         {        
           type: "stackedColumn",
           showInLegend: true,
           name: "Q2",
-          color: "#EDCA93",
           dataPoints: [
-            { y: (this.data.apra + this.data.maya + this.data.juna), label: "Actual" },
-            { y: (this.data.aprt + this.data.mayt + this.data.junt), label: "Plan" }
+            { y: (this.data.aprt + this.data.mayt + this.data.junt), label: "Plan" },
+            { y: (this.data.apra + this.data.maya + this.data.juna), label: "Actual" }
+          
           ]
         },
         {        
           type: "stackedColumn",
           showInLegend: true,
           name: "Q3",
-          color: "#695A42",
           dataPoints: [
-            { y: (this.data.jula + this.data.auga + this.data.sepa), label: "Actual" },
-            { y: (this.data.jult + this.data.augt + this.data.sept), label: "Plan" }
+            { y: (this.data.jult + this.data.augt + this.data.sept), label: "Plan" },
+            { y: (this.data.jula + this.data.auga + this.data.sepa), label: "Actual" }
+       
     
           ]
         },
@@ -629,10 +743,10 @@ export class GraphComponent implements OnInit, OnChanges {
           type: "stackedColumn",
           showInLegend: true,
           name: "Q4",
-          color: "#B6B1A8",
           dataPoints: [
-            { y: (this.data.octa + this.data.nova + this.data.deca), label: "Actual" },
-            { y: (this.data.octt + this.data.novt + this.data.dect), label: "Plan" }
+            { y: (this.data.octt + this.data.novt + this.data.dect), label: "Plan" },
+            { y: (this.data.octa + this.data.nova + this.data.deca), label: "Actual" }
+
           ]
       }]
     });

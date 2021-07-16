@@ -21,6 +21,10 @@ import { AreaComponent } from './area/area.component';
 import { Bed123Component } from './bed123/bed123.component';
 import { GraphComponent } from './graph/graph.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { MidyearComponent } from './midyear/midyear.component';
+import { MidyearObComponent } from './midyear-ob/midyear-ob.component';
+import { MidyearDisComponent } from './midyear-dis/midyear-dis.component';
+import { MidyearAllComponent } from './midyear-all/midyear-all.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,11 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     LogsComponent,
     AreaComponent,
     Bed123Component,
-    GraphComponent
+    GraphComponent,
+    MidyearComponent,
+    MidyearObComponent,
+    MidyearDisComponent,
+    MidyearAllComponent
   ],
   imports: [
     CommonModule,

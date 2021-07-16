@@ -1,0 +1,15 @@
+.ag-theme-balham .ag-ltr .ag-row-group-indent-2 {
+    padding-left: 0px !important;
+}
+.ag-theme-balham .ag-ltr .ag-row-level-7 .ag-row-group-leaf-indent{
+    padding-left: 0px !important;
+}
+
+.ag-theme-balham .ag-ltr .ag-row-group-indent-4 {
+    padding-left: 0px !important;
+}
+
+.ag-cell-wrapper.ag-row-group[class*="ag-row-group-indent"],
+.ag-cell-wrapper.ag-row-group-leaf-indent[class*="ag-row-group-indent"] {
+  padding-left: 0;
+}

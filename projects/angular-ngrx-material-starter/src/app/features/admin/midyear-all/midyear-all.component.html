@@ -1,4 +1,4 @@
-<div class="container-fluid" rtl>
+
 
     <div class="row">
         <div class="col-md border">
@@ -22,21 +22,15 @@
     </div>
     <br>
     <div class="row" [ngClass]="routeAnimationsElements">
-        <div class="col-12" *ngIf = 'user.b == 1'>
-          <anms-obligation [pid]="pid" [name]="name"></anms-obligation> 
-        </div>
-        <div class="col-12" *ngIf = 'user.b == 2'>
-            <anms-disbursement [pid]="pid" [name]="name"></anms-disbursement> 
-        </div>
+  
         <div class="col-12" *ngIf = 'user.b == 3 || user.b == 4 || user.b == 5 '>
-            <anms-physical [pid]="pid" [name]="name"></anms-physical> 
-            <anms-bed123 [pid]="pid" [name]="name"></anms-bed123> 
-            <anms-obligation [pid]="pid" [name]="name"></anms-obligation> 
-            <anms-disbursement [pid]="pid" [name]="name"></anms-disbursement> 
+            <anms-midyear [pid]="pid" [name]="name"></anms-midyear> 
+            <anms-midyear-ob [pid]="pid" [name]="name"></anms-midyear-ob> 
+            <anms-midyear-dis [pid]="pid" [name]="name"></anms-midyear-dis> 
+      
 
         </div>
         
       </div>
 
-  </div>
   

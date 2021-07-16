@@ -1,0 +1,37 @@
+
+<div class="row" [ngClass]="routeAnimationsElements">
+    <div class="col-md-12" >
+    <h2 >MidYear Presentation - Disbursement</h2>
+    
+    </div>
+</div>
+
+    <div class="row">
+    <div class="col-md-12" [ngClass]="routeAnimationsElements">
+        <ag-grid-angular
+        #agGrid
+        style="width: 100%; height: 450px; margin-bottom: 20px;"
+        id="myGrid"
+        class="ag-theme-balham"
+        [columnDefs]="columnDefs"
+        [columnTypes]="columnTypes"
+        [defaultColDef]="defaultColDef"
+        [context]="context"
+        [autoGroupColumnDef]="autoGroupColumnDef"
+        [rowSelection]="rowSelection"
+        [components]="components"
+        [modules]="modules"
+        [suppressAggFuncInHeader]="true"
+        [rowData]="rowData"
+        [groupRemoveSingleChildren]="true"
+        [groupDefaultExpanded]=1
+        [aggFuncs]="aggFuncs"
+    
+        (gridReady)="onGridReady($event)">
+    </ag-grid-angular>
+
+        </div>   
+    </div>
+   
+   
+    

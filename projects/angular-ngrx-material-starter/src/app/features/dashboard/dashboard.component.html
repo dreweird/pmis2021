@@ -4,7 +4,7 @@
   </div>
 </div> 
 
-<div class="container">
+<div class="container-fluid">
 
   <div class="row" [ngClass]="routeAnimationsElements">
     <div class="col-12 col-md-4">
@@ -31,7 +31,8 @@
             [innerStrokeWidth]="4"
             [outerStrokeColor]="'#DDA0DD'"
             [innerStrokeColor]="'#DA70D6'"
-            [renderOnClick]=false
+            [animation]="true"
+            [animationDuration]="300"
           ></circle-progress>
           </td></tr>
         </table>
@@ -52,7 +53,8 @@
               [innerStrokeWidth]="4"
               [outerStrokeColor]="'#78C000'"
               [innerStrokeColor]="'#C7E596'"
-              [renderOnClick]=false
+              [animation]="true"
+              [animationDuration]="300"
             ></circle-progress>
           </td><td>
             <circle-progress
@@ -62,7 +64,8 @@
             [innerStrokeWidth]="4"
             [outerStrokeColor]="'#DDA0DD'"
             [innerStrokeColor]="'#DA70D6'"
-            [renderOnClick]=false
+            [animation]="true"
+            [animationDuration]="300"
           ></circle-progress>
           </td></tr>
         </table>
@@ -81,7 +84,8 @@
               [innerStrokeWidth]="4"
               [outerStrokeColor]="'#78C000'"
               [innerStrokeColor]="'#C7E596'"
-              [renderOnClick]=false
+              [animation]="true"
+              [animationDuration]="300"
             ></circle-progress>
           </td><td>
             <circle-progress
@@ -91,7 +95,8 @@
             [innerStrokeWidth]="4"
             [outerStrokeColor]="'#DDA0DD'"
             [innerStrokeColor]="'#DA70D6'"
-            [renderOnClick]=false
+            [animation]="true"
+            [animationDuration]="300"
           ></circle-progress>
           </td></tr>
         </table>
@@ -100,50 +105,87 @@
     </div>
   </div>
   <div class="row" [ngClass]="routeAnimationsElements">
-    <div class="col-12 col-md-8">
+    <div class="col-12 col-md-12">
       <mat-card>
         <table id="obligation">
-          <tr><th>Financial Status with more than 12M Budget Allocation </th></tr>
+          <tr><th>Financial Status by Program </th></tr>
           <tr><td>  <div id="chartContainer" style="height: 400px; width: 100%;"></div></td></tr>
         </table>
       
       </mat-card>
   
     </div>
-    <div class="col-12 col-md-4">
-      <mat-card>
-        <table id="physical">
-          <tr><th colspan="2">Top 5 Physical Performer</th></tr>
-          <tr><td>  <div id="chartContainer3" style="height: 400px; width: 100%;"></div></td></tr>
-          </table> 
-        
-          </mat-card>
-    </div>
+
 
   </div>
 
   <div class="row" [ngClass]="routeAnimationsElements">
-    <div class="col-12 col-md-8">
+    <div class="col-12 col-md-12">
       <mat-card>
+
         <table id="obligation">
-          <tr><th>Financial Status with less than 12M Budget Allocation</th></tr>
+          <tr><th>Financial Status by Operating Units</th></tr>
           <tr><td>  <div id="chartContainer2" style="height: 500px; width: 100%;"></div></td></tr>
         </table>
       
       </mat-card>
     </div>
-    <div class="col-12 col-md-4">
-   <mat-card>
-<table id="physical">
-  <tr><th colspan="2">Physical Monthly Status</th></tr>
-    <tr *ngFor="let l of locked; index as i">
-        <td>{{ l.month }} </td>
-        <td> 
-            <span *ngIf="l.checked == 0" class="closed"> Closed </span>
-            <span *ngIf="l.checked == 1" class="opened"> Opened </span>
-        </td>
-    </tr>
-  </table>
+
+
+  </div>
+
+  <div class="row" [ngClass]="routeAnimationsElements">
+    <div class="col-12 col-md-12">
+      <mat-card>
+
+        <table id="obligation">
+          <tr><th>Financial Status by Special Projects</th></tr>
+          <tr><td>  <div id="chartContainer3" style="height: 500px; width: 100%;"></div></td></tr>
+        </table>
+      
+      </mat-card>
+    </div>
+
+  </div>
+
+  <div class="row" [ngClass]="routeAnimationsElements">
+    <div class="col-12 col-md-12">
+      <mat-card>
+
+        <table id="physical">
+          <tr><th>Physical Status by Program</th></tr>
+          <tr><td>  <div id="chartContainer4" style="height: 500px; width: 100%;"></div></td></tr>
+        </table>
+      
+      </mat-card>
+    </div>
+
+  </div>
+
+  
+  <div class="row" [ngClass]="routeAnimationsElements">
+    <div class="col-12 col-md-12">
+      <mat-card>
+
+        <table id="physical">
+          <tr><th>Physical Status by Operating Units</th></tr>
+          <tr><td>  <div id="chartContainer5" style="height: 500px; width: 100%;"></div></td></tr>
+        </table>
+      
+      </mat-card>
+    </div>
+
+  </div>
+
+    
+  <div class="row" [ngClass]="routeAnimationsElements">
+    <div class="col-12 col-md-12">
+      <mat-card>
+
+        <table id="physical">
+          <tr><th>Physical Status by Special Projects</th></tr>
+          <tr><td>  <div id="chartContainer6" style="height: 500px; width: 100%;"></div></td></tr>
+        </table>
       
       </mat-card>
     </div>
@@ -151,16 +193,16 @@
   </div>
 
 <div class="row" [ngClass]="routeAnimationsElements"> 
-  <div class="col-md-6">
+  <div class="col-md-5">
     <mat-card>
       <table id="obligation">
-        <tr><th>Performance Summary by Program</th></tr>
+        <tr><th>Performance Summary by Fund Source</th></tr>
         <tr><td>  
           <ag-grid-angular
           #agGrid
-          style="width: 100%; height: 400px; margin-bottom: 20px;"
+          style="width: 100%; height: 500px; margin-bottom: 20px;"
           id="myGrid"
-          class="ag-theme-alpine"
+          class="ag-theme-balham"
           [columnDefs]="columnDefs"
           [columnTypes]="columnTypes"
           [defaultColDef]="defaultColDef"
@@ -179,34 +221,46 @@
 </mat-card>
 
   </div>  
-  <div class="col-md-6">
+  <div class="col-md-4">
     <mat-card>
-      <table id="physical" class="table" style=" height: 400px">
-    <thead>
-      <tr><th colspan="4">Logs Active Status</th></tr>
-      <tr class="bold">
-        <td>Banner/OUs</td>
-        <td>Obligation</td>
-        <td>Physical</td>
-        <td>Disbursement</td>
-      </tr>
-    </thead>
-    
-    <tbody>
-      <tr *ngFor="let l of logs">
-        <td>{{l.username | uppercase}}</td>
-        <td [ngClass]="{'closed': l.bed1.date_updated == null }"> {{ l.bed1.date_updated | amTimeAgo }}</td>
-        <td [ngClass]="{'closed': l.bed2.date_updated == null }">  {{ l.bed2.date_updated | amTimeAgo }}</td>
-        <td [ngClass]="{'closed': l.bed3.date_updated == null }"> {{ l.bed3.date_updated | amTimeAgo }}</td>
-      </tr>
-  
-    </tbody>
-     
-  
+      <table id="physical">
+        <tr><th>Active Status Logs</th></tr>
+        <tr><td>  
+          <ag-grid-angular
+          #agGrid
+          style="width: 100%; height: 500px; margin-bottom: 20px;"
+          id="myGrid"
+          class="ag-theme-balham"
+          [columnDefs]="columnDefs2"
+          [columnTypes]="columnTypes"
+          [defaultColDef]="defaultColDef"
+          [context]="context"
+          [components]="components"
+          [modules]="modules"
+          [rowData]="logs"
+          (gridReady)="onGridReady($event)">
+      </ag-grid-angular>
+        </td></tr>
       </table>
+
     </mat-card>
 
   </div> 
+      <div class="col-12 col-md-3">
+   <mat-card>
+<table id="physical">
+  <tr><th colspan="2">Physical Monthly Status</th></tr>
+    <tr *ngFor="let l of locked; index as i">
+        <td>{{ l.month }} </td>
+        <td> 
+            <span *ngIf="l.checked == 0" class="closed"> Closed </span>
+            <span *ngIf="l.checked == 1" class="opened"> Opened </span>
+        </td>
+    </tr>
+  </table>
+      
+      </mat-card>
+    </div>
 
 </div>
 

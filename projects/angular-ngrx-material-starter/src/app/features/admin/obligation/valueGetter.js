@@ -205,10 +205,34 @@ export function total_q1_mooe_ft(params) {
       );
     }
   }
+
+  export function total_mooe_ft_midyear(params) {
+    if (!params.node.group) {
+      return create_totalAB(
+        params.getValue('q1ft'), params.getValue('q2ft')
+      );
+    }
+  }
+
+  export function total_co_ft_midyear(params) {
+    if (!params.node.group) {
+      return create_totalAB(
+        params.getValue('q1ft_co'), params.getValue('q2ft_co')
+      );
+    }
+  }
   export function grandtotal_ft(params) {
     if (!params.node.group) {
       return create_totalABCD(
         params.getValue('q1_tot'), params.getValue('q2_tot'), params.getValue('q3_tot'), params.getValue('q4_tot')
+      );
+    }
+  }
+
+  export function grandtotal_ft_midyear(params) {
+    if (!params.node.group) {
+      return create_totalABC=(
+        params.getValue('q1_tot'), params.getValue('q2_tot')
       );
     }
   }
@@ -630,7 +654,7 @@ export function percentage(params) {
   }
 }
 
-function create_totalAMinusB(a, b) {
+export function create_totalAMinusB(a, b) {
   return {
     a: a,
     b: b,
@@ -640,7 +664,7 @@ function create_totalAMinusB(a, b) {
   };
 }
 
-function create_percentage(a, b) {
+export function create_percentage(a, b) {
   return {
     a: a,
     b: b,

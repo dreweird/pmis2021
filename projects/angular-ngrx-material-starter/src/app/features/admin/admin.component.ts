@@ -33,14 +33,15 @@ export class AdminComponent implements OnInit {
       this.examples = [{ link: 'budget', label: 'Disburse' }];
     } else if (this.user.b == 3) {
       this.examples = [
-        { link: 'budget', label: 'M&E' },
+        { link: 'budget', label: 'YearEnd' },
+        { link: 'midyear_all', label: 'MidYear' },
         { link: 'bydistrict', label: 'By District' },
         { link: 'bymun', label: 'By Municipality' },
         { link: 'pdz', label: 'PDZ' },
       ];
     } else if (this.user.b == 4 || this.user.b == 5 ) {
       this.examples = [
-        { link: 'budget', label: 'M&E' },
+        { link: 'budget', label: 'YearEnd' },
         { link: 'locked', label: 'Locked' },
         { link: 'bydistrict', label: 'By District' },
         { link: 'bymun', label: 'By Municipality' },
@@ -54,6 +55,7 @@ export class AdminComponent implements OnInit {
         { link: 'disburesment', label: 'Disbursement' },
         { link: 'bed123', label: 'BED123' },
         { link: 'graph', label: 'Analytics' },
+        { link: 'midyear', label: 'Midyear' },
         { link: 'bydistrict', label: 'By District' },
         { link: 'bymun', label: 'By Municipality' }
       ];
@@ -63,7 +65,8 @@ export class AdminComponent implements OnInit {
         { link: 'physical', label: 'Physical' },
         { link: 'disburesment', label: 'Disbursement' },
         { link: 'bed123', label: 'BED123' },
-        { link: 'graph', label: 'Analytics' }
+        { link: 'graph', label: 'Analytics' },
+        { link: 'midyear', label: 'Midyear' }
       ];
     }
   }

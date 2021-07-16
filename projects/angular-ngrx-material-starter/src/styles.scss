@@ -5,7 +5,8 @@
 @import 'styles-reset';
 @import '../../../node_modules/bootstrap/scss/tables';
 @import '../../../node_modules/ag-grid-community/src/styles/ag-grid.scss';
-@import '../../../node_modules/ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin.scss';
+
+@import '../../../node_modules/ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham-mixin.scss';
 
 @import '~@angular/material/theming';
 
@@ -50,8 +51,8 @@
   @include custom-components-theme($anms-nature-theme);
 }
 
-.ag-theme-alpine {
-  @include ag-theme-alpine((
+.ag-theme-balham {
+  @include ag-theme-balham((
       cell-horizontal-border: solid ag-derived(secondary-border-color)
   ));
 

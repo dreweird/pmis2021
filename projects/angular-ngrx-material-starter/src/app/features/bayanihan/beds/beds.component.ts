@@ -203,20 +203,65 @@ export class BedsComponent implements OnInit {
         marryChildren: true,
         children: [
           {
-            headerName: 'Q1',
+            headerName: 'Dec 2020',
             cellEditor: 'agLargeTextCellEditor',
             editable: this.canEdit,
             cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
-            field: 'remarks_q1',
+            field: 'decm',
             width: 100,
             cellClass: ['data']
           },
           {
-            headerName: 'Q2',
+            headerName: 'Jan',
             cellEditor: 'agLargeTextCellEditor',
             editable: this.canEdit,
             cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
-            field: 'remarks_q2',
+            field: 'jan',
+            width: 100,
+            cellClass: ['data']
+          },
+          {
+            headerName: 'Feb',
+            cellEditor: 'agLargeTextCellEditor',
+            editable: this.canEdit,
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+            field: 'feb',
+            width: 100,
+            cellClass: ['data']
+          },
+          {
+            headerName: 'Mar',
+            cellEditor: 'agLargeTextCellEditor',
+            editable: this.canEdit,
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+            field: 'mar',
+            width: 100,
+            cellClass: ['data']
+          },
+          {
+            headerName: 'Apr',
+            cellEditor: 'agLargeTextCellEditor',
+            editable: this.canEdit,
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+            field: 'apr',
+            width: 100,
+            cellClass: ['data']
+          },
+          {
+            headerName: 'May',
+            cellEditor: 'agLargeTextCellEditor',
+            editable: this.canEdit,
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+            field: 'may',
+            width: 100,
+            cellClass: ['data']
+          },
+          {
+            headerName: 'Jun',
+            cellEditor: 'agLargeTextCellEditor',
+            editable: this.canEdit,
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+            field: 'jun',
             width: 100,
             cellClass: ['data']
           }
