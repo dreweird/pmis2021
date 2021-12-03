@@ -5,9 +5,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PmisService {
-   //  apiRoot: string = 'http://172.16.128.37:3117';
-     apiRoot: string = 'http://210.5.100.45:3118';
-    // apiRoot: string = 'http://localhost:3117';
+  apiRoot: string = 'http://172.16.128.37:3117';
+  //  apiRoot: string = 'http://210.5.100.45:3118';
+  // apiRoot: string = 'http://localhost:3117';
 
   constructor(private http: HttpClient) {}
 
@@ -17,7 +17,6 @@ export class PmisService {
     console.log(entries);
     return this.http.put(url, { entries });
   }
-
 
   getBayanihanSummary(pid) {
     const url = `${this.apiRoot}/getBayanihanSummary/` + pid;
@@ -38,7 +37,6 @@ export class PmisService {
     const url = `${this.apiRoot}/getTblMfo`;
     return this.http.get(url);
   }
-
 
   summary_all() {
     const url = `${this.apiRoot}/summary_all`;

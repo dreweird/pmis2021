@@ -71,17 +71,7 @@ export class BymunComponent implements OnInit {
       width: 100,
       valueFormatter: this.currencyFormatter,
       type: 'numericColumn',
-      cellClass: ['data'],
-      valueGetter: function(params) {
-        let data = params.data;
-        var total = 0;
-        if (data) {
-          for (var i = 0, l = data.location.length; i < l; i++) {
-            total = total + data.location[i].target;
-          }
-          return total * Number(data.cost);
-        }
-      }
+      cellClass: ['data']
     },
     {
       headerName: 'Physical Target',

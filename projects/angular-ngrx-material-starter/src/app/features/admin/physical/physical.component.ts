@@ -72,6 +72,9 @@ export class PhysicalComponent implements OnInit {
     this.apmisService.lastUpdated(pid, 2).subscribe(data => {
       if (data === undefined) this.date_updated = '';
       else this.date_updated = data;
+      console.log(data);
+      console.log(new Date(this.date_updated));
+
       this.cd.markForCheck();
     });
   }
@@ -114,14 +117,16 @@ export class PhysicalComponent implements OnInit {
   }
 
   currencyFormatter(params) {
-    const number = parseFloat(params.value);
+    const number = Math.abs(params.value);
     if (params.value === undefined || params.value === null) {
       return null;
     }
-    return number.toLocaleString('en-us', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
+    var returnString = Number(number).toLocaleString('en-us', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
     });
+
+    return params.value < 0 ? '(' + returnString + ')' : returnString;
   }
 
   varianceFormatter(params) {
@@ -507,7 +512,20 @@ export class PhysicalComponent implements OnInit {
             colId: 'TT',
             width: 110,
             cellStyle: params => {
-              if(params.node.group) { return { 'text-align': 'right', color: 'black', 'background-color': '#81f7a6', 'font-weight': 'bold' }}else{return { 'text-align': 'right', color: 'black', 'background-color': '#81f7a6'}}
+              if (params.node.group) {
+                return {
+                  'text-align': 'right',
+                  color: 'black',
+                  'background-color': '#81f7a6',
+                  'font-weight': 'bold'
+                };
+              } else {
+                return {
+                  'text-align': 'right',
+                  color: 'black',
+                  'background-color': '#81f7a6'
+                };
+              }
             },
             aggFunc: TotalPhysicalTargetAggFunc,
             valueGetter: TotalPhysicalTargetValueGetter,
@@ -526,8 +544,9 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: (params) => {
-              if (this.locked[0].checked && this.canEdit && !params.data.area) return true;
+            editable: params => {
+              if (this.locked[0].checked && this.canEdit && !params.data.area)
+                return true;
               else return false;
             }
           },
@@ -537,8 +556,9 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: (params) => {
-              if (this.locked[1].checked && this.canEdit && !params.data.area) return true;
+            editable: params => {
+              if (this.locked[1].checked && this.canEdit && !params.data.area)
+                return true;
               else return false;
             }
           },
@@ -548,8 +568,9 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: (params) => {
-              if (this.locked[2].checked && this.canEdit && !params.data.area) return true;
+            editable: params => {
+              if (this.locked[2].checked && this.canEdit && !params.data.area)
+                return true;
               else return false;
             }
           },
@@ -568,8 +589,9 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: (params) => {
-              if (this.locked[3].checked && this.canEdit && !params.data.area) return true;
+            editable: params => {
+              if (this.locked[3].checked && this.canEdit && !params.data.area)
+                return true;
               else return false;
             }
           },
@@ -579,8 +601,9 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: (params) => {
-              if (this.locked[4].checked && this.canEdit && !params.data.area) return true;
+            editable: params => {
+              if (this.locked[4].checked && this.canEdit && !params.data.area)
+                return true;
               else return false;
             }
           },
@@ -590,8 +613,9 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: (params) => {
-              if (this.locked[5].checked && this.canEdit && !params.data.area) return true;
+            editable: params => {
+              if (this.locked[5].checked && this.canEdit && !params.data.area)
+                return true;
               else return false;
             }
           },
@@ -610,8 +634,9 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: (params) => {
-              if (this.locked[6].checked && this.canEdit && !params.data.area) return true;
+            editable: params => {
+              if (this.locked[6].checked && this.canEdit && !params.data.area)
+                return true;
               else return false;
             }
           },
@@ -621,8 +646,9 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: (params) => {
-              if (this.locked[7].checked && this.canEdit && !params.data.area) return true;
+            editable: params => {
+              if (this.locked[7].checked && this.canEdit && !params.data.area)
+                return true;
               else return false;
             }
           },
@@ -632,8 +658,9 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: (params) => {
-              if (this.locked[8].checked && this.canEdit && !params.data.area) return true;
+            editable: params => {
+              if (this.locked[8].checked && this.canEdit && !params.data.area)
+                return true;
               else return false;
             }
           },
@@ -652,8 +679,9 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: (params) => {
-              if (this.locked[9].checked && this.canEdit && !params.data.area) return true;
+            editable: params => {
+              if (this.locked[9].checked && this.canEdit && !params.data.area)
+                return true;
               else return false;
             }
           },
@@ -663,8 +691,9 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: (params) => {
-              if (this.locked[10].checked && this.canEdit && !params.data.area) return true;
+            editable: params => {
+              if (this.locked[10].checked && this.canEdit && !params.data.area)
+                return true;
               else return false;
             }
           },
@@ -674,8 +703,9 @@ export class PhysicalComponent implements OnInit {
             type: 'valueColumn',
             cellClass: ['data'],
             columnGroupShow: 'open',
-            editable: (params) => {
-              if (this.locked[11].checked && this.canEdit && !params.data.area) return true;
+            editable: params => {
+              if (this.locked[11].checked && this.canEdit && !params.data.area)
+                return true;
               else return false;
             }
           },
@@ -692,7 +722,20 @@ export class PhysicalComponent implements OnInit {
             colId: 'TA',
             width: 110,
             cellStyle: params => {
-              if(params.node.group) { return { 'text-align': 'right', color: 'black', 'background-color': '#81f7a6', 'font-weight': 'bold' }}else{return { 'text-align': 'right', color: 'black', 'background-color': '#81f7a6'}}
+              if (params.node.group) {
+                return {
+                  'text-align': 'right',
+                  color: 'black',
+                  'background-color': '#81f7a6',
+                  'font-weight': 'bold'
+                };
+              } else {
+                return {
+                  'text-align': 'right',
+                  color: 'black',
+                  'background-color': '#81f7a6'
+                };
+              }
             },
             aggFunc: TotalPhysicalTargetAggFunc,
             valueGetter: TotalPhysicalAccomplishmentValueGetter,
@@ -707,7 +750,20 @@ export class PhysicalComponent implements OnInit {
         colId: 'Var',
         width: 110,
         cellStyle: params => {
-          if(params.node.group) { return { 'text-align': 'right', color: 'black', 'background-color': '#f7adad', 'font-weight': 'bold' }}else{return { 'text-align': 'right', color: 'black', 'background-color': '#f7adad'}}
+          if (params.node.group) {
+            return {
+              'text-align': 'right',
+              color: 'black',
+              'background-color': '#f7adad',
+              'font-weight': 'bold'
+            };
+          } else {
+            return {
+              'text-align': 'right',
+              color: 'black',
+              'background-color': '#f7adad'
+            };
+          }
         },
         aggFunc: TotalVarianceAggFunc,
         valueGetter: TotalUnObligationValueGetter,
@@ -720,7 +776,20 @@ export class PhysicalComponent implements OnInit {
         colId: 'Per',
         width: 110,
         cellStyle: params => {
-          if(params.node.group) { return { 'text-align': 'right', color: 'black', 'background-color': '#dfa9f5', 'font-weight': 'bold' }}else{return { 'text-align': 'right', color: 'black', 'background-color': '#dfa9f5'}}
+          if (params.node.group) {
+            return {
+              'text-align': 'right',
+              color: 'black',
+              'background-color': '#dfa9f5',
+              'font-weight': 'bold'
+            };
+          } else {
+            return {
+              'text-align': 'right',
+              color: 'black',
+              'background-color': '#dfa9f5'
+            };
+          }
         },
         aggFunc: TotalPercentageAggFunc,
         valueGetter: TotalPercentageValueGetter,
@@ -734,109 +803,109 @@ export class PhysicalComponent implements OnInit {
           {
             headerName: 'Jan',
             field: 'janr',
-          //  type: 'remarksColumn',
+            //  type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
-            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6 },
             cellClass: ['data']
           },
           {
             headerName: 'Feb',
             field: 'febr',
-         //   type: 'remarksColumn',
+            //   type: 'remarksColumn',
             editable: this.canEdit,
-            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6 },
             cellEditor: 'agLargeTextCellEditor',
             cellClass: ['data']
           },
           {
             headerName: 'Mar',
             field: 'marr',
-          //  type: 'remarksColumn',
+            //  type: 'remarksColumn',
             editable: this.canEdit,
-            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6 },
             cellEditor: 'agLargeTextCellEditor',
             cellClass: ['data']
           },
           {
             headerName: 'Apr',
             field: 'aprr',
-          //  type: 'remarksColumn',
+            //  type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
-            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6 },
             cellClass: ['data']
           },
           {
             headerName: 'May',
             field: 'mayr',
-          //  type: 'remarksColumn',
+            //  type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
-            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6 },
             cellClass: ['data']
           },
           {
             headerName: 'Jun',
             field: 'junr',
-         //   type: 'remarksColumn',
+            //   type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
-            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6 },
             cellClass: ['data']
           },
           {
             headerName: 'Jul',
             field: 'julr',
-          //  type: 'remarksColumn',
+            //  type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
-            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6 },
             cellClass: ['data']
           },
           {
             headerName: 'Aug',
             field: 'augr',
-          //  type: 'remarksColumn',
+            //  type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
-            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6 },
             cellClass: ['data']
           },
           {
             headerName: 'Sep',
             field: 'sepr',
-          //  type: 'remarksColumn',
+            //  type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
-            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6 },
             cellClass: ['data']
           },
           {
             headerName: 'Oct',
             field: 'octr',
-         //   type: 'remarksColumn',
+            //   type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
-            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6 },
             cellClass: ['data']
           },
           {
             headerName: 'Nov',
             field: 'novr',
-         //   type: 'remarksColumn',
+            //   type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
-            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6 },
             cellClass: ['data']
           },
           {
             headerName: 'Dec',
             field: 'decr',
-           // type: 'remarksColumn',
+            // type: 'remarksColumn',
             editable: this.canEdit,
             cellEditor: 'agLargeTextCellEditor',
-            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6 },
             cellClass: ['data']
           }
         ]
@@ -943,16 +1012,34 @@ export class PhysicalComponent implements OnInit {
         aggFunc: 'sum',
         valueParser: 'Number(newValue)',
         cellStyle: params => {
-          if(params.node.group) { return { 'text-align': 'right',  'font-weight': 'bold' }}else{return { 'text-align': 'right'}}
+          if (params.node.group) {
+            return { 'text-align': 'right', 'font-weight': 'bold' };
+          } else {
+            return { 'text-align': 'right' };
+          }
         },
         valueFormatter: this.currencyFormatter
       },
       quarterColumn: {
         width: 110,
         aggFunc: TotalQuarterAggFunc,
+        type: 'numericColumn',
         cellRenderer: 'agAnimateShowChangeCellRenderer',
         cellStyle: params => {
-          if(params.node.group) { return { 'text-align': 'right', color: 'black', 'background-color': '#fae091', 'font-weight': 'bold' }}else{return { 'text-align': 'right', color: 'black', 'background-color': '#fae091'}}
+          if (params.node.group) {
+            return {
+              'text-align': 'right',
+              color: 'black',
+              'background-color': '#fae091',
+              'font-weight': 'bold'
+            };
+          } else {
+            return {
+              'text-align': 'right',
+              color: 'black',
+              'background-color': '#fae091'
+            };
+          }
         },
         valueFormatter: this.currencyFormatter
       },
@@ -960,12 +1047,26 @@ export class PhysicalComponent implements OnInit {
         width: 110,
         aggFunc: TotalQuarterAggFunc,
         cellRenderer: 'agAnimateShowChangeCellRenderer',
+        type: 'numericColumn',
         cellStyle: params => {
-          if(params.node.group) { return { 'text-align': 'right', color: 'black', 'background-color': '#a2dde5', 'font-weight': 'bold' }}else{return { 'text-align': 'right', color: 'black', 'background-color': '#a2dde5'}}
+          if (params.node.group) {
+            return {
+              'text-align': 'right',
+              color: 'black',
+              'background-color': '#a2dde5',
+              'font-weight': 'bold'
+            };
+          } else {
+            return {
+              'text-align': 'right',
+              color: 'black',
+              'background-color': '#a2dde5'
+            };
+          }
         },
         valueFormatter: this.currencyFormatter
-      },
-     // remarksColumn: { width: 120, maxLength: 3000, cols: 40, rows: 5 }
+      }
+      // remarksColumn: { width: 120, maxLength: 3000, cols: 40, rows: 5 }
     };
 
     this.autoGroupColumnDef = {
@@ -982,7 +1083,7 @@ export class PhysicalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.pid = this.user.pid
+    this.pid = this.user.pid;
     this.getRow(this.pid);
     this.getLocked();
     this.lastUpdated(this.pid);
@@ -1047,40 +1148,56 @@ function createQuarterTotalValueObject(a, b, c) {
 
 function TotalQ1ValueGetter(params) {
   if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.jant,
-      params.data.febt,
-      params.data.mart
-    );
+    if (params.data.maintenance) {
+      return -Math.abs(params.data.jant);
+    } else {
+      return createQuarterTotalValueObject(
+        params.data.jant,
+        params.data.febt,
+        params.data.mart
+      );
+    }
   }
 }
 
 function TotalQ2ValueGetter(params) {
   if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.aprt,
-      params.data.mayt,
-      params.data.junt
-    );
+    if (params.data.maintenance) {
+      return -Math.abs(params.data.jant);
+    } else {
+      return createQuarterTotalValueObject(
+        params.data.aprt,
+        params.data.mayt,
+        params.data.junt
+      );
+    }
   }
 }
 
 function TotalQ3ValueGetter(params) {
   if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.jult,
-      params.data.augt,
-      params.data.sept
-    );
+    if (params.data.maintenance) {
+      return -Math.abs(params.data.jant);
+    } else {
+      return createQuarterTotalValueObject(
+        params.data.jult,
+        params.data.augt,
+        params.data.sept
+      );
+    }
   }
 }
 function TotalQ4ValueGetter(params) {
   if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.octt,
-      params.data.novt,
-      params.data.dect
-    );
+    if (params.data.maintenance) {
+      return -Math.abs(params.data.jant);
+    } else {
+      return createQuarterTotalValueObject(
+        params.data.octt,
+        params.data.novt,
+        params.data.dect
+      );
+    }
   }
 }
 
@@ -1179,40 +1296,64 @@ function TotalPhysicalTargetAggFunc(values) {
 }
 function TotalQ1ValueGetter2(params) {
   if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.jana,
-      params.data.feba,
-      params.data.mara
-    );
+    if (params.data.maintenance) {
+      return -Math.abs(
+        (params.data.jana + params.data.feba + params.data.mara) / 3
+      );
+    } else {
+      return createQuarterTotalValueObject(
+        params.data.jana,
+        params.data.feba,
+        params.data.mara
+      );
+    }
   }
 }
 
 function TotalQ2ValueGetter2(params) {
   if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.apra,
-      params.data.maya,
-      params.data.juna
-    );
+    if (params.data.maintenance) {
+      return -Math.abs(
+        (params.data.apra + params.data.maya + params.data.juna) / 3
+      );
+    } else {
+      return createQuarterTotalValueObject(
+        params.data.apra,
+        params.data.maya,
+        params.data.juna
+      );
+    }
   }
 }
 
 function TotalQ3ValueGetter2(params) {
   if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.jula,
-      params.data.auga,
-      params.data.sepa
-    );
+    if (params.data.maintenance) {
+      return -Math.abs(
+        (params.data.jula + params.data.auga + params.data.sepa) / 3
+      );
+    } else {
+      return createQuarterTotalValueObject(
+        params.data.jula,
+        params.data.auga,
+        params.data.sepa
+      );
+    }
   }
 }
 function TotalQ4ValueGetter2(params) {
   if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.octa,
-      params.data.nova,
-      params.data.deca
-    );
+    if (params.data.maintenance) {
+      return -Math.abs(
+        (params.data.octa + params.data.nova + params.data.deca) / 3
+      );
+    } else {
+      return createQuarterTotalValueObject(
+        params.data.octa,
+        params.data.nova,
+        params.data.deca
+      );
+    }
   }
 }
 
