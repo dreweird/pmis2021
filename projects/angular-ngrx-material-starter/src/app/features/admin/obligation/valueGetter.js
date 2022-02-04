@@ -269,6 +269,20 @@ export function create_totalABC(a,b, c){
       }
     };
   }
+
+  export function create_totalABCDE(a,b, c, d, e){
+    return {
+      a: a,
+      b: b,
+      c: c,
+      d: d,
+      e: e,
+      toString: function() {
+        return a + b + c + d + e;
+      }
+    };
+  }
+
   export function create_total(a, b, c, d, e, f, g, h, i, j, k, l) {
     return {
       a: a,
@@ -285,6 +299,27 @@ export function create_totalABC(a,b, c){
       l: l,
       toString: function() {
         return a + b + c + d + e + f + g + h + i + j + k + l;
+      }
+    };
+  }
+
+  export function create_total2(a, b, c, d, e, f, g, h, i, j, k, l,m) {
+    return {
+      a: a,
+      b: b,
+      c: c,
+      d: d,
+      e: e,
+      f: f,
+      g: g,
+      h: h,
+      i: i,
+      j: j,
+      k: k,
+      l: l,
+      m: m,
+      toString: function() {
+        return a + b + c + d + e + f + g + h + i + j + k + l + m;
       }
     };
   }
@@ -360,6 +395,52 @@ export function create_totalABC(a,b, c){
       }
     });
     return create_total(a, b, c, d, e, f, g, h, i, j, k, l);
+  }
+
+  export function TotalYearAggFunc2(values) {
+    var [a, b, c, d, e, f, g, h, i, j, k, l, m] = [0,0,0,0,0,0,0,0,0,0,0,0,0];
+    values.forEach(function(value) {
+      if (value && value.a) {
+        a += value.a;
+      }
+      if (value && value.b) {
+        b += value.b;
+      }
+      if (value && value.c) {
+        c += value.c;
+      }
+      if (value && value.d) {
+        d += value.d;
+      }
+      if (value && value.e) {
+        e += value.e;
+      }
+      if (value && value.f) {
+        f += value.f;
+      }
+      if (value && value.g) {
+        g += value.g;
+      }
+      if (value && value.h) {
+        h += value.h;
+      }
+      if (value && value.i) {
+        i += value.i;
+      }
+      if (value && value.j) {
+        j += value.j;
+      }
+      if (value && value.k) {
+        k += value.k;
+      }
+      if (value && value.l) {
+        l += value.l;
+      }
+      if (value && value.m) {
+        m += value.m;
+      }
+    });
+    return create_total2(a, b, c, d, e, f, g, h, i, j, k, l, m);
   }
 
 export function GrandTotalAggFunc(values) {
@@ -704,54 +785,75 @@ export function TotalpercentAggFunc(values) {
 
 export function Q1_Physical(params) {
   if (!params.node.group) {
-    return create_totalABC(
-      params.data.jant,
-      params.data.febt,
-      params.data.mart
-    );
+    if (params.data.maintenance) {
+      return -Math.abs(params.data.jant);
+    } else {
+      return create_totalABC(
+        params.data.jant,
+        params.data.febt,
+        params.data.mart
+      );
+    }
   }
 }
 
 export function Q2_Physical(params) {
   if (!params.node.group) {
-    return create_totalABC(
-      params.data.aprt,
-      params.data.mayt,
-      params.data.junt
-    );
+    if (params.data.maintenance) {
+      return -Math.abs(params.data.jant);
+    } else {
+      return create_totalABC(
+        params.data.aprt,
+        params.data.mayt,
+        params.data.junt
+      );
+    }
   }
 }
 
 export function Q3_Physical(params) {
   if (!params.node.group) {
-    return create_totalABC(
-      params.data.jult,
-      params.data.augt,
-      params.data.sept
-    );
+    if (params.data.maintenance) {
+      return -Math.abs(params.data.jant);
+    } else {
+      return create_totalABC(
+        params.data.jult,
+        params.data.augt,
+        params.data.sept
+      );
+    }
   }
 }
 
 export function Q4_Physical(params) {
   if (!params.node.group) {
-    return create_totalABC(
-      params.data.octt,
-      params.data.novt,
-      params.data.dect
-    );
+    if (params.data.maintenance) {
+      return -Math.abs(params.data.jant);
+    } else {
+      return create_totalABC(
+        params.data.octt,
+        params.data.novt,
+        params.data.dect
+      );
+    }
   }
 }
 
 export function GrandTotal_Physical(params) {
   if (!params.node.group) {
-    return create_totalABCD(
-      params.getValue('Q1_pt'),
-      params.getValue('Q2_pt'),
-      params.getValue('Q3_pt'),
-      params.getValue('Q4_pt')
-    );
+    if (params.data.maintenance) {
+      return -Math.abs(params.data.jant);
+    } else {
+      return create_totalABCD(
+        params.getValue('Q1_pt'),
+        params.getValue('Q2_pt'),
+        params.getValue('Q3_pt'),
+        params.getValue('Q4_pt')
+      );
+    }
   }
 }
+
 
 //////DISBURSEMENT
 
@@ -824,6 +926,12 @@ export function total_novdt(params) {
 export function total_decdt(params) {
   if (!params.node.group) {
     return create_totalAB(params.data.decdt, params.data.decdt_co)
+  }
+};
+
+export function total_q1_2023(params) {
+  if (!params.node.group) {
+    return create_totalAB(params.data.dt_q1, params.data.dt_q1_co)
   }
 };
 
@@ -948,23 +1056,23 @@ export function totaldt_q4(params) {
 
 export function total_mooe_dt(params) {
   if (!params.node.group) {
-    return create_totalABCD(
-      params.getValue('q1dt'), params.getValue('q2dt'), params.getValue('q3dt'), params.getValue('q4dt')
+    return create_totalABCDE(
+      params.getValue('q1dt'), params.getValue('q2dt'), params.getValue('q3dt'), params.getValue('q4dt'), params.getValue('dt_q1')
     );
   }
 }
 
 export function total_co_dt(params) {
   if (!params.node.group) {
-    return create_totalABCD(
-      params.getValue('q1dt_co'), params.getValue('q2dt_co'), params.getValue('q3dt_co'), params.getValue('q4dt_co')
+    return create_totalABCDE(
+      params.getValue('q1dt_co'), params.getValue('q2dt_co'), params.getValue('q3dt_co'), params.getValue('q4dt_co'), params.getValue('dt_q1_co')
     );
   }
 }
 export function grandtotal_dt(params) {
   if (!params.node.group) {
-    return create_totalABCD(
-      params.getValue('q1dt_tot'), params.getValue('q2dt_tot'), params.getValue('q3dt_tot'), params.getValue('q4dt_tot')
+    return create_totalABCDE(
+      params.getValue('q1dt_tot'), params.getValue('q2dt_tot'), params.getValue('q3dt_tot'), params.getValue('q4dt_tot'), params.getValue('dtq1_total')
     );
   }
 }
@@ -1374,6 +1482,14 @@ export function customStyleGroupDisburse(params){
     return { 'text-align': 'right', 'color': 'black','background-color': '#ffaff8', 'font-weight': 'bold' };
   }else{
     return {  'text-align': 'right','color': 'black','background-color': '#ffaff8'};
+  }
+}
+
+export function customStyleGroupDisburse2(params){
+  if(params.node.group){
+    return { 'text-align': 'right', 'color': 'black','background-color': '#ADD8E6', 'font-weight': 'bold' };
+  }else{
+    return {  'text-align': 'right','color': 'black','background-color': '#ADD8E6'};
   }
 }
 

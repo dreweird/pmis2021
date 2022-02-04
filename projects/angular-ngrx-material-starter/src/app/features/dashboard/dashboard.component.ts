@@ -94,7 +94,7 @@ export class DashboardComponent implements OnInit {
   getLogsReport() {
     this.pmisService.logsReport().subscribe(data => {
       this.logs = data;
-      console.log(data);
+     // console.log(data);
       this.cd.markForCheck();
     });
   }
@@ -106,14 +106,14 @@ export class DashboardComponent implements OnInit {
   capped = [];
   getSummary() {
     this.pmisService.getTblMFO().subscribe((data: any) => {
-      console.log(data);
+     // console.log(data);
       var groupBy = data.reduce(function(r, a) {
         r[a.program_id] = r[a.program_id] || [];
         r[a.program_id].push(a);
         return r;
       }, Object.create(null));
 
-      console.log(groupBy);
+     // console.log(groupBy);
 
       // CAPPED at 100%
       for (let i in groupBy) {
@@ -180,62 +180,86 @@ export class DashboardComponent implements OnInit {
         });
       }
 
-      console.log(this.capped);
+    //  console.log(this.capped);
 
       ///// PHYSICAL
 
-      this.capped[0].pt_mid = this.capped[0].pt_mid + this.capped[19].pt_mid; // RICE & FPMA
-      this.capped[0].pa_mid = this.capped[0].pa_mid + this.capped[19].pa_mid; // RICE & FPMA
-      this.capped[0].pt = this.capped[0].pt + this.capped[19].pt; // RICE & FPMA
-      this.capped[0].pa = this.capped[0].pa + this.capped[19].pa; // RICE & FPMA
+      for(var key in this.capped) {
+        if(this.capped[key].label == 'Rice') {
+          const res = this.capped.find(({label}) => label === 'FPMA-RICE')
+          this.capped[key].pt_mid = this.capped[key].pt_mid + res.pt_mid; // RICE & FPMA
+          this.capped[key].pa_mid = this.capped[key].pa_mid + res.pa_mid; // RICE & FPMA
+          this.capped[key].pt = this.capped[key].pt + res.pt; // RICE & FPMA
+          this.capped[key].pa = this.capped[key].pa + res.pa; // RICE & FPMA
+        }
 
-      this.capped[1].pt_mid = this.capped[1].pt_mid + this.capped[17].pt_mid; // CORN & FPMA
-      this.capped[1].pa_mid = this.capped[1].pa_mid + this.capped[17].pa_mid; // CORN & FPMA
-      this.capped[1].pt = this.capped[1].pt + this.capped[17].pt; // CORN & FPMA
-      this.capped[1].pa = this.capped[1].pa + this.capped[17].pa; // CORN & FPMA
+        if(this.capped[key].label == 'Corn') {
+          const res = this.capped.find(({label}) => label === 'FPMA-CORN')
+          this.capped[key].pt_mid = this.capped[key].pt_mid + res.pt_mid; 
+          this.capped[key].pa_mid = this.capped[key].pa_mid + res.pa_mid; 
+          this.capped[key].pt = this.capped[key].pt + res.pt; 
+          this.capped[key].pa = this.capped[key].pa + res.pa; 
+        }
 
-      this.capped[2].pt_mid = this.capped[2].pt_mid + this.capped[16].pt_mid; // HVCDP & FPMA
-      this.capped[2].pa_mid = this.capped[2].pa_mid + this.capped[16].pa_mid; // HVCDP & FPMA
-      this.capped[2].pt = this.capped[2].pt + this.capped[16].pt; // HVCDP & FPMA
-      this.capped[2].pa = this.capped[2].pa + this.capped[16].pa; // HVCDP & FPMA
+        if(this.capped[key].label == 'HVCDP') {
+          const res = this.capped.find(({label}) => label === 'FPMA-HVCDP')
+          this.capped[key].pt_mid = this.capped[key].pt_mid + res.pt_mid; 
+          this.capped[key].pa_mid = this.capped[key].pa_mid + res.pa_mid; 
+          this.capped[key].pt = this.capped[key].pt + res.pt; 
+          this.capped[key].pa = this.capped[key].pa + res.pa; 
+        }
 
-      this.capped[3].pt_mid = this.capped[3].pt_mid + this.capped[18].pt_mid; // Livestock & FPMA
-      this.capped[3].pa_mid = this.capped[3].pa_mid + this.capped[18].pa_mid; // Livestock & FPMA
-      this.capped[3].pt = this.capped[3].pt + this.capped[18].pt; // Livestock & FPMA
-      this.capped[3].pa = this.capped[3].pa + this.capped[18].pa; // Livestock & FPMA
+        if(this.capped[key].label == 'Livestock') {
+          const res = this.capped.find(({label}) => label === 'FPMA-LIVESTOCK')
+          this.capped[key].pt_mid = this.capped[key].pt_mid + res.pt_mid; 
+          this.capped[key].pa_mid = this.capped[key].pa_mid + res.pa_mid; 
+          this.capped[key].pt = this.capped[key].pt + res.pt; 
+          this.capped[key].pa = this.capped[key].pa + res.pa; 
+        }
 
-      this.capped[11].pt_mid = this.capped[11].pt_mid + this.capped[22].pt_mid; // PMED & ICTU
-      this.capped[11].pa_mid = this.capped[11].pa_mid + this.capped[22].pa_mid; // PMED & ICTU
-      this.capped[11].pt = this.capped[11].pt + this.capped[22].pt; // PMED & ICTU
-      this.capped[11].pa = this.capped[11].pa + this.capped[22].pa; // PMED & ICTU
+        if(this.capped[key].label == 'Organic') {
+          const res = this.capped.find(({label}) => label === 'FPMA-OA')
+          if(res) {
+            this.capped[key].pt_mid = this.capped[key].pt_mid + res.pt_mid; 
+            this.capped[key].pa_mid = this.capped[key].pa_mid + res.pa_mid; 
+            this.capped[key].pt = this.capped[key].pt + res.pt; 
+            this.capped[key].pa = this.capped[key].pa + res.pa; 
+          }
+      
+        }
 
-      this.capped[12].pt_mid = this.capped[12].pt_mid + this.capped[15].pt_mid; // RAED
-      this.capped[12].pa_mid = this.capped[12].pa_mid + this.capped[15].pa_mid; // RAED
-      this.capped[12].pt = this.capped[12].pt + this.capped[15].pt; // RAED
-      this.capped[12].pa = this.capped[12].pa + this.capped[15].pa; // RAED
+        if(this.capped[key].label == 'PMED') {
+          const res = this.capped.find(({label}) => label === 'ICTS')
+          this.capped[key].pt_mid = this.capped[key].pt_mid + res.pt_mid; 
+          this.capped[key].pa_mid = this.capped[key].pa_mid + res.pa_mid; 
+          this.capped[key].pt = this.capped[key].pt + res.pt; 
+          this.capped[key].pa = this.capped[key].pa + res.pa; 
+        }
 
-      this.capped[9].pt_mid =
-        this.capped[9].pt_mid +
-        this.capped[5].pt_mid +
-        this.capped[6].pt_mid +
-        this.capped[7].pt_mid; // Research & Stations
-      this.capped[9].pa_mid =
-        this.capped[9].pa_mid +
-        this.capped[5].pa_mid +
-        this.capped[6].pa_mid +
-        this.capped[7].pa_mid; // Research & Stations
-      this.capped[9].pt =
-        this.capped[9].pt +
-        this.capped[5].pt +
-        this.capped[6].pt +
-        this.capped[7].pt; // Research & Stations
-      this.capped[9].pa =
-        this.capped[9].pa +
-        this.capped[5].pa +
-        this.capped[6].pa +
-        this.capped[7].pa; // Research & Stations
+        if(this.capped[key].label == 'RAED') {
+          const res = this.capped.find(({label}) => label === 'FMRDP')
+          this.capped[key].pt_mid = this.capped[key].pt_mid + res.pt_mid; 
+          this.capped[key].pa_mid = this.capped[key].pa_mid + res.pa_mid; 
+          this.capped[key].pt = this.capped[key].pt + res.pt; 
+          this.capped[key].pa = this.capped[key].pa + res.pa; 
+        }
 
-      console.log(ous_physical);
+        if(this.capped[key].label == 'RESEARCH') {
+          const stn1 = this.capped.find(({label}) => label === 'STN TRENTO')
+          const stn2 = this.capped.find(({label}) => label === 'STN DELMONTE')
+          const stn3 = this.capped.find(({label}) => label === 'STN TAGBINA')
+          if(stn1 && stn2 && stn3) {
+            this.capped[key].pt_mid = this.capped[key].pt_mid + stn1.pt_mid + stn2.pt_mid + stn3.pt_mid; 
+            this.capped[key].pa_mid = this.capped[key].pa_mid + stn1.pa_mid + stn2.pa_mid +  stn3.pa_mid; 
+            this.capped[key].pt = this.capped[key].pt + stn1.pt + stn2.pt + stn3.pt; 
+            this.capped[key].pa = this.capped[key].pa + stn1.pa + stn2.pa + stn3.pa;
+          }
+      
+        }
+
+
+      }
+
       var ous_physical = this.capped
         .filter(obj => {
           return obj.type == 2;
@@ -344,45 +368,67 @@ export class DashboardComponent implements OnInit {
       this.phy_midyear =
         (total_physical_midactual / total_physical_midplan) * 100;
 
-      this.summary[0].ft = this.summary[0].ft + this.summary[8].ft; // Rice & FPMA
-      this.summary[1].ft = this.summary[1].ft + this.summary[12].ft; // HVCDP & FPMA
-      this.summary[2].ft = this.summary[2].ft + this.summary[11].ft; // Corn & FPMA
-      this.summary[4].ft = this.summary[4].ft + this.summary[16].ft; // Livestock & FPMA
+        for(var key in this.summary) {
 
-      this.summary[0].fa = this.summary[0].fa + this.summary[8].fa; // Rice & FPMA
-      this.summary[1].fa = this.summary[1].fa + this.summary[12].fa; // HVCDP & FPMA
-      this.summary[2].fa = this.summary[2].fa + this.summary[11].fa; // Corn & FPMA
-      this.summary[4].fa = this.summary[4].fa + this.summary[16].fa; // Livestock & FPMA
+          if(this.summary[key].name == 'Rice') {
+            const res = this.summary.find(({name}) => name === 'FPMA-RICE')
+            this.summary[key].ft = this.summary[key].ft + res.ft; 
+            this.summary[key].fa = this.summary[key].fa + res.fa; 
+            this.summary[key].da = this.summary[key].da + res.da; 
+          }
 
-      this.summary[0].da = this.summary[0].da + this.summary[8].da; // Rice & FPMA
-      this.summary[1].da = this.summary[1].da + this.summary[12].da; // HVCDP & FPMA
-      this.summary[2].da = this.summary[2].da + this.summary[11].da; // Corn & FPMA
-      this.summary[4].da = this.summary[4].da + this.summary[16].da; // Livestock & FPMA
+          if(this.summary[key].name == 'HVCDP') {
+            const res = this.summary.find(({name}) => name === 'FPMA-HVCDP')
+            this.summary[key].ft = this.summary[key].ft + res.ft; 
+            this.summary[key].fa = this.summary[key].fa + res.fa; 
+            this.summary[key].da = this.summary[key].da + res.da; 
+          }
 
-      this.summary[23].ft =
-        this.summary[26].ft +
-        this.summary[23].ft +
-        this.summary[24].ft +
-        this.summary[25].ft; // Research & Stations
-      this.summary[23].fa =
-        this.summary[26].fa +
-        this.summary[23].fa +
-        this.summary[24].fa +
-        this.summary[25].fa; // Research & Stations
-      this.summary[23].da =
-        this.summary[26].da +
-        this.summary[23].da +
-        this.summary[24].da +
-        this.summary[25].da; // Research & Stations
+          if(this.summary[key].name == 'Corn') {
+            const res = this.summary.find(({name}) => name === 'FPMA-CORN')
+            this.summary[key].ft = this.summary[key].ft + res.ft; 
+            this.summary[key].fa = this.summary[key].fa + res.fa; 
+            this.summary[key].da = this.summary[key].da + res.da; 
+          }
 
-      this.summary[15].ft = this.summary[15].ft + this.summary[17].ft; // RAED
-      this.summary[15].fa = this.summary[15].fa + this.summary[17].fa; // RAED
-      this.summary[15].da = this.summary[15].da + this.summary[17].da; // RAED
+          if(this.summary[key].name == 'Livestock') {
+            const res = this.summary.find(({name}) => name === 'FPMA-LIVESTOCK')
+            this.summary[key].ft = this.summary[key].ft + res.ft; 
+            this.summary[key].fa = this.summary[key].fa + res.fa; 
+            this.summary[key].da = this.summary[key].da + res.da; 
+          }
 
-      this.summary[20].ft = this.summary[20].ft + this.summary[18].ft; // PMED & ICTU
-      this.summary[20].fa = this.summary[20].fa + this.summary[18].fa; // PMED & ICTU
-      this.summary[20].da = this.summary[20].da + this.summary[18].da; // PMED & ICTU
+          if(this.summary[key].name == 'RESEARCH') {
+            const stn1 = this.summary.find(({name}) => name === 'STN TRENTO')
+            const stn2 = this.summary.find(({name}) => name === 'STN DELMONTE')
+            const stn3 = this.summary.find(({name}) => name === 'STN TAGBINA')
 
+            if(stn1 && stn2 && stn3) {
+              this.summary[key].ft = this.summary[key].ft + stn1.ft + stn2.ft + stn3.ft; 
+              this.summary[key].fa = this.summary[key].ft + stn1.fa + stn2.fa + stn3.fa; 
+              this.summary[key].da = this.summary[key].ft + stn1.da + stn2.da + stn3.da; 
+            }
+        
+          }
+
+          if(this.summary[key].name == 'RAED') {
+            const res = this.summary.find(({name}) => name === 'FMRDP')
+            this.summary[key].ft = this.summary[key].ft + res.ft; 
+            this.summary[key].fa = this.summary[key].fa + res.fa; 
+            this.summary[key].da = this.summary[key].da + res.da; 
+          }
+
+          if(this.summary[key].name == 'PMED') {
+            const res = this.summary.find(({name}) => name === 'ICTS')
+            this.summary[key].ft = this.summary[key].ft + res.ft; 
+            this.summary[key].fa = this.summary[key].fa + res.fa; 
+            this.summary[key].da = this.summary[key].da + res.da; 
+          }
+
+
+        }
+
+        console.log(this.summary);
       this.resultProg = this.summary
         .filter(obj => {
           return obj.program_id < 6;
@@ -400,84 +446,84 @@ export class DashboardComponent implements OnInit {
           return obj.type == 3;
         })
         .sort((a, b) => b.fa / b.ft - a.fa / a.ft);
-
+        console.log(this.resultProg);
       for (var i = 0; i < 5; i++) {
-        this.dpsAllocation.push({
-          y: this.resultProg[i].ft,
-          label: this.resultProg[i].name
-        });
-        this.dpsObligation.push({
-          y: this.resultProg[i].fa,
-          label: this.resultProg[i].name
-        });
-        this.dpsDisbursement.push({
-          y: this.resultProg[i].da,
-          label: this.resultProg[i].name
-        });
-        this.dpsObligationPercentage.push({
-          y: (this.resultProg[i].fa / this.resultProg[i].ft) * 100,
-          label: this.resultProg[i].name
-        });
-        this.dpsDisbursementPercentage.push({
-          y: (this.resultProg[i].da / this.resultProg[i].ft) * 100,
-          label: this.resultProg[i].name
-        });
-
-        // this.dpsPhysicalMY.push({y: (this.resultProg[i].pa_mid / this.resultProg[i].pt_mid ) *100 , label: this.resultProg[i].name});
-        // this.dpsPhysicalYE.push({y: (this.resultProg[i].pa / this.resultProg[i].pt ) *100 , label: this.resultProg[i].name});
-      }
+        if(this.resultProg.length > 0){
+          this.dpsAllocation.push({
+            y: this.resultProg[i].ft,
+            label: this.resultProg[i].name
+          });
+          this.dpsObligation.push({
+            y: this.resultProg[i].fa,
+            label: this.resultProg[i].name
+          });
+          this.dpsDisbursement.push({
+            y: this.resultProg[i].da,
+            label: this.resultProg[i].name
+          });
+          this.dpsObligationPercentage.push({
+            y: (this.resultProg[i].fa / this.resultProg[i].ft) * 100,
+            label: this.resultProg[i].name
+          });
+          this.dpsDisbursementPercentage.push({
+            y: (this.resultProg[i].da / this.resultProg[i].ft) * 100,
+            label: this.resultProg[i].name
+          });
+        }
+   }
 
       for (var i = 0; i < this.resultOU.length; i++) {
-        this.dpsAllocation2.push({
-          y: this.resultOU[i].ft,
-          label: this.resultOU[i].name
-        });
-        this.dpsObligation2.push({
-          y: this.resultOU[i].fa,
-          label: this.resultOU[i].name
-        });
-        this.dpsDisbursement2.push({
-          y: this.resultOU[i].da,
-          label: this.resultOU[i].name
-        });
-        this.dpsObligationPercentage2.push({
-          y: (this.resultOU[i].fa / this.resultOU[i].ft) * 100,
-          label: this.resultOU[i].name
-        });
-        this.dpsDisbursementPercentage2.push({
-          y: (this.resultOU[i].da / this.resultOU[i].ft) * 100,
-          label: this.resultOU[i].name
-        });
-
-        // this.dpsPhysicalMY2.push({y: (this.resultOU[i].pa_mid / this.resultOU[i].pt_mid ) *100 , label: this.resultOU[i].name});
-        // this.dpsPhysicalYE2.push({y: (this.resultOU[i].pa / this.resultOU[i].pt ) *100 , label: this.resultOU[i].name});
-      }
+        if(this.resultOU){
+          this.dpsAllocation2.push({
+            y: this.resultOU[i].ft,
+            label: this.resultOU[i].name
+          });
+          this.dpsObligation2.push({
+            y: this.resultOU[i].fa,
+            label: this.resultOU[i].name
+          });
+          this.dpsDisbursement2.push({
+            y: this.resultOU[i].da,
+            label: this.resultOU[i].name
+          });
+          this.dpsObligationPercentage2.push({
+            y: (this.resultOU[i].fa / this.resultOU[i].ft) * 100,
+            label: this.resultOU[i].name
+          });
+          this.dpsDisbursementPercentage2.push({
+            y: (this.resultOU[i].da / this.resultOU[i].ft) * 100,
+            label: this.resultOU[i].name
+          });
+        }
+     }
 
       for (var i = 0; i < this.resulSpecial.length; i++) {
-        this.dpsAllocation3.push({
-          y: this.resulSpecial[i].ft,
-          label: this.resulSpecial[i].name
-        });
-        this.dpsObligation3.push({
-          y: this.resulSpecial[i].fa,
-          label: this.resulSpecial[i].name
-        });
-        this.dpsDisbursement3.push({
-          y: this.resulSpecial[i].da,
-          label: this.resulSpecial[i].name
-        });
-        this.dpsObligationPercentage3.push({
-          y: (this.resulSpecial[i].fa / this.resulSpecial[i].ft) * 100,
-          label: this.resulSpecial[i].name
-        });
-        this.dpsDisbursementPercentage3.push({
-          y: (this.resulSpecial[i].da / this.resulSpecial[i].ft) * 100,
-          label: this.resulSpecial[i].name
-        });
+        if(this.resulSpecial){
+          this.dpsAllocation3.push({
+            y: this.resulSpecial[i].ft,
+            label: this.resulSpecial[i].name
+          });
+          this.dpsObligation3.push({
+            y: this.resulSpecial[i].fa,
+            label: this.resulSpecial[i].name
+          });
+          this.dpsDisbursement3.push({
+            y: this.resulSpecial[i].da,
+            label: this.resulSpecial[i].name
+          });
+          this.dpsObligationPercentage3.push({
+            y: (this.resulSpecial[i].fa / this.resulSpecial[i].ft) * 100,
+            label: this.resulSpecial[i].name
+          });
+          this.dpsDisbursementPercentage3.push({
+            y: (this.resulSpecial[i].da / this.resulSpecial[i].ft) * 100,
+            label: this.resulSpecial[i].name
+          });
+        }
+     
+    }
 
-        // this.dpsPhysicalMY3.push({y: (this.resulSpecial[i].pa_mid / this.resulSpecial[i].pt_mid ) *100 , label: this.resulSpecial[i].name});
-        // this.dpsPhysicalYE3.push({y: (this.resulSpecial[i].pa / this.resulSpecial[i].pt ) *100 , label: this.resulSpecial[i].name});
-      }
+    if(this.dpsPhysical.length > 0) {
 
       for (var i = 0; i < this.summary.length; i++) {
         this.dpsPhysical.push({
@@ -495,6 +541,9 @@ export class DashboardComponent implements OnInit {
       }
 
       this.cd.markForCheck();
+    }
+
+   
     });
   }
 

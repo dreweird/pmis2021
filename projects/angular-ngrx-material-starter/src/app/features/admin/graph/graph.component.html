@@ -4,7 +4,40 @@
   </div>
 </div> 
 
+
+
+
 <div class="container-fluid" rtl>
+
+  <div class="row" [ngClass]="routeAnimationsElements">
+    <div class="col-12 col-md-12">
+      <mat-card>
+        <table id="obligation" *ngIf="budget_class">
+          <tr><th colspan="7">Budget Classification</th></tr>
+          <tr><td>  </td><td colspan="2" > <h3>Appropriation Target</h3>  </td>
+            <td colspan="2"> <h3> Obligation </h3>  </td>
+            <td colspan="2"> <h3>Disbursement  </h3>  </td>
+          </tr>
+          <tr><td> <h2>MOOE</h2> </td>
+            <td> {{ budget_class.ft_mooe | currency:'₱ ' }} </td><td> {{ (budget_class.ft_mooe*1 / ( budget_class.ft_mooe*1 +  budget_class.ft_co *1 )) | percent }} </td>
+            <td> {{ budget_class.fa_mooe | currency:'₱ ' }} </td><td> {{ ( budget_class.fa_mooe* 1 /  budget_class.ft_mooe*1) | percent}} </td>
+            <td> {{ budget_class.da_mooe | currency:'₱ ' }} </td><td> {{ ( budget_class.da_mooe* 1 /  budget_class.ft_mooe*1) | percent}} </td>
+          
+          </tr>
+          <tr><td> <h2>CO </h2>  </td>
+            <td> {{ budget_class.ft_co | currency:'₱ '}}  </td><td> {{ (budget_class.ft_co*1 / ( budget_class.ft_mooe*1 +  budget_class.ft_co *1 )) | percent }} </td>
+            <td> {{ budget_class.fa_co | currency:'₱ '}} </td><td> {{ ( budget_class.fa_co* 1 /  budget_class.ft_co*1) | percent}}</td>
+            <td> {{ budget_class.da_co | currency:'₱ '}} </td><td> {{ ( budget_class.da_co* 1 /  budget_class.ft_co*1) | percent}}</td>
+          </tr>
+        </table>
+      
+      </mat-card>
+  
+    </div>
+  
+  
+  </div> 
+
     <div class="row" [ngClass]="routeAnimationsElements">
         <div class="col-12 col-md-4">
           <mat-card>
@@ -137,6 +170,7 @@
     
     
       </div> 
+
 
       <div class="row" [ngClass]="routeAnimationsElements">
         <div class="col-12 col-md-12">

@@ -62,7 +62,9 @@ export class GraphComponent implements OnInit, OnChanges {
   ngOnChanges(changes: any) {
     this.pid = changes.pid.currentValue;
     this.name = changes.name.currentValue;
+    this.getBudgetClassification(this.pid);
     this.getChart(this.pid);
+    
     console.log("ngonchanges");
   
   }
@@ -753,11 +755,20 @@ export class GraphComponent implements OnInit, OnChanges {
     chart.render();
   }
 
+  budget_class: any;
+
+  getBudgetClassification(pid){
+    this.pmisService.budget_classification(pid).subscribe(data => {
+      this.budget_class = data;
+    })
+  }
+
 
   ngOnInit(): void {
     this.user = this.localStorageService.getItem('AUTH');
     if (this.router.url.indexOf('/dashboard/chart') > -1) {
     }else {
+      this.getBudgetClassification(this.user.pid);
       this.getChart(this.user.pid);
     }
   

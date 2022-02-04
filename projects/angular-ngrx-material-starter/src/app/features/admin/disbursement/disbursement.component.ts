@@ -46,6 +46,7 @@ export class DisbursementComponent implements OnInit, OnChanges {
   canEdit: any;
   date_updated: any;
   excelStyles: any;
+  verified = 0;
 
   ngOnChanges(changes: any) {
     this.pid = changes.pid.currentValue;
@@ -121,6 +122,8 @@ export class DisbursementComponent implements OnInit, OnChanges {
   ) {
     this.user = this.localStorageService.getItem('AUTH');
     this.canEdit = this.user.b == 2;
+    this.verified = this.user.verified;
+
     this.columnDefs = [
       {
         headerName: 'header_main',

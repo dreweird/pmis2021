@@ -57,35 +57,7 @@ export class MidyearComponent implements OnInit {
   sumAccomp_capped = 0;
 
   getRow(pid) {
-    // this.apmisService.getPhysical(pid).subscribe((data: any) => {
-    //   console.log(data)
-    //   for(var i in data) {
-    //     if(data[i].jana > data[i].jant) { data[i].jana = data[i].jant }
-    //     if(data[i].feba > data[i].febt) { data[i].feba = data[i].febt }
-    //     if(data[i].mara > data[i].mart) { data[i].mara = data[i].mart }
-    //     if(data[i].apra > data[i].aprt) { data[i].apra = data[i].aprt }
-    //     if(data[i].maya > data[i].mayt) { data[i].maya = data[i].mayt }
-    //     if(data[i].juna > data[i].junt) { data[i].juna = data[i].junt }
-    //     if(data[i].jula > data[i].jult) { data[i].jula = data[i].jult }
-    //     if(data[i].auga > data[i].augt) { data[i].auga = data[i].augt }
-    //     if(data[i].sepa > data[i].sept) { data[i].sepa = data[i].sept }
-    //     if(data[i].octa > data[i].octt) { data[i].octa = data[i].octt }
-    //     if(data[i].nova > data[i].novt) { data[i].nova = data[i].novt }
-    //     if(data[i].deca > data[i].dect) { data[i].deca = data[i].dect }
- 
-    //   }
-
-    //   for(var x in data) {
-    //     this.sumAccomp_capped += data[x].jana + data[x].feba + data[x].mara +
-    //     data[x].apra + data[x].maya + data[x].juna +
-    //     data[x].jula + data[x].auga + data[x].sepa +
-    //     data[x].octa + data[x].nova + data[x].deca;
-
-    //   }
-
-    //   console.log(this.sumAccomp_capped);
-     
-    // })
+  
 
     this.apmisService.getPhysical(pid).subscribe(data => {
       this.rowData = data;
@@ -897,21 +869,29 @@ function createQuarterTotalValueObject(a, b, c) {
 
 function TotalQ1ValueGetter(params) {
   if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.jant,
-      params.data.febt,
-      params.data.mart
-    );
+    if (params.data.maintenance) {
+      return -Math.abs(params.data.jant);
+    } else {
+      return createQuarterTotalValueObject(
+        params.data.jant,
+        params.data.febt,
+        params.data.mart
+      );
+    }
   }
 }
 
 function TotalQ2ValueGetter(params) {
   if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.aprt,
-      params.data.mayt,
-      params.data.junt
-    );
+    if (params.data.maintenance) {
+      return -Math.abs(params.data.jant);
+    } else {
+      return createQuarterTotalValueObject(
+        params.data.aprt,
+        params.data.mayt,
+        params.data.junt
+      );
+    }
   }
 }
 
@@ -998,44 +978,40 @@ function TotalPhysicalTargetAggFunc(values) {
   });
   return createTotalPhysicalTarget(a, b, c, d, e, f);
 }
+
 function TotalQ1ValueGetter2(params) {
   if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.jana,
-      params.data.feba,
-      params.data.mara
-    );
+    if (params.data.maintenance) {
+      return -Math.abs(
+        (params.data.jana + params.data.feba + params.data.mara) / 3
+      );
+    } else {
+      return createQuarterTotalValueObject(
+        params.data.jana,
+        params.data.feba,
+        params.data.mara
+      );
+    }
   }
 }
 
 function TotalQ2ValueGetter2(params) {
   if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.apra,
-      params.data.maya,
-      params.data.juna
-    );
+    if (params.data.maintenance) {
+      return -Math.abs(
+        (params.data.apra + params.data.maya + params.data.juna) / 3
+      );
+    } else {
+      return createQuarterTotalValueObject(
+        params.data.apra,
+        params.data.maya,
+        params.data.juna
+      );
+    }
   }
 }
 
-function TotalQ3ValueGetter2(params) {
-  if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.jula,
-      params.data.auga,
-      params.data.sepa
-    );
-  }
-}
-function TotalQ4ValueGetter2(params) {
-  if (!params.node.group) {
-    return createQuarterTotalValueObject(
-      params.data.octa,
-      params.data.nova,
-      params.data.deca
-    );
-  }
-}
+
 
 function TotalPhysicalAccomplishmentValueGetter(params) {
   if (!params.node.group) {

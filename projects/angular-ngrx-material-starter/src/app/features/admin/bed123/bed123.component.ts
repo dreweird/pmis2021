@@ -62,6 +62,11 @@ export class Bed123Component implements OnInit, OnChanges {
       this.rowData = data;
       this.cd.markForCheck();
     });
+
+    this.pmisService.isVerified(pid).subscribe((data: any) => {
+      if(data) {   this.verified = data[0].verified; }
+      this.cd.markForCheck();
+    });
   }
 
   onGridReady(params) {
@@ -70,14 +75,16 @@ export class Bed123Component implements OnInit, OnChanges {
   }
 
   currencyFormatter(params) {
-    const number = parseFloat(params.value);
+    const number = Math.abs(params.value);
     if (params.value === undefined || params.value === null) {
       return null;
     }
-    return number.toLocaleString('en-us', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
+    var returnString = Number(number).toLocaleString('en-us', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
     });
+
+    return params.value < 0 ? '(' + returnString + ')' : returnString;
   }
 
   onCellValueChanged(event: any) {
@@ -98,6 +105,7 @@ export class Bed123Component implements OnInit, OnChanges {
  
 
   prog_ou: any;
+  verified: any;
   export() {
     if (this.user.b != 0) this.prog_ou = this.name;
     else this.prog_ou = this.user.username;
@@ -134,7 +142,8 @@ export class Bed123Component implements OnInit, OnChanges {
       'juldt', 'juldt_co', 'juldt_tot', 'augdt', 'augdt_co', 'augdt_tot', 'sepdt', 'sepdt_co', 'sepdt_tot', 'q3dt', 'q3dt_co', 'q3dt_tot',
        'octdt', 'octdt_co', 'octdt_tot', 'novdt', 'novdt_co', 'novdt_tot', 'decdt', 'decdt_co', 'decdt_tot', 'q4dt', 'q4dt_co', 'q4dt_tot',
       
-      'total_dt', 'total_dt_co', 'grandtotal_dt'
+       'dt_q1', 'dt_q1_co', 'dtq1_total',
+       'total_dt', 'total_dt_co', 'grandtotal_dt'
 
     ];
     this.gridApi.exportDataAsExcel({
@@ -237,6 +246,7 @@ export class Bed123Component implements OnInit, OnChanges {
           { styleId: 'month', data: { type: 'String', value: 'Nov' }, mergeAcross: 2},
           { styleId: 'month', data: { type: 'String', value: 'Dec' }, mergeAcross: 2},
           { styleId: 'quarter', data: { type: 'String', value: 'Q4' }, mergeAcross: 2},
+          { styleId: 'month', data: { type: 'String', value: '2023' }, mergeAcross: 2},
           { styleId: 'total', data: { type: 'String', value: 'Grand Total' }, mergeAcross: 2}
   
         ]
@@ -282,6 +292,8 @@ export class Bed123Component implements OnInit, OnChanges {
     private localStorageService: LocalStorageService
   ) {
     this.user = this.localStorageService.getItem('AUTH');
+    this.verified = this.user.verified;
+
     this.canEdit = this.user.b == 5;
 
     this.columnDefs = [
@@ -771,14 +783,22 @@ export class Bed123Component implements OnInit, OnChanges {
             ]
           },
           {
-            headerName: 'Grand Total',
+            headerName: '2023',
+            children: [
+              { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'dt_q1', colId: 'dt_q1', editable: this.canEdit},
+              { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], field: 'dt_q1_co', colId: 'dt_q1_co', editable: this.canEdit},
+              { headerName: 'TOTAL', type: 'totalColumn2', cellClass: ['data', 't'], valueGetter: custom.total_q1_2023, colId: 'dtq1_total'}
+            ]
+          },
+          {
+            headerName: 'Total',
             children: [
               { headerName: 'MOOE', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_dt', valueGetter: custom.total_mooe_dt},
               { headerName: 'CO', type: 'valueColumn', columnGroupShow: 'open', cellClass: ['data'], colId: 'total_dt_co', valueGetter: custom.total_co_dt},
-              { headerName: 'TOTAL', type: 'numericColumn', cellClass: ['data', 'total'], colId: 'grandtotal_dt', valueGetter: custom.grandtotal_dt, 
+              { headerName: 'GRAND TOTAL', type: 'numericColumn', cellClass: ['data', 'total'], colId: 'grandtotal_dt', valueGetter: custom.grandtotal_dt, 
               cellStyle: params => {
                 if(params.node.group) { return { color: 'black', 'background-color': '#81f7a6', 'font-weight': 'bold' }}else{return { color: 'black', 'background-color': '#81f7a6'}}
-              },width: 110,aggFunc: custom.TotalYearAggFunc, valueFormatter: this.currencyFormatter}
+              },width: 110,aggFunc: custom.TotalYearAggFunc2, valueFormatter: this.currencyFormatter}
             ]
           }
         ]
@@ -828,6 +848,13 @@ export class Bed123Component implements OnInit, OnChanges {
         aggFunc: custom.TotalQuarterAggFunc,
         cellRenderer: 'agAnimateShowChangeCellRenderer',
         cellStyle: custom.customStyleGroupDisburse,
+        valueFormatter: this.currencyFormatter
+      },
+      totalColumn2: {
+        width: 110,
+        aggFunc: custom.TotalMonthAggFunc,
+        cellRenderer: 'agAnimateShowChangeCellRenderer',
+        cellStyle: custom.customStyleGroupDisburse2,
         valueFormatter: this.currencyFormatter
       },
       remarksColumn: { width: 120, maxLength: 500, cols: 40, rows: 5 }

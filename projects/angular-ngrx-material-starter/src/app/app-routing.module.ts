@@ -35,16 +35,6 @@ const routes: Routes = [
       import('./features/admin/admin.module').then(m => m.AdminModule)
   },
   {
-    path: 'bayanihan',
-    loadChildren: () =>
-      import('./features/bayanihan/bayanihan.module').then(m => m.BayanihanModule)
-  },
-  // {
-  //   path: 'view/:id/details',
-  //   loadChildren: () =>
-  //     import('./features/view/view.module').then(m => m.ViewModule)
-  // },
-  {
     path: '**',
     redirectTo: 'about'
   }

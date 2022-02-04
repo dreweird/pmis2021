@@ -1,7 +1,11 @@
 <div class="container" rtl>
   <div class="row" [ngClass]="routeAnimationsElements">
     <div class="col-md-12" >
-      <h1 >Disbursement Table</h1>
+      <h1>
+        <span class="text">Disbursement Table</span><span class="span">
+          <img src="/assets/correct.png"  alt="verified" *ngIf="verified"/>
+        </span>
+    </h1>
       
     </div>
   </div>

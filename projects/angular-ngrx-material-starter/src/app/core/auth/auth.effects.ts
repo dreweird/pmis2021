@@ -49,7 +49,8 @@ export class AuthEffects {
             token: user.user.token,
             user_id: user.user.user_id,
             pid: user.user.pid,
-            b: user.user.b
+            b: user.user.b,
+            verified: user.user.verified
           });
 
           if(user.user.pid === 102){ this.router.navigate(['bayanihan']);}else{

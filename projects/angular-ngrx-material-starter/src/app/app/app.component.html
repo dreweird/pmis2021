@@ -4,7 +4,7 @@
 
     <mat-sidenav #sidenav mode="push">
       <div class="branding"><img [src]="logo" />
-        <span>PMIS</span></div>
+        <span>PMIS 2022</span></div>
       <mat-nav-list>
       <span *ngFor="let item of navigation">
         <a mat-list-item *ngIf="(item.disable | async)" (click)="sidenav.close()" [routerLink]="[item.link]"
@@ -28,8 +28,8 @@
 
           <span routerLink="" class="branding spacer center d-inline d-sm-none">
             <img [src]="logo" /></span>
-          <span routerLink="" class="branding spacer center d-none d-sm-inline d-md-none"><img [src]="logo" /> APMIS</span>
-          <span routerLink="" class="branding spacer d-none d-md-inline"><img [src]="logo" /> PMIS 2021</span>
+          <span routerLink="" class="branding spacer center d-none d-sm-inline d-md-none"><img [src]="logo" /> PMIS</span>
+          <span routerLink="" class="branding spacer d-none d-md-inline"><img [src]="logo" /> PMIS 2022</span>
 
           <span class="d-none d-md-inline">
             <span *ngFor="let item of navigation">

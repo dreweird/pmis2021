@@ -44,6 +44,7 @@ export class PhysicalComponent implements OnInit {
   locked: any;
   date_updated: any;
   excelStyles: any;
+  verified = 0;
 
   @Input() pid: number = 0;
   @Input() name: string = '';
@@ -317,7 +318,13 @@ export class PhysicalComponent implements OnInit {
     private router: Router
   ) {
     this.user = this.localStorageService.getItem('AUTH');
+    
+    this.verified = this.user.verified;
     this.canEdit = this.user.b == 0;
+    if(this.verified == 0) {
+      this.canEdit = false
+    }
+    console.log(this.canEdit);
 
     this.columnDefs = [
       {

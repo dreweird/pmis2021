@@ -93,7 +93,6 @@ export class AppComponent implements OnInit {
     this.navigation = [
       { link: 'about', label: 'About', disable: of(true) },
       { link: 'dashboard', label: 'Dashboard', disable: of(true) },
-      { link: 'bayanihan', label: 'Bayanihan-II', disable: of(true) },
       { link: 'admin', label: 'My BEDs', disable: this.isAuthenticated$ }
     ];
 

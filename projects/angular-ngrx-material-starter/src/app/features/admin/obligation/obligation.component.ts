@@ -47,6 +47,7 @@ export class ObligationComponent implements OnInit, OnChanges {
   canEdit: any;
   date_updated: any;
   excelStyles: any;
+  verified = 0;
 
   ngOnChanges(changes: any) {
     this.pid = changes.pid.currentValue;
@@ -110,7 +111,10 @@ export class ObligationComponent implements OnInit, OnChanges {
   }
 
   onCellValueChanged(event: any) {
-    if (isNaN(+event.newValue)) {
+    if (
+      isNaN(+event.newValue) &&
+      event.colDef.cellEditor != 'agLargeTextCellEditor'
+    ) {
       alert('Invalid entry...input numbers only');
       event.newValue = null;
     } else {
@@ -166,7 +170,7 @@ export class ObligationComponent implements OnInit, OnChanges {
       'julfa', 'julfa_co', 'jul_tota', 'augfa', 'augfa_co', 'aug_tota', 'sepfa', 'sepfa_co', 'sep_tota', 'q3fa', 'q3fa_co', 'q3_tota',
        'octfa', 'octfa_co', 'oct_tota', 'novfa', 'novfa_co', 'nov_tota', 'decfa', 'decfa_co', 'dec_tota', 'q4fa', 'q4fa_co', 'q4_tota',
       
-      'total_mooe_fa', 'total_co_fa', 'grandtotal_fa', 'un', 'fu'
+      'total_mooe_fa', 'total_co_fa', 'grandtotal_fa', 'un', 'fu', 'q1_ob', 'q2_ob', 'q3_ob', 'q4_ob'
 
     ];
     this.gridApi.exportDataAsExcel({
@@ -198,7 +202,8 @@ export class ObligationComponent implements OnInit, OnChanges {
           { styleId: 'p1', data: { type: 'String', value: '' }},
           { styleId: 't', data: { type: 'String', value: 'BED1 Target' }, mergeAcross: 50},
           { styleId: 'p1', data: { type: 'String', value: '' }, mergeAcross: 5},
-          { styleId: 'a', data: { type: 'String', value: 'Obligations' }, mergeAcross: 50}
+          { styleId: 'a', data: { type: 'String', value: 'Obligations' }, mergeAcross: 50},
+          { styleId: 't', data: { type: 'String', value: '' }, mergeAcross: 5}
         ],
         [
           { styleId: 'p1', data: { type: 'String', value: '' }},
@@ -237,7 +242,10 @@ export class ObligationComponent implements OnInit, OnChanges {
           { styleId: 'month', data: { type: 'String', value: 'Nov' }, mergeAcross: 2},
           { styleId: 'month', data: { type: 'String', value: 'Dec' }, mergeAcross: 2},
           { styleId: 'quarter', data: { type: 'String', value: 'Q4' }, mergeAcross: 2},
-          { styleId: 'total', data: { type: 'String', value: 'Grand Total' }, mergeAcross: 2}
+          { styleId: 'total', data: { type: 'String', value: 'Grand Total' }, mergeAcross: 2},
+          { styleId: 't', data: { type: 'String', value: '' }},
+          { styleId: 't', data: { type: 'String', value: '' }},
+          { styleId: 'p1', data: { type: 'String', value: 'Remarks' }, mergeAcross: 3 }
   
         ]
       ],
@@ -278,7 +286,7 @@ export class ObligationComponent implements OnInit, OnChanges {
       }
     });
   }
-
+  canEdit2: any;
   constructor(
     public pmisService: PmisService,
     private cd: ChangeDetectorRef,
@@ -286,7 +294,16 @@ export class ObligationComponent implements OnInit, OnChanges {
     private localStorageService: LocalStorageService
   ) {
     this.user = this.localStorageService.getItem('AUTH');
+
     this.canEdit = this.user.b == 1;
+    this.verified = this.user.verified;
+ 
+    this.canEdit2 = this.user.b == 0;
+    if(this.verified == 0) {
+      this.canEdit2 = false
+    }
+
+    this.cd.markForCheck();
 
     this.columnDefs = [
       {
@@ -699,7 +716,49 @@ export class ObligationComponent implements OnInit, OnChanges {
         type: 'numericColumn',
         cellRenderer: 'agAnimateShowChangeCellRenderer',
         cellClass: ['data', 'p']
+      },
+      {
+        headerName: 'Remarks',
+        children: [
+          {
+            headerName: 'Q1',
+            field: 'q1_ob',
+            type: 'remarksColumn',
+            editable: this.canEdit2,
+            cellEditor: 'agLargeTextCellEditor',
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+             cellClass: ['data']
+          },
+          {
+            headerName: 'Q2',
+            field: 'q2_ob',
+            type: 'remarksColumn',
+            editable: this.canEdit2,
+            cellEditor: 'agLargeTextCellEditor',
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+             cellClass: ['data']
+          },
+          {
+            headerName: 'Q3',
+            field: 'q3_ob',
+            type: 'remarksColumn',
+            editable: this.canEdit2,
+            cellEditor: 'agLargeTextCellEditor',
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+             cellClass: ['data']
+          },
+          {
+            headerName: 'Q4',
+            field: 'q4_ob',
+            type: 'remarksColumn',
+            editable: this.canEdit2,
+            cellEditor: 'agLargeTextCellEditor',
+            cellEditorParams: { maxLength: '3000', cols: '50', rows: 6},
+             cellClass: ['data']
+          }
+        ]
       }
+
     ];
 
     this.defaultColDef = { sortable: true, resizable: true, filter: true };
@@ -737,7 +796,8 @@ export class ObligationComponent implements OnInit, OnChanges {
         cellRenderer: 'agAnimateShowChangeCellRenderer',
         cellStyle: custom.customStyleGroupTotal,
         valueFormatter: this.currencyFormatter
-      }
+      },
+      remarksColumn: { width: 300 }
     };
 
     this.autoGroupColumnDef = {

@@ -5,9 +5,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PmisService {
-  apiRoot: string = 'http://172.16.128.37:3117';
+   apiRoot: string = 'http://172.16.128.37:3119';
   //  apiRoot: string = 'http://210.5.100.45:3118';
-  // apiRoot: string = 'http://localhost:3117';
+  //  apiRoot: string = 'http://localhost:3117';
 
   constructor(private http: HttpClient) {}
 
@@ -25,6 +25,11 @@ export class PmisService {
 
   getChart(pid) {
     const url = `${this.apiRoot}/chart/${pid}`;
+    return this.http.get(url);
+  }
+
+  budget_classification(pid) {
+    const url = `${this.apiRoot}/budget_classification/${pid}`;
     return this.http.get(url);
   }
 
@@ -156,6 +161,11 @@ export class PmisService {
 
   getBudgetAssignmnet(uid) {
     const url = `${this.apiRoot}/budget_assignment/` + uid;
+    return this.http.get(url);
+  }
+
+  isVerified(uid) {
+    const url = `${this.apiRoot}/is_verified/` + uid;
     return this.http.get(url);
   }
 

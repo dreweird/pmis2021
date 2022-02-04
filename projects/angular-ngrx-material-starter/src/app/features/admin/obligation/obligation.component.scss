@@ -4,3 +4,16 @@
 .ag-header-group-cell-with-group {
   background-color: #00e7b1 !important;
 }
+
+img {
+  height: 40px;
+  margin: 0 0 0 10px;
+}
+
+.span, .text {
+  vertical-align:super;
+  display:table-cell;
+}
+h1 {
+  display:table;
+}
