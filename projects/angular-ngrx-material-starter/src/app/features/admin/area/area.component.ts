@@ -6,13 +6,13 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PmisService } from '../../../core/services/pmis.service';
-import { Module } from '@ag-grid-community/all-modules';
+
 import {
   LocalStorageService,
   ROUTE_ANIMATIONS_ELEMENTS
 } from '../../../core/core.module';
 import { Subscription } from 'rxjs';
-import { AllModules } from '@ag-grid-enterprise/all-modules';
+
 
 @Component({
   selector: 'anms-area',
@@ -40,7 +40,7 @@ export class AreaComponent implements OnInit {
   locked: any;
   mfo_id: any;
 
-  public modules: Module[] = AllModules;
+
 
   constructor(
     private route: ActivatedRoute,

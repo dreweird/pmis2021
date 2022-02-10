@@ -11,8 +11,7 @@ import {
   Validators,
   FormGroupDirective
 } from '@angular/forms';
-import { AllModules } from '@ag-grid-enterprise/all-modules';
-import { Module } from '@ag-grid-community/all-modules';
+
 import { LocalStorageService } from '../../../core/core.module';
 
 @Component({
@@ -34,7 +33,6 @@ export class BymunComponent implements OnInit {
   defaultColDef = { resizable: true };
   gridApi: any;
 
-  public modules: Module[] = AllModules;
 
   prog: any[];
   user: any;

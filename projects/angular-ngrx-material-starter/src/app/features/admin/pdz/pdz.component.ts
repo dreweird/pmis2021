@@ -1,8 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ROUTE_ANIMATIONS_ELEMENTS } from '../../../core/core.module';
 import { PmisService } from '../../../core/services/pmis.service';
-import { Module } from '@ag-grid-community/all-modules';
-import { AllModules } from '@ag-grid-enterprise/all-modules';
+
 
 @Component({
   selector: 'anms-pdz',
@@ -13,7 +12,6 @@ import { AllModules } from '@ag-grid-enterprise/all-modules';
 export class PdzComponent implements OnInit {
 
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
-  public modules: Module[] = AllModules;
 
   gridApi: any;
   gridColumnApi: any;

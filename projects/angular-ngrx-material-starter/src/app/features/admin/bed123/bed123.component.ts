@@ -13,8 +13,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { LocalStorageService } from '../../../core/core.module';
 import { Router } from '@angular/router';
 
-import { Module } from '@ag-grid-community/all-modules';
-import { AllModules } from '@ag-grid-enterprise/all-modules';
 import * as moment from 'moment';
 import * as custom from '../obligation/valueGetter.js';
 import { _MatCheckboxRequiredValidatorModule } from '@angular/material/checkbox';
@@ -29,7 +27,6 @@ export class Bed123Component implements OnInit, OnChanges {
 
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
 
-  public modules: Module[] = AllModules;
   @Input() pid: number = 0;
   @Input() name: string = '';
 

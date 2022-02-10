@@ -8,8 +8,7 @@ import { ROUTE_ANIMATIONS_ELEMENTS } from '../../../core/core.module';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { PmisService } from '../../../core/services/pmis.service';
-import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
-import { Module } from '@ag-grid-community/all-modules';
+
 import * as moment from 'moment';
 
 @Component({
@@ -33,7 +32,6 @@ export class LogsComponent implements OnInit {
   autoGroupColumnDef: any;
   components: any;
 
-  public modules: Module[] = [ClientSideRowModelModule];
 
   constructor(
     private route: ActivatedRoute,

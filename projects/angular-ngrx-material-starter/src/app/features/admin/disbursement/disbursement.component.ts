@@ -11,8 +11,7 @@ import { PmisService } from '../../../core/services/pmis.service';
 import { MatDialog } from '@angular/material/dialog';
 
 import { LocalStorageService } from '../../../core/core.module';
-import { Module } from '@ag-grid-community/all-modules';
-import { AllModules } from '@ag-grid-enterprise/all-modules';
+
 import * as moment from 'moment';
 import * as custom from '../obligation/valueGetter.js';
 
@@ -28,7 +27,6 @@ export class DisbursementComponent implements OnInit, OnChanges {
 
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
 
-  public modules: Module[] = AllModules;
 
   gridApi: any;
   gridColumnApi: any;

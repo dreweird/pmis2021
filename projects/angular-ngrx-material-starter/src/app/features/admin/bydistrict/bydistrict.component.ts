@@ -15,8 +15,7 @@ import {
   LocalStorageService,
   ROUTE_ANIMATIONS_ELEMENTS
 } from '../../../core/core.module';
-import { AllModules } from '@ag-grid-enterprise/all-modules';
-import { Module } from '@ag-grid-community/all-modules';
+
 
 @Component({
   selector: 'anms-bydistrict',
@@ -36,7 +35,7 @@ export class BydistrictComponent implements OnInit {
   user: any;
 
   prog: any[];
-  public modules: Module[] = AllModules;
+ 
 
   constructor(
     private pmisService: PmisService,

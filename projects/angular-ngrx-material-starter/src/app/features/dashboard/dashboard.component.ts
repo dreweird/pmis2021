@@ -6,8 +6,7 @@ import {
 } from '@angular/core';
 import { PmisService } from '../../core/services/pmis.service';
 import { ROUTE_ANIMATIONS_ELEMENTS } from '../../core/core.module';
-import { Module } from '@ag-grid-community/all-modules';
-import { AllModules } from '@ag-grid-enterprise/all-modules';
+
 import { graphCellRenderer } from './graphCellRenderer';
 import * as CanvasJS from '../../../assets/canvasjs.min';
 import * as moment from 'moment';
@@ -24,7 +23,6 @@ export class DashboardComponent implements OnInit {
   logs: any;
   summary: any;
 
-  public modules: Module[] = AllModules;
 
   gridApi: any;
   gridColumnApi: any;

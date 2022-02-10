@@ -13,8 +13,6 @@ import { LocalStorageService } from '../../../core/core.module';
 import { AddObjectDialogComponent } from './addObject-dialog.component';
 import * as moment from 'moment';
 
-import { Module } from '@ag-grid-community/all-modules';
-import { AllModules } from '@ag-grid-enterprise/all-modules';
 import * as custom from './valueGetter.js';
 
 @Component({
@@ -29,7 +27,6 @@ export class ObligationComponent implements OnInit, OnChanges {
   @Input() pid: number = 0;
   @Input() name: string = '';
 
-  public modules: Module[] = AllModules;
 
   gridApi: any;
   gridColumnApi: any;
